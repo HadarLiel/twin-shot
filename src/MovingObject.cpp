@@ -3,9 +3,12 @@
 
 
 MovingObject::MovingObject(const sf::FloatRect &boundingRect,
-                           const sf::Vector2u &worldSize):
-Object(boundingRect),
-m_worldSize(worldSize)
+                           const sf::Vector2u &worldSize,
+                           const BricksList* bricksList):
+            Object(boundingRect),
+            m_worldSize(worldSize),
+            m_bricksList(bricksList)
+   
 {
 
 }
@@ -29,7 +32,27 @@ void MovingObject::FixModulu()
     setBoundingRect(rect);
 }
 
-bool MovingObject::collideDD(Object *other_object)
+bool MovingObject::isValid(sf::Vector2f pos) const
+{
+    sf::FloatRect rect = getBoundingRect();
+    rect.left = pos.x;
+    rect.top = pos.y;
+
+    for (auto &brick : m_bricksList->getBricks())
+    {
+        if (brick->getBoundingRect().intersects(rect))
+        {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+
+bool MovingObject::collideDD1(Object *other_object)
 {
     return other_object->collideDD2(*this);
 }
+
+

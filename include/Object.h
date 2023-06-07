@@ -27,7 +27,7 @@ public:
      * }
      * ```
      */
-    virtual bool collideDD(Object *other_object);
+    virtual bool collideDD1(Object *other_object);
 
     // Object
     virtual bool collideDD2(Object &other);
@@ -42,11 +42,11 @@ public:
     virtual bool collideDD2(Brick &other);
 
 
+    [[nodiscard]] const sf::FloatRect& getBoundingRect() const;
 
 protected:    
     
-    [[nodiscard]] const sf::FloatRect &getBoundingRect() const;
-    void setBoundingRect(const sf::FloatRect &);
+    void setBoundingRect(const sf::FloatRect&);
 
 
 private:

@@ -47,18 +47,19 @@ bool Object::collideDD2(Brick &other)
     return collideDD2(static_cast<Object &>(other));
 }
 
-bool Object::collideDD(Object *other_object)
+bool Object::collideDD1(Object *other_object)
 {
     return other_object->collideDD2(*this);
 }
 
+//regular
 void Object::collide(Object &other)
 {
     if (getBoundingRect().intersects(other.getBoundingRect()))
     {
-        if(!collideDD(&other))
+        if(!collideDD1(&other))
         {
-            other.collideDD(this);
+            other.collideDD1(this);
         }
     }
 }

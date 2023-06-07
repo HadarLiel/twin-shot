@@ -14,5 +14,7 @@ public:
 
 private:
     std::vector<std::unique_ptr<Object>> m_objects;
+
+    BricksList m_bricksList;
     Character *m_character;
 };

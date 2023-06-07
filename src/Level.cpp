@@ -11,11 +11,14 @@ Level::Level(const std::string &mapName)
         {
             if (map.getPixel(i, j) == sf::Color::Black)
             {
-                m_objects.push_back(std::unique_ptr<Object>(new Brick({i, j})));
+                Brick* brick = new Brick({ i,j });
+                m_bricksList.addBrick(brick);
+
+                m_objects.push_back(std::unique_ptr<Object>(brick));
             }
             else if(map.getPixel(i, j) == sf::Color::Red)
             {
-                m_character = new Character({i, j}, map.getSize());
+                m_character = new Character({i, j}, map.getSize(), &m_bricksList);
             }
         }
     }
@@ -45,7 +48,11 @@ void Level::run()
 
         m_character->update(deltaTime);
         
-        
+        for (auto& object : m_objects)
+        {
+            m_character->collide(*object);
+        }
+
         view.setCenter(m_character->getCenter());
         window.setView(view);
 
