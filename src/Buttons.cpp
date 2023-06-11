@@ -50,6 +50,10 @@ void Buttons::draw_buttons_types(sf::RenderWindow& window)
 
 void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
 {
+    design_buttons_Textures.clear();
+    design_buttons_Buttons.clear();
+
+
     // Load the textures for buttons
 
     for (const std::string& button : design_buttons_types)
@@ -89,6 +93,9 @@ void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
 
 void Buttons::draw_help_buttons_types(sf::RenderWindow& window)
 {
+    help_buttons_Textures.clear();
+    help_buttons_Buttons.clear();
+
     // Load the textures for buttons
 
     for (const std::string& button : help_buttons_types)

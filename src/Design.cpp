@@ -9,6 +9,7 @@ Design::Design()// :m_window(sf::VideoMode(Window_Width, Window_Height), "Design
 
 sf::Texture Design::run()
 {
+   
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Design");
 
     m_buttons.draw_design_buttons_types(window);
@@ -154,6 +155,7 @@ sf::Texture Design::run()
 
 void Design::create_princess_buttons()
 {
+    princessButtons.clear(); // Clear the previous buttons
     // Load the textures for color buttons
 
     for (const std::string& princess_char : princess)
