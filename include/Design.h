@@ -24,7 +24,8 @@ private:
 
 	// Define the names of the colors and car pictures
 	std::vector<std::string> princess = {
-		"belle", "merida", "snow", "cinderella", "jasmin"
+		"belle", "snow", "jasmin", "piterPen", "cinderella"
+		//beast, evilQween, jafar, captainHook, evilCinder
 	};
 
 	std::vector<sf::Texture> princessTextures;

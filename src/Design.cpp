@@ -173,12 +173,14 @@ void Design::create_princess_buttons()
 
     for (size_t i = 0; i < princessTextures.size(); ++i)
     {
+       
         m_sprite.setTexture(princessTextures[i]);
         m_sprite.setScale((buttonWidth+ princess_buttonWidth) / m_sprite.getLocalBounds().width, (buttonHeight+ princess_buttonHeight) / m_sprite.getLocalBounds().height);
-
+       
         // Calculate the position of the button
-        const float buttonX = 5.0f; // Left side of the screen
-        const float buttonY = 20.0f + (i + 1) * (buttonHeight + 50); // Vertical spacing of 60 units between buttons
+       
+        const float buttonX = Window_Width/buttonWidth; // Left side of the screen
+        const float buttonY = (i + 1) * (buttonHeight + 50);
 
         m_sprite.setPosition(buttonX, buttonY);
         princessButtons.push_back(m_sprite);

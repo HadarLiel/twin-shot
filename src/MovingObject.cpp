@@ -29,6 +29,18 @@ void MovingObject::FixModulu()
     sf::FloatRect rect = getBoundingRect();
     rect.left = position.x - rect.width / 2;
     rect.top = position.y - rect.height / 2;
+
+
+    //--------------------------------------
+
+    //// Check if the new position collides with any bricks
+    //if (!isValid(sf::Vector2f(rect.left, rect.top)))
+    //{
+    //    //todo: make him move down
+    //    return;
+    //}
+
+
     setBoundingRect(rect);
 }
 
@@ -42,8 +54,17 @@ bool MovingObject::isValid(sf::Vector2f pos) const
     {
         if (brick->getBoundingRect().intersects(rect))
         {
+            
+            //// Exclude the top intersection check
+            //if (brick->getBoundingRect().top  == rect.top + rect.height)
+            //{
+            //    return true;
+            //}
+
             return false;
         }
+
+       
     }
     
     return true;
