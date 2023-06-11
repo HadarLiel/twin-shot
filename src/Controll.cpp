@@ -14,9 +14,26 @@ void Controll::run()
 
     m_buttons.draw_buttons_types(m_window);
 
+
+    //load character
+    sf::Texture chracterTexture;
+    if (!chracterTexture.loadFromFile("resources/belle.png"))
+    {
+        std::cout << "Failed to load belle image." << std::endl;
+        // Handle the error
+    }
+
+    // Create the background sprite
+    sf::Sprite chracterSprite(chracterTexture);
+
+    chracterSprite.setScale(((float)Window_Width) / chracterTexture.getSize().x,
+        ((float)Window_Height) / chracterTexture.getSize().y
+    );
+   
+
     // Load the game background image
     sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("resources/background_design.png"))
+    if (!backgroundTexture.loadFromFile("resources/menu_background.png"))
     {
         std::cout << "Failed to load background image." << std::endl;
         // Handle the error
@@ -73,8 +90,24 @@ void Controll::run()
 
                                 else if (i ==1)
                                 {
-                                    std::cout << "press button" << i << "\n";
+                                    std::cout << "design button" << i << "\n";
+                                    
+                                    sf::Texture saveChar = m_design.run();
+                                    chracterSprite.setTexture(saveChar);
+                                    
+                                    //std::cout << "the princess now is: \n" ;
+                                }
 
+                                else if (i == 2)
+                                {
+                                    std::cout << "setting button" << i << "\n";
+                                }
+
+                                else if (i == 3)
+                                {
+                                   
+                                    m_help.run();
+                                    std::cout << "help button" << i << "\n";
                                 }
 
                                 else
@@ -82,7 +115,6 @@ void Controll::run()
                                     std::cout << "exit button" << i << "\n";
                                     m_window.close();
                                 }
-
                            }
 
 
@@ -104,7 +136,7 @@ void Controll::run()
 
         // Draw the background image
         m_window.draw(backgroundSprite);
-
+       // m_window.draw(chracterSprite); //remove after, just to check 
 
 
         for (const auto& button : m_buttons.getButtons())
@@ -117,20 +149,3 @@ void Controll::run()
     }
 
 }
-
-
-
-//void Controll::color_car(int i, sf::Event::&eve)
-//{
-//    
-//    for (size_t i = 0; i < colorButtons.size(); ++i)
-//    {
-//        if (colorButtons[i].getGlobalBounds().contains(eve.mouseButton.x, eve.mouseButton.y))
-//        {
-//            // Change the car color by loading a different image
-//            m_carTexture.loadFromFile(m_buttons.buttons_types[i] + colors[i] + ".png");
-//            m_carSprite.setTexture(m_carTexture);
-//            break;
-//        }
-//    }
-//}

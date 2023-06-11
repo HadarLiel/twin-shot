@@ -19,6 +19,7 @@ Level::Level(const std::string &mapName)
             else if(map.getPixel(i, j) == sf::Color::Red)
             {
                 m_character = new Character({i, j}, map.getSize(), &m_bricksList);
+
             }
         }
     }
