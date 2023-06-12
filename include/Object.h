@@ -9,12 +9,17 @@ class Brick;
 class Object : public sf::Drawable
 {
 public:
-    void collide(Object &other);
-    
     explicit Object(const sf::FloatRect &boundingRect);
+    
+    void collide(Object &other);
 
     [[nodiscard]] sf::Vector2f getCenter() const;
 
+    virtual void update(const sf::Time &deltaTime){};
+    
+    void die();
+    
+    [[nodiscard]] bool isAlive() const;
 
 
     /**
@@ -51,4 +56,5 @@ protected:
 
 private:
     sf::FloatRect m_boundingRect;
+    bool m_isAlive;
 };

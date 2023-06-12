@@ -15,7 +15,7 @@ void Controll::run()
     m_buttons.draw_buttons_types(m_window);
 
 
-    //load character
+   /* //load character
     sf::Texture chracterTexture;
     if (!chracterTexture.loadFromFile("resources/belle.png"))
     {
@@ -29,7 +29,7 @@ void Controll::run()
     chracterSprite.setScale(((float)Window_Width) / chracterTexture.getSize().x,
         ((float)Window_Height) / chracterTexture.getSize().y
     );
-   
+   */
 
     // Load the game background image
     sf::Texture backgroundTexture;
@@ -93,7 +93,7 @@ void Controll::run()
                                     std::cout << "design button" << i << "\n";
                                     
                                     sf::Texture saveChar = m_design.run();
-                                    chracterSprite.setTexture(saveChar);
+                                    //chracterSprite.setTexture(saveChar);
                                     
                                     //std::cout << "the princess now is: \n" ;
                                 }
@@ -136,7 +136,6 @@ void Controll::run()
 
         // Draw the background image
         m_window.draw(backgroundSprite);
-       // m_window.draw(chracterSprite); //remove after, just to check 
 
 
         for (const auto& button : m_buttons.getButtons())

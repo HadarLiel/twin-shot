@@ -1,18 +1,20 @@
 #include "Character.h"
+#include "Arrow.h"
 
 Character::Character(const sf::Vector2u &position,
-                     const sf::Vector2u &worldSize,
-                     const Map *bricksList) :
-        MovingObject(sf::FloatRect(position.x, position.y, 64, 96),
-                     worldSize, bricksList),
+                     const Map *map,
+                     const std::function<void(std::unique_ptr<MovingObject>)> &addMapObjectFunc) :
+        MovingObject(sf::FloatRect(position.x, position.y, 32*2, 32*3), map),
         m_deltaPos(0, 0),
         m_speed(0, 0),
-        m_isOnGround(false)
+        m_isOnGround(false),
+        m_addMapObjectFunc(addMapObjectFunc),
+        m_is_space(false)
 {
 
 }
 
-void Character::update(sf::Time deltaTime)
+void Character::update(const sf::Time &deltaTime)
 {
 
     int gravity = 600;
@@ -40,6 +42,12 @@ void Character::update(sf::Time deltaTime)
     {
         m_speed.x = 0;
     }
+    bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+    if (!m_is_space && space)
+    {
+        m_addMapObjectFunc(std::make_unique<Arrow>(sf::Vector2u(rect.left, rect.top), getMap()));
+    }
+    m_is_space = space;
     
 
     //the new gravity

@@ -3,10 +3,8 @@
 
 
 MovingObject::MovingObject(const sf::FloatRect &boundingRect,
-                           const sf::Vector2u &worldSize,
                            const Map* bricksList):
         Object(boundingRect),
-        m_worldSize(worldSize),
         m_map(bricksList)
    
 {
@@ -35,7 +33,9 @@ bool MovingObject::tryMove(sf::Vector2f delta)
     }
     if(delta.x > 0)
     {
-        rect.left = ((int)(rect.left / 32)) * 32;
+        float right = rect.left + rect.width;
+        right = ((int)(right / 32)) * 32;
+        rect.left = right - rect.width;
     }
     else if (delta.x < 0)
     {
@@ -43,7 +43,9 @@ bool MovingObject::tryMove(sf::Vector2f delta)
     }
     if(delta.y > 0)
     {
-        rect.top = ((int)(rect.top / 32)) * 32;
+        float bottom = rect.top + rect.height;
+        bottom = ((int)(bottom / 32)) * 32;
+        rect.top = bottom - rect.height;
     }
     else if (delta.y < 0)
     {
@@ -52,6 +54,11 @@ bool MovingObject::tryMove(sf::Vector2f delta)
     setBoundingRect(rect);
     
     return false;
+}
+
+const Map *MovingObject::getMap() const
+{
+    return m_map;
 }
 
 

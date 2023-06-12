@@ -19,7 +19,10 @@ sf::Texture Design::run()
     //m_buttons.draw_buttons_types(m_window);
 
 
-    m_charTexture.loadFromFile("resources/princess/belle.png");
+    if (!m_charTexture.loadFromFile("resources/princess/belle.png"))
+    {
+        std::cout << "Failed to load character image." << std::endl;
+    }
     m_charSprite.setTexture(m_charTexture);
 
     m_charSprite.setPosition((window.getSize().x - m_charTexture.getSize().x) / 2,
@@ -153,7 +156,10 @@ sf::Texture Design::run()
 
 void Design::create_princess_buttons()
 {
+    
     princessButtons.clear(); // Clear the previous buttons
+    princessTextures.clear(); // Clear the previous textures
+    
     // Load the textures for color buttons
 
     for (const std::string& princess_char : princess)
@@ -164,6 +170,7 @@ void Design::create_princess_buttons()
             std::cerr << "Failed to load texture: " << filename << std::endl;
             // Handle the error accordingly
         }
+        
         princessTextures.push_back(m_texture);
     }
 

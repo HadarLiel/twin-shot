@@ -4,7 +4,8 @@
 #include "Brick.h"
 
 Object::Object(const sf::FloatRect &boundingRect):
-        m_boundingRect(boundingRect)
+        m_boundingRect(boundingRect),
+        m_isAlive(true)
 {
 
 }
@@ -62,4 +63,14 @@ void Object::collide(Object &other)
             other.collideDD1(this);
         }
     }
+}
+
+void Object::die()
+{
+    m_isAlive = false;
+}
+
+bool Object::isAlive() const
+{
+    return m_isAlive;
 }

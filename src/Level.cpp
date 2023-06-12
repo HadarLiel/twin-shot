@@ -26,11 +26,17 @@ Level::Level(const std::string &mapName)
             }
             else if(mapImage.getPixel(i, j) == sf::Color::Red)
             {
-                m_character = new Character({i*32, j*32}, mapImage.getSize(), &m_map);
+                m_character = new Character({i*32, j*32}, 
+                                            &m_map,
+                                            [&](std::unique_ptr<MovingObject> &&m)
+                                            {
+                                                m_objects.push_back(std::move(m));
+                                            }
+                                            );
             }
         }
     }
-    // push back at end because character is the last to draw
+    // push back at the end because character is the last to draw
     m_objects.push_back(std::unique_ptr<Object>(m_character));
 }
 
@@ -54,8 +60,15 @@ void Level::run()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        for(int i = 0; i < m_objects.size(); ++i)
+        {
+            m_objects[i]->update(deltaTime);
+            if(!m_objects[i]->isAlive())
+            {
+                m_objects.erase(m_objects.begin() + i);
+            }
+        }
 
-        m_character->update(deltaTime);
         
         for (auto& object : m_objects)
         {
