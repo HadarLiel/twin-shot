@@ -1,28 +1,16 @@
 #include "Brick.h"
 #include "Character.h"
+#include "Consts.h"
 #include <iostream>
 
 Brick::Brick(const sf::Vector2u &pos) :
-        Object(sf::FloatRect(pos.x * 32, pos.y * 32, 32, 32))
+        Object(sf::FloatRect(pos.x * pixel, pos.y * pixel, pixel, pixel)),
+        m_position(pos)
 {
 
 }
 
-void Brick::draw(sf::RenderTarget &target, sf::RenderStates states) const
+const sf::Vector2u &Brick::getPosition() const
 {
-    sf::RectangleShape shape(sf::Vector2f(32, 32));
-    shape.setPosition(getBoundingRect().left, getBoundingRect().top);
-    shape.setFillColor(sf::Color::Black);
-    target.draw(shape, states);
-}
-
-bool Brick::collideDD1(Object *other_object)
-{
-    return other_object->collideDD2(*this);
-}
-
-// collide make stop
-bool Brick::isCollideable(const sf::Vector2f &deltaMove) const
-{
-    return true;
+    return m_position;
 }

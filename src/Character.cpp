@@ -24,7 +24,7 @@ void Character::update(sf::Time deltaTime)
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            m_speed.y = -300;
+            m_speed.y = -600;
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -73,20 +73,4 @@ void Character::draw(sf::RenderTarget &target, sf::RenderStates states) const
 bool Character::collideDD1(Object *other_object)
 {
     return other_object->collideDD2(*this);
-}
-
-const sf::Vector2f &Character::getDeltaPosition() const
-{
-    return m_deltaPos;
-}
-
-void Character::resetDeltaPosition(const sf::Vector2f &newDelta)
-{
-    sf::FloatRect rect = getBoundingRect();
-    rect.left -= m_deltaPos.x - newDelta.x;
-    rect.top -= m_deltaPos.y - newDelta.y;
-
-    setBoundingRect(rect);
-    FixModulu();
-    m_deltaPos = newDelta;
 }

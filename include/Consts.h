@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 
+const int pixel = 32;
 
 const int Window_Height = 800.0f;
 const int Window_Width = 1000.0f;

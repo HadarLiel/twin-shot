@@ -1,7 +1,9 @@
 #include "BlueBrick.h"
+#include "Map.h"
 
-BlueBrick::BlueBrick(sf::Vector2u pos):
-    Brick(pos)
+BlueBrick::BlueBrick(sf::Vector2u pos,const Map* map):
+    Brick(pos),
+    m_map(map)
 {
     
 }
@@ -15,13 +17,16 @@ void BlueBrick::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(shape, states);
 }
 
-bool BlueBrick::collideDD1(Object *other_object)
-{
-    return other_object->collideDD2(*this);
-}
-
 // collide make stop
-bool BlueBrick::isCollideable(const sf::Vector2f &deltaMove) const
+bool BlueBrick::isBlock(const sf::Vector2f &deltaMove) const
 {
+    if(deltaMove.x < 0 && (*m_map)[{getPosition().x + 1, getPosition().y}] == nullptr)
+    {
+        return true;
+    }
+    else if(deltaMove.x > 0 && (*m_map)[{getPosition().x - 1, getPosition().y}] == nullptr)
+    {
+        return true;
+    }
     return deltaMove.y > 0; 
 }

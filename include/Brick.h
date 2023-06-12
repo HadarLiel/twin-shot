@@ -3,9 +3,10 @@
 class Brick: public Object
 {
 public:
-    Brick(const sf::Vector2u &pos);
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-    bool collideDD1(Object *other_object) override;
-    [[nodiscard]] virtual bool isCollideable(const sf::Vector2f &deltaMove) const;
+    explicit Brick(const sf::Vector2u &pos);
+    [[nodiscard]] virtual bool isBlock(const sf::Vector2f &deltaMove) const = 0;
+    [[nodiscard]] const sf::Vector2u &getPosition() const;
+    
 private:
+    sf::Vector2u m_position;
 };

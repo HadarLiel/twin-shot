@@ -1,25 +1,26 @@
 #include "Level.h"
 #include "Brick.h"
 #include "BlueBrick.h"
+#include "BlackBrick.h"
 
 Level::Level(const std::string &mapName)
 {
     sf::Image mapImage;
     mapImage.loadFromFile(mapName);
-    m_map.setSize(mapImage.getSize());
+    m_map.restart(mapImage.getSize());
     for (unsigned int i = 0; i < mapImage.getSize().x; ++i)
     {
         for (unsigned int j = 0; j < mapImage.getSize().y; ++j)
         {
             if (mapImage.getPixel(i, j) == sf::Color::Black)
             {
-                auto brick = new Brick({ i,j });
+                auto brick = new BlackBrick({ i,j });
                 m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }
             if (mapImage.getPixel(i, j) == sf::Color::Blue)
             {
-                auto brick = new BlueBrick({ i,j });
+                auto brick = new BlueBrick({ i,j }, &m_map);
                 m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }

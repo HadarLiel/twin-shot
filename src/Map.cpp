@@ -1,14 +1,17 @@
+#include <iostream>
 #include "Map.h"
 
 Map::Map(const sf::Vector2u &size) :
         m_size(size)
 {
-
+    m_brickList.resize(size.y, std::vector<Brick *>(size.x, nullptr));
 }
 
-void Map::setSize(const sf::Vector2u &size)
+void Map::restart(const sf::Vector2u &size)
 {
     this->m_size = size;
+    m_brickList.clear();
+    m_brickList.resize(size.y, std::vector<Brick *>(size.x, nullptr));
 }
 
 const sf::Vector2u &Map::getSize() const
@@ -18,12 +21,7 @@ const sf::Vector2u &Map::getSize() const
 
 void Map::addBrick(Brick *brick)
 {
-    m_brickList.push_back(brick);
-}
-
-const std::vector<Brick *> &Map::getBricks() const
-{
-    return m_brickList;
+    m_brickList[brick->getPosition().y][brick->getPosition().x] = brick;
 }
 
 sf::Vector2f Map::fixPosition(sf::Vector2f pos) const
@@ -41,45 +39,99 @@ sf::Vector2f Map::fixPosition(sf::Vector2f pos) const
     return pos;
 }
 
-bool Map::isCollide(const sf::FloatRect &firstRect, 
+bool Map::isCollide(const sf::FloatRect &firstRect,
                     const sf::Vector2f &deltaMove) const
 {
-    
-    sf::FloatRect allRectsFirst[9];
-    for (int i = -1; i <= 1; ++i)
-    {
-        for (int j = -1; j <= 1; ++j)
-        {
-            allRectsFirst[(i + 1) * 3 + j + 1] = sf::FloatRect(firstRect.left + i * m_size.x * 32, firstRect.top + j * m_size.y * 32,
-                                                               firstRect.width, firstRect.height);
-        }
-    }
 
-    sf::FloatRect rect = firstRect;
-    rect.left += deltaMove.x;
-    rect.top += deltaMove.y;
+    sf::FloatRect currentRect = firstRect;
+    currentRect.left += deltaMove.x;
+    currentRect.top += deltaMove.y;
+
+    sf::Vector2u iterations = sf::Vector2u(firstRect.width / 32 + 2,
+                                           firstRect.height / 32 + 2);
     
-    sf::FloatRect allRects[9];
-    for (int i = -1; i <= 1; ++i)
+    sf::Vector2f fixed = fixPosition({currentRect.left, currentRect.top});
+
+
+    sf::Vector2u firstPos = sf::Vector2u(fixed.x / 32,
+                                         fixed.y / 32);
+    
+    for(int i = -1; i <= 1; i++)
     {
-        for (int j = -1; j <= 1; ++j)
+        for (int j = -1; j <= 1; j++)
         {
-            allRects[(i + 1) * 3 + j + 1] = sf::FloatRect(rect.left + i * m_size.x * 32, rect.top + j * m_size.y * 32,
-                                                          rect.width, rect.height);
-        }
-    }
-    for (auto &brick : m_brickList)
-    {
-        for(int i = 0; i < 9; ++i)
-        {
-            if (brick->getBoundingRect().intersects(allRects[i]) && 
-                !brick->getBoundingRect().intersects(allRectsFirst[i]) &&
-                 brick->isCollideable(deltaMove))
+            sf::FloatRect first_test_rect = firstRect;
+            first_test_rect.left += j * m_size.x * 32;
+            first_test_rect.top += i * m_size.y * 32;
+            
+            sf::FloatRect curr_test_rect = currentRect;
+            curr_test_rect.left += j * m_size.x * 32;
+            curr_test_rect.top += i * m_size.y * 32;
+
+            for (size_t k = 0; k < iterations.y; ++k)
             {
-                return true;
+                for (size_t l = 0; l < iterations.x; ++l)
+                {
+                    sf::Vector2u pos = sf::Vector2u(firstPos.x + l, firstPos.y + k);
+                    pos.x %= m_size.x;
+                    pos.y %= m_size.y;
+
+                    if (m_brickList[pos.y][pos.x] != nullptr &&
+                        m_brickList[pos.y][pos.x]->getBoundingRect().intersects(
+                                curr_test_rect) &&
+                        !m_brickList[pos.y][pos.x]->getBoundingRect().intersects(
+                                first_test_rect) &&
+                        m_brickList[pos.y][pos.x]->isBlock(deltaMove))
+                    {
+                        return true;
+                    }
+                }
             }
+
+
+
+            std::cout << firstPos.x << " " << firstPos.y << std::endl;
+
+            
         }
     }
+    
+
     return false;
+}
+
+Map::Map(const Map &oldMap)
+{
+    m_size = oldMap.m_size;
+    m_brickList.clear();
+    for (auto &brick: oldMap.m_brickList)
+    {
+        m_brickList.push_back(brick);
+    }
+}
+
+
+
+const Brick * const &Map::operator[](const sf::Vector2u &pos) const
+{
+    sf::Vector2u pos_mod = sf::Vector2u(pos.x % m_size.x, pos.y % m_size.y);
+    return m_brickList[pos_mod.y][pos_mod.x];
+}
+Brick * &Map::operator[](const sf::Vector2u &pos)
+{
+    sf::Vector2u pos_mod = sf::Vector2u(pos.x % m_size.x, pos.y % m_size.y);
+    return m_brickList[pos_mod.y][pos_mod.x];
+}
+
+Brick *&Map::operator()(unsigned int y, unsigned int x)
+{
+    sf::Vector2u pos_mod = sf::Vector2u(x % m_size.x, y % m_size.y);
+    return m_brickList[pos_mod.y][pos_mod.x];
+}
+
+const Brick * const &Map::operator()(unsigned int y, unsigned int x) const
+{
+    sf::Vector2u pos_mod = sf::Vector2u(x % m_size.x, y % m_size.y);
+    return m_brickList[pos_mod.y][pos_mod.x];
     
 }

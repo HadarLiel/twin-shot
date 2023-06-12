@@ -17,10 +17,6 @@ public:
 
 protected:
     bool tryMove(sf::Vector2f delta);
-    
-    void FixModulu();
-
-    bool isValid(sf::Vector2f pos) const;
 
 private:
     sf::Vector2u m_worldSize;
