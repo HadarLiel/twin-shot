@@ -2,11 +2,11 @@
 
 Character::Character(const sf::Vector2u &position,
                      const sf::Vector2u &worldSize,
-                     const BricksList* bricksList) :
+                     const Map *bricksList) :
         MovingObject(sf::FloatRect(position.x, position.y, 64, 96),
                      worldSize, bricksList),
-         m_deltaPos(0,0),
-         m_speed(0, 0)
+        m_deltaPos(0, 0),
+        m_speed(0, 0)
 {
 
 }
@@ -15,18 +15,18 @@ void Character::update(sf::Time deltaTime)
 {
 
     int gravity = 200;
-    
-    m_speed += {0, gravity* deltaTime.asSeconds()}; //20=m/s^2
+
+    m_speed += {0, gravity * deltaTime.asSeconds()}; //20=m/s^2
 
     sf::FloatRect rect = getBoundingRect();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        m_speed.x = -200 ;
-        
+        m_speed.x = -200;
+
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        m_speed.x = 200 ;
+        m_speed.x = 200;
     }
     else
     {
@@ -34,43 +34,24 @@ void Character::update(sf::Time deltaTime)
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        m_speed.y = -100 ;
+        m_speed.y = -100;
     }
 
     //the new gravity
-   //physics formula to find position by speed and axeleration (תאוצה)
-   //posT = pos0 + speed0 * T
+    //physics formula to find position by speed and axeleration (ן¿½ן¿½ן¿½ן¿½ן¿½)
+    //posT = pos0 + speed0 * T
 
-    m_deltaPos = { m_speed.x * deltaTime.asSeconds(),
-                   m_speed.y * deltaTime.asSeconds() };
+    m_deltaPos = {m_speed.x * deltaTime.asSeconds(),
+                  m_speed.y * deltaTime.asSeconds()};
 
-    rect.left += m_deltaPos.x;
-    rect.top += m_deltaPos.y;
-
-    if (isValid({ rect.left, rect.top }))
+    if(!tryMove({0,m_deltaPos.y}))
     {
-        setBoundingRect(rect);
-    }
-
-    else if (isValid({ 0, rect.top }))
-    {
-        rect.left -= m_deltaPos.x;
-        m_speed.x = 0;
-        setBoundingRect(rect);
-    }
-
-    else if (isValid({ rect.left, 0 }))
-    {
-        rect.top -= m_deltaPos.y;
         m_speed.y = 0;
-        setBoundingRect(rect);
     }
-
-    else
+    if(!tryMove({m_deltaPos.x,0}))
     {
-        m_speed = { 0,0 };
+        m_speed.x = 0;
     }
-    MovingObject::FixModulu();
 }
 
 void Character::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -82,21 +63,20 @@ void Character::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(rect, states);
 }
 
-//לקח את הכללי, לבנה מטפלת
 bool Character::collideDD1(Object *other_object)
 {
     return other_object->collideDD2(*this);
 }
 
-const sf::Vector2f& Character::getDeltaPosition() const
+const sf::Vector2f &Character::getDeltaPosition() const
 {
     return m_deltaPos;
 }
 
-void Character::resetDeltaPosition(const sf::Vector2f& newDelta)
+void Character::resetDeltaPosition(const sf::Vector2f &newDelta)
 {
     sf::FloatRect rect = getBoundingRect();
-    rect.left -= m_deltaPos.x - newDelta.x; //פחות כמה שאמרו לי לקחת אחורה
+    rect.left -= m_deltaPos.x - newDelta.x; //ן¿½ן¿½ן¿½ן¿½ ן¿½ן¿½ן¿½ ן¿½ן¿½ן¿½ן¿½ן¿½ ן¿½ן¿½ ן¿½ן¿½ן¿½ן¿½ ן¿½ן¿½ן¿½ן¿½ן¿½
     rect.top -= m_deltaPos.y - newDelta.y;
 
     setBoundingRect(rect);

@@ -4,10 +4,10 @@
 
 MovingObject::MovingObject(const sf::FloatRect &boundingRect,
                            const sf::Vector2u &worldSize,
-                           const BricksList* bricksList):
-            Object(boundingRect),
-            m_worldSize(worldSize),
-            m_bricksList(bricksList)
+                           const Map* bricksList):
+        Object(boundingRect),
+        m_worldSize(worldSize),
+        m_map(bricksList)
    
 {
 
@@ -50,7 +50,7 @@ bool MovingObject::isValid(sf::Vector2f pos) const
     rect.left = pos.x;
     rect.top = pos.y;
 
-    for (auto &brick : m_bricksList->getBricks())
+    for (auto &brick : m_map->getBricks())
     {
         if (brick->getBoundingRect().intersects(rect))
         {
@@ -74,6 +74,26 @@ bool MovingObject::isValid(sf::Vector2f pos) const
 bool MovingObject::collideDD1(Object *other_object)
 {
     return other_object->collideDD2(*this);
+}
+
+bool MovingObject::tryMove(sf::Vector2f delta)
+{
+    sf::Vector2f position = getCenter();
+    position += delta;
+    position = m_map->fixPosition(position);
+    
+    sf::FloatRect rect = getBoundingRect();
+    rect.left = position.x - rect.width / 2;
+    rect.top = position.y - rect.height / 2;
+    
+    // todo: change isCollide to maxNotCollide but need to 
+    //       think about parameters
+    if(!m_map->isCollide(rect))
+    {
+        setBoundingRect(rect);
+        return true;
+    }
+    return false;
 }
 
 

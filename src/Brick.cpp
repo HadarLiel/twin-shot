@@ -20,34 +20,3 @@ bool Brick::collideDD1(Object *other_object)
 {
     return other_object->collideDD2(*this);
 }
-
-bool Brick::collideDD2(Character &character)
-{
-    sf::Vector2f resetPos = character.getDeltaPosition();
-    sf::FloatRect rect = getBoundingRect();
-    sf::FloatRect charPrevRect = character.getBoundingRect(); //before the collision
-
-    charPrevRect.top -= character.getDeltaPosition().y;
-
-    if (!charPrevRect.intersects(rect)) //if we are not in collision, we want to change the y
-    {
-
-        resetPos.y = 0;
-    }
-
-    charPrevRect.top += character.getDeltaPosition().y;
-    charPrevRect.left -= character.getDeltaPosition().x;
-
-    if (!charPrevRect.intersects(rect)) //if we are not in collision, we want to change the x
-    {
-        resetPos.x = 0;
-    }
-
-    character.resetDeltaPosition(resetPos);
-
-
-    return true;
-}
-
-
-

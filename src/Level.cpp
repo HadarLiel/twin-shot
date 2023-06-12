@@ -3,27 +3,26 @@
 
 Level::Level(const std::string &mapName)
 {
-    sf::Image map;
-    map.loadFromFile(mapName);
-    for (unsigned int i = 0; i < map.getSize().x; ++i)
+    sf::Image mapImage;
+    mapImage.loadFromFile(mapName);
+    m_map.setSize(mapImage.getSize());
+    for (unsigned int i = 0; i < mapImage.getSize().x; ++i)
     {
-        for (unsigned int j = 0; j < map.getSize().y; ++j)
+        for (unsigned int j = 0; j < mapImage.getSize().y; ++j)
         {
-            if (map.getPixel(i, j) == sf::Color::Black)
+            if (mapImage.getPixel(i, j) == sf::Color::Black)
             {
-                Brick* brick = new Brick({ i,j });
-                m_bricksList.addBrick(brick);
-
+                auto brick = new Brick({ i,j });
+                m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }
-            else if(map.getPixel(i, j) == sf::Color::Red)
+            else if(mapImage.getPixel(i, j) == sf::Color::Red)
             {
-                m_character = new Character({i, j}, map.getSize(), &m_bricksList);
-
+                m_character = new Character({i, j}, mapImage.getSize(), &m_map);
+                m_objects.push_back(std::unique_ptr<Object>(m_character));
             }
         }
     }
-    m_objects.push_back(std::unique_ptr<Object>(m_character));
 }
 
 void Level::run()
