@@ -19,7 +19,7 @@ sf::Texture Design::run()
     //m_buttons.draw_buttons_types(m_window);
 
 
-    m_charTexture.loadFromFile("resources/belle.png");
+    m_charTexture.loadFromFile("resources/princess/belle.png");
     m_charSprite.setTexture(m_charTexture);
 
     m_charSprite.setPosition((window.getSize().x - m_charTexture.getSize().x) / 2,
