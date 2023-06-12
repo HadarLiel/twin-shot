@@ -28,12 +28,29 @@ bool MovingObject::tryMove(sf::Vector2f delta)
     rect.left = position.x - rect.width / 2;
     rect.top = position.y - rect.height / 2;
     
-    // todo: change isCollide to maxNotCollide
     if(!m_map->isCollide(getBoundingRect(), delta))
     {
         setBoundingRect(rect);
         return true;
     }
+    if(delta.x > 0)
+    {
+        rect.left = ((int)(rect.left / 32)) * 32;
+    }
+    else if (delta.x < 0)
+    {
+        rect.left = ((int)(rect.left / 32) + 1) * 32;
+    }
+    if(delta.y > 0)
+    {
+        rect.top = ((int)(rect.top / 32)) * 32;
+    }
+    else if (delta.y < 0)
+    {
+        rect.top = ((int)(rect.top / 32) + 1) * 32;
+    }
+    setBoundingRect(rect);
+    
     return false;
 }
 

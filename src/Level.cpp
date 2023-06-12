@@ -27,10 +27,11 @@ Level::Level(const std::string &mapName)
             else if(mapImage.getPixel(i, j) == sf::Color::Red)
             {
                 m_character = new Character({i*32, j*32}, mapImage.getSize(), &m_map);
-                m_objects.push_back(std::unique_ptr<Object>(m_character));
             }
         }
     }
+    // push back at end because character is the last to draw
+    m_objects.push_back(std::unique_ptr<Object>(m_character));
 }
 
 void Level::run()
