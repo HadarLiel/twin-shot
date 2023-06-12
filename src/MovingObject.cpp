@@ -86,9 +86,8 @@ bool MovingObject::tryMove(sf::Vector2f delta)
     rect.left = position.x - rect.width / 2;
     rect.top = position.y - rect.height / 2;
     
-    // todo: change isCollide to maxNotCollide but need to 
-    //       think about parameters
-    if(!m_map->isCollide(rect))
+    // todo: change isCollide to maxNotCollide
+    if(!m_map->isCollide(getBoundingRect(), delta))
     {
         setBoundingRect(rect);
         return true;

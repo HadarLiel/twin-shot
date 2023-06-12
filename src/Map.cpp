@@ -41,8 +41,24 @@ sf::Vector2f Map::fixPosition(sf::Vector2f pos) const
     return pos;
 }
 
-bool Map::isCollide(const sf::FloatRect &rect) const
+bool Map::isCollide(const sf::FloatRect &firstRect, 
+                    const sf::Vector2f &deltaMove) const
 {
+    
+    sf::FloatRect allRectsFirst[9];
+    for (int i = -1; i <= 1; ++i)
+    {
+        for (int j = -1; j <= 1; ++j)
+        {
+            allRectsFirst[(i + 1) * 3 + j + 1] = sf::FloatRect(firstRect.left + i * m_size.x * 32, firstRect.top + j * m_size.y * 32,
+                                                               firstRect.width, firstRect.height);
+        }
+    }
+
+    sf::FloatRect rect = firstRect;
+    rect.left += deltaMove.x;
+    rect.top += deltaMove.y;
+    
     sf::FloatRect allRects[9];
     for (int i = -1; i <= 1; ++i)
     {
@@ -54,11 +70,14 @@ bool Map::isCollide(const sf::FloatRect &rect) const
     }
     for (auto &brick : m_brickList)
     {
-        for (auto &allRect : allRects)
+        for(int i = 0; i < 9; ++i)
         {
-            if (brick->getBoundingRect().intersects(allRect))
+            if (brick->getBoundingRect().intersects(allRects[i]))
             {
-                return true;
+                if (!brick->getBoundingRect().intersects(allRectsFirst[i]))
+                {
+                    return true;
+                }
             }
         }
     }
