@@ -93,8 +93,6 @@ sf::Texture Design::run()
                             }
                         }
 
-                        //v
-
                         //press on princess
                         for (size_t j = 0; j < princessButtons.size(); ++j)
                         {
@@ -102,7 +100,7 @@ sf::Texture Design::run()
                             {
                                 std::cout << "hi\n";
                                 // Change the car color by loading a different image
-                                m_charTexture.loadFromFile("resources/" + princess[j] + ".png");
+                                m_charTexture.loadFromFile("resources/princess/" + princess[j] + ".png");
                                 m_charSprite.setTexture(m_charTexture);
 
                             }
@@ -160,7 +158,7 @@ void Design::create_princess_buttons()
 
     for (const std::string& princess_char : princess)
     {
-        std::string filename = "resources/" + princess_char + ".png";
+        std::string filename = "resources/princess/" + princess_char + ".png";
         if (!m_texture.loadFromFile(filename))
         {
             std::cerr << "Failed to load texture: " << filename << std::endl;
@@ -175,7 +173,7 @@ void Design::create_princess_buttons()
     {
        
         m_sprite.setTexture(princessTextures[i]);
-        m_sprite.setScale((buttonWidth+ princess_buttonWidth) / m_sprite.getLocalBounds().width, (buttonHeight+ princess_buttonHeight) / m_sprite.getLocalBounds().height);
+        m_sprite.setScale((princess_buttonWidth) / m_sprite.getLocalBounds().width, (princess_buttonHeight) / m_sprite.getLocalBounds().height);
        
         // Calculate the position of the button
        

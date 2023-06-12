@@ -24,7 +24,7 @@ private:
 
 	// Define the names of the colors and car pictures
 	std::vector<std::string> princess = {
-		"belle", "snow", "jasmin", "piterPen", "cinderella"
+		"belle", "snow", "jasmin", "peterPen", "cinderella"
 		//beast, evilQween, jafar, captainHook, evilCinder
 	};
 

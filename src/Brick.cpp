@@ -31,18 +31,6 @@ bool Brick::collideDD2(Character &character)
 
     if (!charPrevRect.intersects(rect)) //if we are not in collision, we want to change the y
     {
-        ////we try to go up
-        //if (character.getDeltaPosition().y < 0)
-        //{
-
-        //    resetPos.y = charPrevRect.top - (rect.top + rect.height); //?????
-        //}
-
-        ////we try to go down
-        //else
-        //{
-        //    resetPos.y = charPrevRect.top + (charPrevRect.height - rect.top); //?????
-        //}
 
         resetPos.y = 0;
     }
@@ -50,25 +38,11 @@ bool Brick::collideDD2(Character &character)
     charPrevRect.top += character.getDeltaPosition().y;
     charPrevRect.left -= character.getDeltaPosition().x;
 
-    if (!charPrevRect.intersects(rect)) //if we are not in collision, we want to change the y
+    if (!charPrevRect.intersects(rect)) //if we are not in collision, we want to change the x
     {
-        ////we try to go up
-        //if (character.getDeltaPosition().x < 0)
-        //{
-
-        //    resetPos.y = charPrevRect.top - (rect.top + rect.height); //?????
-        //}
-
-        ////we try to go down
-        //else
-        //{
-        //    resetPos.y = charPrevRect.top + (charPrevRect.height - rect.top); //?????
-        //}
-
         resetPos.x = 0;
     }
 
-    std::cout << "weeeeee\n";
     character.resetDeltaPosition(resetPos);
 
 
