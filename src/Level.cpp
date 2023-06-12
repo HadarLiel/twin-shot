@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "Brick.h"
+#include "BlueBrick.h"
 
 Level::Level(const std::string &mapName)
 {
@@ -13,6 +14,12 @@ Level::Level(const std::string &mapName)
             if (mapImage.getPixel(i, j) == sf::Color::Black)
             {
                 auto brick = new Brick({ i,j });
+                m_map.addBrick(brick);
+                m_objects.push_back(std::unique_ptr<Object>(brick));
+            }
+            if (mapImage.getPixel(i, j) == sf::Color::Blue)
+            {
+                auto brick = new BlueBrick({ i,j });
                 m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }

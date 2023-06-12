@@ -72,12 +72,11 @@ bool Map::isCollide(const sf::FloatRect &firstRect,
     {
         for(int i = 0; i < 9; ++i)
         {
-            if (brick->getBoundingRect().intersects(allRects[i]))
+            if (brick->getBoundingRect().intersects(allRects[i]) && 
+                !brick->getBoundingRect().intersects(allRectsFirst[i]) &&
+                 brick->isCollideable(deltaMove))
             {
-                if (!brick->getBoundingRect().intersects(allRectsFirst[i]))
-                {
-                    return true;
-                }
+                return true;
             }
         }
     }
