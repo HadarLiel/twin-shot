@@ -9,7 +9,6 @@ public:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
     bool collideDD1(Object *other_object) override;
     
-    //לדעת מאיזה כיוון הגענו
     const sf::Vector2f& getDeltaPosition() const;
 
     void resetDeltaPosition(const sf::Vector2f& newDelta);
