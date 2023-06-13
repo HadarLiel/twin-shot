@@ -31,11 +31,13 @@ void Character::update(const sf::Time &deltaTime)
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
+        m_isLeft =true;
         m_speed.x = -200;
 
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
+        m_isLeft =false;
         m_speed.x = 200;
     }
     else
@@ -45,7 +47,7 @@ void Character::update(const sf::Time &deltaTime)
     bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     if (!m_is_space && space)
     {
-        m_addMapObjectFunc(std::make_unique<Arrow>(sf::Vector2u(rect.left, rect.top), getMap()));
+        m_addMapObjectFunc(std::make_unique<Arrow>(sf::Vector2u(rect.left, rect.top), getMap(), m_isLeft));
     }
     m_is_space = space;
     

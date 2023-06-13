@@ -61,4 +61,3 @@ const Map *MovingObject::getMap() const
     return m_map;
 }
 
-

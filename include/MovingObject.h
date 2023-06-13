@@ -11,14 +11,13 @@ public:
     bool collideDD1(Object *other_object) override;
     
     [[nodiscard]] const Map* getMap() const;
-    
-    
-
-    
+   
 
 protected:
     bool tryMove(sf::Vector2f delta);
+   
 
 private:
     const Map* m_map;
+   
 };
