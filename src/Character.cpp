@@ -3,12 +3,12 @@
 
 Character::Character(const sf::Vector2u &position,
                      const Map *map,
-                     const std::function<void(std::unique_ptr<MovingObject>)> &addMapObjectFunc) :
-        MovingObject(sf::FloatRect(position.x, position.y, 32*2, 32*3), map),
+                     const std::function<void(std::unique_ptr<Arrow>)> &addArrowFunc):
+        MovingObject(sf::FloatRect(position.x, position.y, 32*1.9, 32*2.9), map),
         m_deltaPos(0, 0),
         m_speed(0, 0),
         m_isOnGround(false),
-        m_addMapObjectFunc(addMapObjectFunc),
+        m_addArrowFunc(addArrowFunc),
         m_is_space(false)
 {
 
@@ -26,7 +26,7 @@ void Character::update(const sf::Time &deltaTime)
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            m_speed.y = -600;
+            m_speed.y = -200;
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -47,7 +47,7 @@ void Character::update(const sf::Time &deltaTime)
     bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     if (!m_is_space && space)
     {
-        m_addMapObjectFunc(std::make_unique<Arrow>(sf::Vector2u(rect.left, rect.top), getMap(), m_isLeft));
+        m_addArrowFunc(std::make_unique<Arrow>(sf::Vector2u(rect.left, rect.top), getMap(), m_isLeft));
     }
     m_is_space = space;
     
@@ -60,14 +60,16 @@ void Character::update(const sf::Time &deltaTime)
                   m_speed.y * deltaTime.asSeconds()};
 
     m_isOnGround = false;
-    if(!tryMove({0,m_deltaPos.y}))
+    sf::Vector2<bool> success = tryMove(m_deltaPos);
+    
+    if(!success.x)
+    {
+        m_speed.x = 0;
+    }
+    if(!success.y)
     {
         m_isOnGround = m_deltaPos.y > 0;
         m_speed.y = 0;
-    }
-    if(!tryMove({m_deltaPos.x,0}))
-    {
-        m_speed.x = 0;
     }
 }
 

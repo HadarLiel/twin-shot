@@ -20,9 +20,13 @@ public:
 
     [[nodiscard]] sf::Vector2f fixPosition(sf::Vector2f pos) const;
 
+    [[nodiscard]] sf::Vector2f maxMove(const sf::FloatRect &firstRect, 
+                                       const sf::Vector2f &deltaMove) const;
+
     [[nodiscard]] bool isCollide(const sf::FloatRect &firstRect,
                                  const sf::Vector2f &deltaMove) const;
 
+    //todo: uint to int?
     const Brick * const &operator() (unsigned int y, unsigned int x) const;
     Brick * &operator() (unsigned int y, unsigned int x);
     const Brick * const &operator[] (const sf::Vector2u &pos) const;
@@ -32,6 +36,12 @@ public:
     void removveArrow(Arrow* arrow);
 
 private:
+    float MaxMoveX(const sf::FloatRect &firstRect, 
+                   float deltaX) const;
+    
+    float MaxMoveY(const sf::FloatRect &firstRect,
+                      float deltaY) const;
+    
     // m_brickList[y][x] and not m_brickList[x][y]
     std::vector<std::vector<Brick *>> m_brickList;
 

@@ -43,65 +43,6 @@ sf::Vector2f Map::fixPosition(sf::Vector2f pos) const
     return pos;
 }
 
-bool Map::isCollide(const sf::FloatRect &firstRect,
-                    const sf::Vector2f &deltaMove) const
-{
-
-    sf::FloatRect currentRect = firstRect;
-    currentRect.left += deltaMove.x;
-    currentRect.top += deltaMove.y;
-
-    sf::Vector2u iterations = sf::Vector2u(firstRect.width / 32 + 2,
-                                           firstRect.height / 32 + 2);
-    
-    sf::Vector2f fixed = fixPosition({currentRect.left, currentRect.top});
-
-
-    sf::Vector2u firstPos = sf::Vector2u(fixed.x / 32,
-                                         fixed.y / 32);
-    
-    for(int i = -1; i <= 1; i++)
-    {
-        for (int j = -1; j <= 1; j++)
-        {
-            sf::FloatRect first_test_rect = firstRect;
-            first_test_rect.left += j * m_size.x * 32;
-            first_test_rect.top += i * m_size.y * 32;
-            
-            sf::FloatRect curr_test_rect = currentRect;
-            curr_test_rect.left += j * m_size.x * 32;
-            curr_test_rect.top += i * m_size.y * 32;
-
-            for (size_t k = 0; k < iterations.y; ++k)
-            {
-                for (size_t l = 0; l < iterations.x; ++l)
-                {
-                    sf::Vector2u pos = sf::Vector2u(firstPos.x + l, firstPos.y + k);
-                    pos.x %= m_size.x;
-                    pos.y %= m_size.y;
-
-                    if (m_brickList[pos.y][pos.x] != nullptr &&
-                        m_brickList[pos.y][pos.x]->getBoundingRect().intersects(
-                                curr_test_rect) &&
-                        !m_brickList[pos.y][pos.x]->getBoundingRect().intersects(
-                                first_test_rect) &&
-                        m_brickList[pos.y][pos.x]->isBlock(deltaMove))
-                    {
-                        return true;
-                    }
-
-
-                }
-            }
-
-            
-        }
-    }
-    
-
-    return false;
-}
-
 Map::Map(const Map &oldMap)
 {
     m_size = oldMap.m_size;
@@ -113,32 +54,31 @@ Map::Map(const Map &oldMap)
 }
 
 
-
-
-const Brick * const &Map::operator[](const sf::Vector2u &pos) const
-{
-    sf::Vector2u pos_mod = sf::Vector2u(pos.x % m_size.x, pos.y % m_size.y);
-    return m_brickList[pos_mod.y][pos_mod.x];
-}
-Brick * &Map::operator[](const sf::Vector2u &pos)
+const Brick *const &Map::operator[](const sf::Vector2u &pos) const
 {
     sf::Vector2u pos_mod = sf::Vector2u(pos.x % m_size.x, pos.y % m_size.y);
     return m_brickList[pos_mod.y][pos_mod.x];
 }
 
-void Map::addArrow(Arrow* arrow)
+Brick *&Map::operator[](const sf::Vector2u &pos)
+{
+    sf::Vector2u pos_mod = sf::Vector2u(pos.x % m_size.x, pos.y % m_size.y);
+    return m_brickList[pos_mod.y][pos_mod.x];
+}
+
+void Map::addArrow(Arrow *arrow)
 {
     m_arrowList.push_back(arrow);
 }
 
-void Map::removveArrow(Arrow* arrow)
+void Map::removveArrow(Arrow *arrow)
 {
     auto it = std::find(m_arrowList.begin(), m_arrowList.end(), arrow);
     if (it != m_arrowList.end())
     {
         m_arrowList.erase(it);
     }
-        
+
 }
 
 Brick *&Map::operator()(unsigned int y, unsigned int x)
@@ -147,9 +87,112 @@ Brick *&Map::operator()(unsigned int y, unsigned int x)
     return m_brickList[pos_mod.y][pos_mod.x];
 }
 
-const Brick * const &Map::operator()(unsigned int y, unsigned int x) const
+const Brick *const &Map::operator()(unsigned int y, unsigned int x) const
 {
     sf::Vector2u pos_mod = sf::Vector2u(x % m_size.x, y % m_size.y);
     return m_brickList[pos_mod.y][pos_mod.x];
+
+}
+
+sf::Vector2f Map::maxMove(const sf::FloatRect &firstRect,
+                          const sf::Vector2f &deltaMove) const
+{
+    sf::FloatRect currentRect = firstRect;
+    sf::Vector2f maxDelta = deltaMove;
+    maxDelta.x = MaxMoveX(currentRect, deltaMove.x);
+    maxDelta.y = MaxMoveY(currentRect, deltaMove.y);
+    return maxDelta;
+}
+
+float Map::MaxMoveX(const sf::FloatRect &firstRect, float deltaX) const
+{
+    int xIndex;
+    float loc;
+    float toReturn;
+    if (deltaX > 0)
+    {
+        xIndex = (int) (firstRect.left + firstRect.width + deltaX) / 32;
+        // todo: this is fucked up
+        toReturn = xIndex * 32 - (firstRect.left + firstRect.width) - 0.001;
+        loc = firstRect.left + firstRect.width;
+    }
+    else
+    {
+        xIndex = (int) (firstRect.left + deltaX) / 32;
+        toReturn = (xIndex * 32 + 32 - firstRect.left);
+        loc = firstRect.left;
+    }
     
+    int yStart = (int) firstRect.top / 32;
+    int yEnd = (int) (firstRect.top + firstRect.height) / 32;
+    if (xIndex != (int) (loc) / 32)
+    {
+        std::cout << xIndex << " diff\n";
+        for (int y = yStart; y <= yEnd; ++y)
+        {
+            std::cout << (y % m_size.y) << " " 
+                      << (xIndex % m_size.x) << " "
+                      << (m_brickList[y % m_size.y][xIndex % m_size.x] == nullptr) << "\n";
+            
+            if (m_brickList[y % m_size.y][xIndex % m_size.x] != nullptr &&
+                m_brickList[y % m_size.y][xIndex % m_size.x]->isBlock({deltaX, 0}))
+            {
+                std::cout << xIndex << " block " << toReturn << "\n";
+                return toReturn;
+            }
+        }
+    }
+    return deltaX;
+}
+
+float Map::MaxMoveY(const sf::FloatRect &firstRect, float deltaY) const
+{
+    int yIndex;
+    float loc;
+    float toReturn;
+    if (deltaY > 0)
+    {
+        yIndex = (int) (firstRect.top + firstRect.height + deltaY) / 32;
+        toReturn = yIndex * 32 - (firstRect.top + firstRect.height) - 0.001;
+        loc = firstRect.top + firstRect.height;
+    }
+    else
+    {
+        yIndex = (int) (firstRect.top + deltaY) / 32;
+        toReturn = (yIndex * 32 + 32 - firstRect.top);
+        loc = firstRect.top;
+    }
+    
+    int xStart = (int) firstRect.left / 32;
+    int xEnd = (int) (firstRect.left + firstRect.width) / 32;
+    if (yIndex != (int) (loc) / 32)
+    {
+        for (int x = xStart; x <= xEnd; ++x)
+        {
+            if (m_brickList[yIndex % m_size.y][x % m_size.x] != nullptr &&
+                m_brickList[yIndex % m_size.y][x % m_size.x]->isBlock({0, deltaY}))
+            {
+                return toReturn;
+            }
+        }
+    }
+    if (deltaY < 0)
+    {
+        return deltaY;
+    }
+    // here y is positive, we are going down
+    // need to check with arrow
+    sf::FloatRect afterMoveRect = firstRect;
+    afterMoveRect.top += deltaY;
+
+    for (auto arrow: m_arrowList)
+    {
+        if (arrow->getBoundingRect().intersects(afterMoveRect) &&
+            !arrow->getBoundingRect().intersects(firstRect))
+        {
+            deltaY = std::min(deltaY,
+                              arrow->getBoundingRect().top - firstRect.top - firstRect.height - 0.001f);
+        }
+    }
+    return deltaY;
 }

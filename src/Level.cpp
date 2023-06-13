@@ -1,4 +1,5 @@
 #include "Level.h"
+#include "Arrow.h"
 #include "Brick.h"
 #include "BlueBrick.h"
 #include "BlackBrick.h"
@@ -28,8 +29,9 @@ Level::Level(const std::string &mapName)
             {
                 m_character = new Character({i*32, j*32}, 
                                             &m_map,
-                                            [&](std::unique_ptr<MovingObject> &&m)
+                                            [&](std::unique_ptr<Arrow> &&m)
                                             {
+                                                m_map.addArrow(m.get());
                                                 m_objects.push_back(std::move(m));
                                             }
                                             );
@@ -65,6 +67,8 @@ void Level::run()
             m_objects[i]->update(deltaTime);
             if(!m_objects[i]->isAlive())
             {
+                // todo: fix this
+                m_map.removveArrow((Arrow*)(m_objects[i].get()));
                 m_objects.erase(m_objects.begin() + i);
             }
         }

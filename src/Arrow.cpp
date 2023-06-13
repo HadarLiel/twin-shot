@@ -38,18 +38,22 @@ void Arrow::update(const sf::Time &deltaTime)
     {
         m_speed.x = -400;
     }
+
+    m_deltaPos = {m_speed.x * deltaTime.asSeconds(),
+                  m_speed.y * deltaTime.asSeconds()};
     
     sf::FloatRect rect = getBoundingRect();
-    
-    if(!tryMove({0,m_deltaPos.y}))
-    {
-        m_isOnGround = m_deltaPos.y > 0;
-        m_speed.y = 0;
-    }
-    if(!tryMove({m_deltaPos.x,0}))
+    sf::Vector2<bool> successMove = tryMove(m_deltaPos);
+
+    if(!successMove.x)
     {
         m_canUpdatePos = false;
         m_speed.x = 0;
+    }
+    if(!successMove.y)
+    {
+        m_isOnGround = m_deltaPos.y > 0;
+        m_speed.y = 0;
     }
     
 
@@ -58,8 +62,6 @@ void Arrow::update(const sf::Time &deltaTime)
     //physics formula to find position by speed and axeleration (�����)
     //posT = pos0 + speed0 * T
 
-    m_deltaPos = {m_speed.x * deltaTime.asSeconds(),
-                  m_speed.y * deltaTime.asSeconds()};
 
     m_isOnGround = false;
     
