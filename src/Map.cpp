@@ -1,5 +1,9 @@
+
 #include <iostream>
 #include "Map.h"
+#include <SFML/Graphics.hpp>
+#include "Arrow.h"
+
 
 Map::Map(const sf::Vector2u &size) :
         m_size(size)
@@ -85,12 +89,10 @@ bool Map::isCollide(const sf::FloatRect &firstRect,
                     {
                         return true;
                     }
+
+
                 }
             }
-
-
-
-            std::cout << firstPos.x << " " << firstPos.y << std::endl;
 
             
         }
@@ -112,6 +114,7 @@ Map::Map(const Map &oldMap)
 
 
 
+
 const Brick * const &Map::operator[](const sf::Vector2u &pos) const
 {
     sf::Vector2u pos_mod = sf::Vector2u(pos.x % m_size.x, pos.y % m_size.y);
@@ -121,6 +124,21 @@ Brick * &Map::operator[](const sf::Vector2u &pos)
 {
     sf::Vector2u pos_mod = sf::Vector2u(pos.x % m_size.x, pos.y % m_size.y);
     return m_brickList[pos_mod.y][pos_mod.x];
+}
+
+void Map::addArrow(Arrow* arrow)
+{
+    m_arrowList.push_back(arrow);
+}
+
+void Map::removveArrow(Arrow* arrow)
+{
+    auto it = std::find(m_arrowList.begin(), m_arrowList.end(), arrow);
+    if (it != m_arrowList.end())
+    {
+        m_arrowList.erase(it);
+    }
+        
 }
 
 Brick *&Map::operator()(unsigned int y, unsigned int x)

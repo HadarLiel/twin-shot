@@ -19,5 +19,4 @@ protected:
 
 private:
     const Map* m_map;
-   
 };

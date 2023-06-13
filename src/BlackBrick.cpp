@@ -19,3 +19,4 @@ void BlackBrick::draw(sf::RenderTarget &target, sf::RenderStates states) const
     shape.setPosition(getBoundingRect().left, getBoundingRect().top);
     target.draw(shape, states);
 }
+

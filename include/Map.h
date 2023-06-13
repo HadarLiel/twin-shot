@@ -3,18 +3,14 @@
 #include <vector>
 #include "Brick.h"
 
+class Arrow;
+
 class Map
 {
 public:
     explicit Map(const sf::Vector2u &m_size = {0, 0});
 
     Map(const Map &oldMap);
-//
-//    Map(Map &&oldMap);
-//
-//    Map &operator=(const Map &oldMap);
-//    
-//    ~Map();
 
     void restart(const sf::Vector2u &size);
 
@@ -32,8 +28,14 @@ public:
     const Brick * const &operator[] (const sf::Vector2u &pos) const;
     Brick * &operator[] (const sf::Vector2u &pos);
 
+    void addArrow(Arrow* arrow);
+    void removveArrow(Arrow* arrow);
+
 private:
     // m_brickList[y][x] and not m_brickList[x][y]
     std::vector<std::vector<Brick *>> m_brickList;
+
+    std::vector<Arrow *> m_arrowList;
+
     sf::Vector2u m_size;
 };
