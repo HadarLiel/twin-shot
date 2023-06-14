@@ -26,8 +26,8 @@ public:
     [[nodiscard]] bool isCollide(const sf::FloatRect &firstRect,
                                  const sf::Vector2f &deltaMove) const;
 
-    //todo: uint to int?
-    const Brick * const &operator() (unsigned int y, unsigned int x) const;
+    
+    const Brick * const &operator() (int y, int x) const;
     Brick * &operator() (unsigned int y, unsigned int x);
     const Brick * const &operator[] (const sf::Vector2u &pos) const;
     Brick * &operator[] (const sf::Vector2u &pos);

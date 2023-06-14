@@ -14,8 +14,7 @@ public:
    
 
 protected:
-    // todo: why not `const&`?
-    sf::Vector2<bool> tryMove(sf::Vector2f delta);
+    sf::Vector2<bool> tryMove(const sf::Vector2f &delta);
    
 
 private:

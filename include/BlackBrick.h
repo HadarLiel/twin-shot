@@ -9,5 +9,4 @@ public:
     [[nodiscard]] bool isBlock(const sf::Vector2f &deltaMove) const override;
 
 private:
-
 };

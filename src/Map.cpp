@@ -87,7 +87,7 @@ Brick *&Map::operator()(unsigned int y, unsigned int x)
     return m_brickList[pos_mod.y][pos_mod.x];
 }
 
-const Brick *const &Map::operator()(unsigned int y, unsigned int x) const
+const Brick *const &Map::operator()(int y, int x) const
 {
     sf::Vector2u pos_mod = sf::Vector2u(x % m_size.x, y % m_size.y);
     return m_brickList[pos_mod.y][pos_mod.x];
@@ -124,21 +124,32 @@ float Map::MaxMoveX(const sf::FloatRect &firstRect, float deltaX) const
     }
     
     int yStart = (int) firstRect.top / 32;
+
+
+    //x < 0 when we do x/32 it will give us ceil(x/32) when we need floor(x/32)
+    if (firstRect.top < 0)
+    {
+        yStart -= 1;
+    }
     int yEnd = (int) (firstRect.top + firstRect.height) / 32;
     if (xIndex != (int) (loc) / 32)
     {
-        std::cout << xIndex << " diff\n";
+        xIndex = (xIndex + m_size.x) % m_size.x;
+        
         for (int y = yStart; y <= yEnd; ++y)
         {
-            std::cout << (y % m_size.y) << " " 
-                      << (xIndex % m_size.x) << " "
-                      << (m_brickList[y % m_size.y][xIndex % m_size.x] == nullptr) << "\n";
-            
-            if (m_brickList[y % m_size.y][xIndex % m_size.x] != nullptr &&
-                m_brickList[y % m_size.y][xIndex % m_size.x]->isBlock({deltaX, 0}))
+            if (m_brickList[(y + m_size.y) % m_size.y][xIndex] != nullptr &&
+                m_brickList[(y + m_size.y) % m_size.y][xIndex]->isBlock({deltaX, 0}))
             {
-                std::cout << xIndex << " block " << toReturn << "\n";
+                
                 return toReturn;
+            }
+        }
+        for (int y = yStart; y <= yEnd; ++y)
+        {
+            if (xIndex == 45)
+            {
+                 std::cout << (y + m_size.y) % m_size.y << std::endl;
             }
         }
     }
@@ -167,13 +178,17 @@ float Map::MaxMoveY(const sf::FloatRect &firstRect, float deltaY) const
     int xEnd = (int) (firstRect.left + firstRect.width) / 32;
     if (yIndex != (int) (loc) / 32)
     {
+        yIndex = (yIndex + m_size.y) % m_size.y;
+        
         for (int x = xStart; x <= xEnd; ++x)
         {
-            if (m_brickList[yIndex % m_size.y][x % m_size.x] != nullptr &&
-                m_brickList[yIndex % m_size.y][x % m_size.x]->isBlock({0, deltaY}))
+            if (m_brickList[yIndex][(x + m_size.x) % m_size.x] != nullptr &&
+                m_brickList[yIndex][(x + m_size.x) % m_size.x]->isBlock({ 0, deltaY }))
             {
+
                 return toReturn;
             }
+            
         }
     }
     if (deltaY < 0)

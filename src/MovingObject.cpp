@@ -17,7 +17,7 @@ bool MovingObject::collideDD1(Object *other_object)
     return other_object->collideDD2(*this);
 }
 
-sf::Vector2<bool> MovingObject::tryMove(sf::Vector2f delta)
+sf::Vector2<bool> MovingObject::tryMove(const sf::Vector2f &delta)
 {
     
     sf::Vector2f deltaNew = m_map->maxMove(getBoundingRect(), delta);

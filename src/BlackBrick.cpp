@@ -1,4 +1,5 @@
 #include "BlackBrick.h"
+#include <iostream>
 
 BlackBrick::BlackBrick(sf::Vector2u pos) :
         Brick(pos)
@@ -8,7 +9,7 @@ BlackBrick::BlackBrick(sf::Vector2u pos) :
 
 bool BlackBrick::isBlock(const sf::Vector2f &deltaMove) const
 {
-    return true;
+    return true;   
 }
 
 void BlackBrick::draw(sf::RenderTarget &target, sf::RenderStates states) const
