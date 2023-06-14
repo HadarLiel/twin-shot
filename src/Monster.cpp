@@ -55,7 +55,7 @@ void Monsters::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(rect, states);
 }
 
-bool Monsters::collideDD1(Object* other_object)
+bool Monsters::collideDD1(Object &other_object)
 {
-    return other_object->collideDD2(*this);
+    return other_object.collideDD2(*this);
 }

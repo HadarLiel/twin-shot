@@ -21,3 +21,8 @@ void BlackBrick::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(shape, states);
 }
 
+bool BlackBrick::collideDD1(Object& other_object)
+{
+    return other_object.collideDD2(*this);
+}
+

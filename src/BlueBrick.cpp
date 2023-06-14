@@ -30,3 +30,8 @@ bool BlueBrick::isBlock(const sf::Vector2f &deltaMove) const
     }
     return deltaMove.y > 0; 
 }
+
+bool BlueBrick::collideDD1(Object& other_object)
+{
+    return other_object.collideDD2(*this);
+}

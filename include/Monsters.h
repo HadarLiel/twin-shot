@@ -13,7 +13,7 @@ public:
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    bool collideDD1(Object* other_object) override;
+    bool collideDD1(Object& other_object);
 
 
 private:

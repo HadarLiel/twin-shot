@@ -2,6 +2,7 @@
 
 #include "MovingObject.h"
 #include <functional>
+#include <SFML/Graphics.hpp>
 
 class Character : public MovingObject
 {
@@ -14,7 +15,9 @@ public:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-    bool collideDD1(Object *other_object) override;
+    bool collideDD1(Object& other_object);
+
+    bool collideDD2(Monsters& other_object);
 
 
 
@@ -25,4 +28,7 @@ private:
     bool m_is_space;
     std::function<void(std::unique_ptr<Arrow>)> m_addArrowFunc;
     bool m_isLeft; //to check the direction to throw arrow
+
+    int m_lives;
+    
 };

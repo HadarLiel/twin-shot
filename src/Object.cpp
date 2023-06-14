@@ -27,30 +27,28 @@ sf::Vector2f Object::getCenter() const
                         m_boundingRect.top + m_boundingRect.height / 2);
 }
 
-bool Object::collideDD2(Object &other)
+bool Object::collideDD2(Monsters& other)
 {
     return false;
 }
 
-// by default
-bool Object::collideDD2(MovingObject &other)
+bool Object::collideDD2(Arrow& other)
 {
-    return collideDD2(static_cast<Object &>(other));
+    return false;
 }
 
-bool Object::collideDD2(Character &other)
+bool Object::collideDD2(BlueBrick& other)
 {
-    return collideDD2(static_cast<MovingObject &>(other));
+    return false;
 }
 
-bool Object::collideDD2(Brick &other)
+bool Object::collideDD2(BlackBrick& other)
 {
-    return collideDD2(static_cast<Object &>(other));
+    return false;
 }
-
-bool Object::collideDD1(Object *other_object)
+bool Object::collideDD2(Character& other)
 {
-    return other_object->collideDD2(*this);
+    return false;
 }
 
 //regular
@@ -58,9 +56,9 @@ void Object::collide(Object &other)
 {
     if (getBoundingRect().intersects(other.getBoundingRect()))
     {
-        if(!collideDD1(&other))
+        if(!collideDD1(other))
         {
-            other.collideDD1(this);
+            other.collideDD1(*this);
         }
     }
 }

@@ -3,6 +3,8 @@
 
 
 
+
+
 MovingObject::MovingObject(const sf::FloatRect &boundingRect,
                            const Map* bricksList):
         Object(boundingRect),
@@ -12,10 +14,7 @@ MovingObject::MovingObject(const sf::FloatRect &boundingRect,
 
 }
 
-bool MovingObject::collideDD1(Object *other_object)
-{
-    return other_object->collideDD2(*this);
-}
+
 
 sf::Vector2<bool> MovingObject::tryMove(const sf::Vector2f &delta)
 {

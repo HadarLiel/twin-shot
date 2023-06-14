@@ -2,9 +2,14 @@
 
 #include <SFML/Graphics.hpp>
 
-class MovingObject;
 class Character;
-class Brick;
+// todo: change to Monster (singular)
+class Monsters;
+class Arrow;
+class BlueBrick;
+class BlackBrick;
+
+
 
 class Object : public sf::Drawable
 {
@@ -24,27 +29,26 @@ public:
 
     /**
      * collide function for double dispatch
-     * mus be implemented in the derived class as follows:
+     * must be implemented in the derived class as follows:
      * ```
-     * bool collideDD(Object *other_object)
+     * bool collideDD1(Object &other_object)
      * {
-     *     return other_object->collideDD2(this);
+     *     return other_object.collideDD2(this);
      * }
      * ```
      */
-    virtual bool collideDD1(Object *other_object);
-
-    // Object
-    virtual bool collideDD2(Object &other);
-
-    // MovingObject
-    virtual bool collideDD2(MovingObject &other);
+    virtual bool collideDD1(Object &other_object) = 0;
 
     // Character
     virtual bool collideDD2(Character &other);
     
-    // Brick
-    virtual bool collideDD2(Brick &other);
+    virtual bool collideDD2(Monsters& other);
+
+    virtual bool collideDD2(Arrow& other);
+
+    virtual bool collideDD2(BlueBrick& other);
+
+    virtual bool collideDD2(BlackBrick& other);
 
 
     [[nodiscard]] const sf::FloatRect& getBoundingRect() const;

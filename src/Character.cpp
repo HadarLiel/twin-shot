@@ -82,8 +82,14 @@ void Character::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(rect, states);
 }
 
-bool Character::collideDD1(Object *other_object)
+bool Character::collideDD1(Object &other_object)
 {
-    return other_object->collideDD2(*this);
+    return other_object.collideDD2(*this);
+}
+
+bool Character::collideDD2(Monsters& other_object)
+{
+    m_lives--;
+    return true;
 }
 
