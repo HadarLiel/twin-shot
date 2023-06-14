@@ -59,3 +59,13 @@ bool Monsters::collideDD1(Object &other_object)
 {
     return other_object.collideDD2(*this);
 }
+
+bool Monsters::collideDD2(Arrow& other_object)
+{
+    if (other_object.isDamage())
+    {
+        die();
+        other_object.die();        
+    }
+    return true;
+}

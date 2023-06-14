@@ -46,6 +46,7 @@ private:
     std::vector<std::vector<Brick *>> m_brickList;
 
     std::vector<Arrow *> m_arrowList;
+    
 
     sf::Vector2u m_size;
 };

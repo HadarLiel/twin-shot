@@ -15,6 +15,8 @@ public:
 
     bool collideDD1(Object &other_object) override;
 
+    bool isDamage();
+
     
 private:
     sf::Vector2f m_deltaPos;
@@ -23,5 +25,6 @@ private:
     bool m_canUpdatePos;
     sf::Time m_leftTime;
     bool m_isLeft;
+    sf::Time m_sinceLastMonster;
 
 };

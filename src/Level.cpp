@@ -39,9 +39,9 @@ Level::Level(const std::string &mapName)
 
             else if (mapImage.getPixel(i, j) == sf::Color::Red)
             {
-                m_monster = new Monsters({ i * 32, j * 32 }, &m_map);
-                m_objects.push_back(std::unique_ptr<Object>(m_monster));
-                   
+                Monsters *monster = new Monsters({ i * 32, j * 32 }, &m_map);
+                m_monsterList.push_back(monster);
+                m_objects.push_back(std::unique_ptr<Monsters>(monster));
             }
         }
     }
@@ -69,6 +69,9 @@ void Level::run()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        std::erase_if(m_monsterList, [](Monsters* m) { return !m->isAlive(); });
+
+    
         for(int i = 0; i < m_objects.size(); ++i)
         {
             m_objects[i]->update(deltaTime);
@@ -80,10 +83,13 @@ void Level::run()
             }
         }
 
-        
-        for (auto& object : m_objects)
+        for (int i = 0; i < m_objects.size(); i++)
         {
-            m_character->collide(*object);
+            for (int j = i+1; j < m_objects.size(); j++)
+            {
+                m_objects[i]->collide(*(m_objects[j]));
+
+            }
         }
 
         view.setCenter(m_character->getCenter());
@@ -95,6 +101,15 @@ void Level::run()
         for (auto &object : m_objects)
         {
             window.draw(*object);
+            if (m_monsterList.empty())
+            {
+                //todo:fix when he need to mob=ve to the next level
+                sf::View v;
+                window.setView(v);
+                sf::CircleShape hod(100);
+                hod.setFillColor(sf::Color::Blue);
+                window.draw(hod);
+            }
         }
 
         window.display();

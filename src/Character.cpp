@@ -12,7 +12,8 @@ Character::Character(const sf::Vector2u &position,
         m_isOnGround(false),
         m_addArrowFunc(addArrowFunc),
         m_is_space(false),
-        m_lives(3)
+        m_lives(3),
+        m_sinceLastMonster(sf::seconds(5))
 {
     
    
@@ -20,6 +21,7 @@ Character::Character(const sf::Vector2u &position,
 
 void Character::update(const sf::Time &deltaTime)
 {
+    m_sinceLastMonster += deltaTime;
     int gravity = 600;
 
     m_speed += {0, gravity * deltaTime.asSeconds()}; //20=m/s^2
@@ -50,14 +52,16 @@ void Character::update(const sf::Time &deltaTime)
     bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     if (!m_is_space && space)
     {
-        m_addArrowFunc(std::make_unique<Arrow>(sf::Vector2u(rect.left + rect.width/2, rect.top + rect.height/2), getMap(), m_isLeft));
+        float left = rect.left;
+        if (!m_isLeft)
+        {
+            left -= 2 * 32 - rect.width;
+        }
+        m_addArrowFunc(std::make_unique<Arrow>(sf::Vector2u(left, rect.top + rect.height/2), getMap(), m_isLeft));
     }
     m_is_space = space;
     
 
-    //the new gravity
-    //physics formula to find position by speed and axeleration (�����)
-    //posT = pos0 + speed0 * T
 
     m_deltaPos = {m_speed.x * deltaTime.asSeconds(),
                   m_speed.y * deltaTime.asSeconds()};
@@ -82,7 +86,19 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
         sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
     rect.setPosition(getBoundingRect().left, getBoundingRect().top);
     rect.setFillColor(sf::Color::Green);
-    target.draw(rect, states);
+    if (m_sinceLastMonster < sf::seconds(5))
+    {
+        sf::Int64 sec = m_sinceLastMonster.asMicroseconds();
+        sec %= sf::seconds(0.1 * 2).asMicroseconds();
+        if (sec > sf::seconds(0.1).asMicroseconds())
+        {
+            target.draw(rect, states);
+        }
+    }
+    else
+    {
+        target.draw(rect, states);
+    }
 
     sf::Font font;
     if (!font.loadFromFile("resources/arial.ttf"))
@@ -108,7 +124,11 @@ bool Character::collideDD1(Object &other_object)
 
 bool Character::collideDD2(Monsters& other_object)
 {
-    m_lives--;
+    if (m_sinceLastMonster > sf::seconds(5))
+    {
+        m_sinceLastMonster = sf::Time::Zero;
+        m_lives--;
+    }
     return true;
 }
 

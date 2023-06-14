@@ -18,5 +18,6 @@ private:
 
     Map m_map;
     Character *m_character;
-    Monsters* m_monster;
+    std::vector<Monsters*> m_monsterList;
+
 };

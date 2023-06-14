@@ -15,10 +15,13 @@ public:
 
     bool collideDD1(Object& other_object);
 
+    bool collideDD2(Arrow& other_object);
+
 
 private:
     sf::Vector2f m_deltaPos;
     sf::Vector2f m_speed;
     bool m_isOnGround;
     bool m_isLeft;
+    
 };

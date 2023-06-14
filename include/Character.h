@@ -28,6 +28,7 @@ private:
     bool m_is_space;
     std::function<void(std::unique_ptr<Arrow>)> m_addArrowFunc;
     bool m_isLeft; //to check the direction to throw arrow
+    sf::Time m_sinceLastMonster;
 
     int m_lives;
     
