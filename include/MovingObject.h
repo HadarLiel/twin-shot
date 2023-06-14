@@ -11,6 +11,8 @@ public:
     bool collideDD1(Object *other_object) override;
     
     [[nodiscard]] const Map* getMap() const;
+
+    //virtual bool collideDD2(Character* character);
    
 
 protected:

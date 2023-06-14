@@ -17,6 +17,7 @@ public:
     bool collideDD1(Object *other_object) override;
 
 
+
 private:
     sf::Vector2f m_deltaPos;
     sf::Vector2f m_speed;

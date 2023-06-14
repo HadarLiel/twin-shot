@@ -25,7 +25,7 @@ Level::Level(const std::string &mapName)
                 m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }
-            else if(mapImage.getPixel(i, j) == sf::Color::Red)
+            else if(mapImage.getPixel(i, j) == sf::Color::Green)
             {
                 m_character = new Character({i*32, j*32}, 
                                             &m_map,
@@ -35,6 +35,13 @@ Level::Level(const std::string &mapName)
                                                 m_objects.push_back(std::move(m));
                                             }
                                             );
+            }
+
+            else if (mapImage.getPixel(i, j) == sf::Color::Red)
+            {
+                m_monster = new Monsters({ i * 32, j * 32 }, &m_map);
+                m_objects.push_back(std::unique_ptr<Object>(m_monster));
+                   
             }
         }
     }

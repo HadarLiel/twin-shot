@@ -86,3 +86,4 @@ bool Character::collideDD1(Object *other_object)
 {
     return other_object->collideDD2(*this);
 }
+

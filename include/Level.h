@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "Brick.h"
 #include "Character.h"
+#include "Monsters.h"
 
 class Level
 {
@@ -17,4 +18,5 @@ private:
 
     Map m_map;
     Character *m_character;
+    Monsters* m_monster;
 };
