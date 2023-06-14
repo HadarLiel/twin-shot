@@ -2,6 +2,7 @@
 
 #include "MovingObject.h"
 #include <functional>
+#include <SFML/Graphics.hpp>
 
 class Character : public MovingObject
 {
@@ -25,4 +26,7 @@ private:
     bool m_is_space;
     std::function<void(std::unique_ptr<Arrow>)> m_addArrowFunc;
     bool m_isLeft; //to check the direction to throw arrow
+
+    int m_lives;
+    
 };
