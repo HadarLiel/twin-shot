@@ -55,13 +55,6 @@ void Arrow::update(const sf::Time &deltaTime)
         m_isOnGround = m_deltaPos.y > 0;
         m_speed.y = 0;
     }
-    
-
-
-    //the new gravity
-    //physics formula to find position by speed and axeleration (�����)
-    //posT = pos0 + speed0 * T
-
 
     m_isOnGround = false;
     

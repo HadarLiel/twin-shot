@@ -1,5 +1,7 @@
 #include "Character.h"
 #include "Arrow.h"
+#include <iostream>
+#include "Consts.h"
 
 Character::Character(const sf::Vector2u &position,
                      const Map *map,
@@ -9,14 +11,15 @@ Character::Character(const sf::Vector2u &position,
         m_speed(0, 0),
         m_isOnGround(false),
         m_addArrowFunc(addArrowFunc),
-        m_is_space(false)
+        m_is_space(false),
+        m_lives(3)
 {
-
+    
+   
 }
 
 void Character::update(const sf::Time &deltaTime)
 {
-
     int gravity = 600;
 
     m_speed += {0, gravity * deltaTime.asSeconds()}; //20=m/s^2
@@ -47,7 +50,7 @@ void Character::update(const sf::Time &deltaTime)
     bool space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     if (!m_is_space && space)
     {
-        m_addArrowFunc(std::make_unique<Arrow>(sf::Vector2u(rect.left, rect.top), getMap(), m_isLeft));
+        m_addArrowFunc(std::make_unique<Arrow>(sf::Vector2u(rect.left + rect.width/2, rect.top + rect.height/2), getMap(), m_isLeft));
     }
     m_is_space = space;
     
@@ -73,13 +76,29 @@ void Character::update(const sf::Time &deltaTime)
     }
 }
 
-void Character::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::RectangleShape rect(
-            sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
+        sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
     rect.setPosition(getBoundingRect().left, getBoundingRect().top);
     rect.setFillColor(sf::Color::Green);
     target.draw(rect, states);
+
+    sf::Font font;
+    if (!font.loadFromFile("resources/arial.ttf"))
+    {
+        // Handle font loading error
+        std::cout << "not load text\n";
+    }
+
+    sf::Text textlives("Lives: " + std::to_string(m_lives), font);
+    textlives.setFillColor(sf::Color::Black);
+    textlives.setPosition(Window_Width / buttonWidth, Window_Height / buttonHeight);
+    sf::View oldview = target.getView();
+    sf::View newView(sf::FloatRect(0.0f, 0.0f , target.getSize().x, target.getSize().y));
+    target.setView(newView);
+    target.draw(textlives);
+    target.setView(oldview);
 }
 
 bool Character::collideDD1(Object &other_object)
