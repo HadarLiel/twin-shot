@@ -12,7 +12,7 @@ Arrow::Arrow(const sf::Vector2u &position,
         m_canUpdatePos(true),
         m_leftTime(sf::seconds(5)),
         m_isLeft(isLeft),
-        m_sinceLastMonster(sf::seconds(3))
+        m_sinceLastBlock(sf::seconds(3))
 {
 
 }
@@ -50,10 +50,8 @@ void Arrow::update(const sf::Time &deltaTime)
 
     if(!successMove.x)
     {
-        if (m_sinceLastMonster > sf::seconds(3))
-        {
-            m_sinceLastMonster = sf::Time::Zero;
-        }
+        m_leftTime = (sf::seconds(5));
+       
         m_canUpdatePos = false;
         m_speed.x = 0;
     }
@@ -75,9 +73,9 @@ void Arrow::draw(sf::RenderTarget &target, sf::RenderStates states) const
     rect.setPosition(getBoundingRect().left, getBoundingRect().top);
     rect.setFillColor(sf::Color::Magenta);
 
-    if (m_sinceLastMonster < sf::seconds(3))
+    if (m_leftTime < sf::seconds(1))
     {
-        sf::Int64 sec = m_sinceLastMonster.asMicroseconds();
+        sf::Int64 sec = m_leftTime.asMicroseconds();
         sec %= sf::seconds(0.1 * 2).asMicroseconds();
         if (sec > sf::seconds(0.1).asMicroseconds())
         {
@@ -89,7 +87,7 @@ void Arrow::draw(sf::RenderTarget &target, sf::RenderStates states) const
         target.draw(rect, states);
     }
 
-    target.draw(rect, states);
+    //target.draw(rect, states);
 }
 
 bool Arrow::collideDD1(Object &other_object)

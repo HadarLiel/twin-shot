@@ -25,6 +25,6 @@ private:
     bool m_canUpdatePos;
     sf::Time m_leftTime;
     bool m_isLeft;
-    sf::Time m_sinceLastMonster;
+    sf::Time m_sinceLastBlock;
 
 };
