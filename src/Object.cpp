@@ -42,6 +42,11 @@ bool Object::collideDD2(BlueBrick& other)
     return false;
 }
 
+bool Object::collideDD2(YellowBrick& other)
+{
+    return false;
+}
+
 bool Object::collideDD2(BlackBrick& other)
 {
     return false;

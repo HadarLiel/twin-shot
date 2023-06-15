@@ -21,6 +21,7 @@ public:
 
 
 
+
 private:
     sf::Vector2f m_deltaPos;
     sf::Vector2f m_speed;

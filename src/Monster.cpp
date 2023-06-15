@@ -35,8 +35,6 @@ void Monsters::update(const sf::Time& deltaTime)
         }
     }
     
-
-
     m_deltaPos = { m_speed.x * deltaTime.asSeconds(),
                   m_speed.y * deltaTime.asSeconds() };
 
@@ -49,6 +47,7 @@ void Monsters::update(const sf::Time& deltaTime)
     {
         m_isLeft = !m_isLeft;
     }
+
     if (!success.y)
     {
         m_isFalling = false;

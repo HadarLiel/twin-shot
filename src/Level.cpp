@@ -3,6 +3,7 @@
 #include "Brick.h"
 #include "BlueBrick.h"
 #include "BlackBrick.h"
+#include "YellowBrick.h"
 
 Level::Level(const std::string &mapName)
 {
@@ -25,6 +26,13 @@ Level::Level(const std::string &mapName)
                 m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }
+            if (mapImage.getPixel(i, j) == sf::Color::Yellow)
+            {
+                auto brick = new YellowBrick({ i,j }, &m_map);
+                m_map.addBrick(brick);
+                m_objects.push_back(std::unique_ptr<Object>(brick));
+            }
+
             else if(mapImage.getPixel(i, j) == sf::Color::Green)
             {
                 m_character = new Character({i*32, j*32}, 
@@ -109,6 +117,7 @@ void Level::run()
                 sf::CircleShape hod(100);
                 hod.setFillColor(sf::Color::Blue);
                 window.draw(hod);
+                window.setView(view);
             }
         }
 

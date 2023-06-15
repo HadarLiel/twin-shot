@@ -100,6 +100,7 @@ sf::Vector2f Map::maxMove(const sf::FloatRect &firstRect,
     sf::FloatRect currentRect = firstRect;
     sf::Vector2f maxDelta = deltaMove;
     maxDelta.x = MaxMoveX(currentRect, deltaMove.x);
+    currentRect.left += maxDelta.x;
     maxDelta.y = MaxMoveY(currentRect, deltaMove.y);
     return maxDelta;
 }
