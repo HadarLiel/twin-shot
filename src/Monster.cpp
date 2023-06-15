@@ -8,7 +8,8 @@ Monsters::Monsters(const sf::Vector2u& position,
     m_deltaPos(0, 0),
     m_speed(0, 0),
     m_isOnGround(false),
-    m_isLeft(false)
+    m_isLeft(false),
+    m_isFalling(false)
 {
 
 }
@@ -20,11 +21,20 @@ void Monsters::update(const sf::Time& deltaTime)
 
     m_speed += {0, gravity* deltaTime.asSeconds()}; //20=m/s^2
 
-    m_speed.x = 100;
-    if (m_isLeft)
+    
+    if (m_isFalling)
     {
-        m_speed.x = -100;
+        m_speed.x = 0;
     }
+    else
+    {
+        m_speed.x = 100;
+        if (m_isLeft)
+        {
+            m_speed.x = -100;
+        }
+    }
+    
 
 
     m_deltaPos = { m_speed.x * deltaTime.asSeconds(),
@@ -41,9 +51,16 @@ void Monsters::update(const sf::Time& deltaTime)
     }
     if (!success.y)
     {
+        m_isFalling = false;
         m_isOnGround = m_deltaPos.y > 0;
         m_speed.y = 0;
     }
+    else
+    {
+        m_isFalling = true;
+    }
+
+    
 }
 
 void Monsters::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -23,5 +23,7 @@ private:
     sf::Vector2f m_speed;
     bool m_isOnGround;
     bool m_isLeft;
+
+    bool m_isFalling;
     
 };
