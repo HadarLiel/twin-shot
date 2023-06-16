@@ -1,18 +1,18 @@
-#include "BlackBrick.h"
+#include "BlockBrick.h"
 #include <iostream>
 
-BlackBrick::BlackBrick(sf::Vector2u pos) :
+BlockBrick::BlockBrick(sf::Vector2u pos) :
         Brick(pos)
 {
 
 }
 
-bool BlackBrick::isBlock(const sf::Vector2f &deltaMove) const
+bool BlockBrick::isBlock(const sf::Vector2f &deltaMove) const
 {
     return true;   
 }
 
-void BlackBrick::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void BlockBrick::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     sf::RectangleShape shape;
     shape.setSize(sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
@@ -21,7 +21,7 @@ void BlackBrick::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(shape, states);
 }
 
-bool BlackBrick::collideDD1(Object& other_object)
+bool BlockBrick::collideDD1(Object& other_object)
 {
     return other_object.collideDD2(*this);
 }

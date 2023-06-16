@@ -20,8 +20,6 @@ public:
     bool collideDD2(Monsters& other_object);
 
 
-
-
 private:
     sf::Vector2f m_deltaPos;
     sf::Vector2f m_speed;
