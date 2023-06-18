@@ -6,6 +6,7 @@
 #include "Brick.h"
 #include "Character.h"
 #include "Monsters.h"
+#include "Buttons.h"
 
 class Level
 {
@@ -20,4 +21,6 @@ private:
     Character *m_character;
     std::vector<Monsters*> m_monsterList;
 
+
+    Buttons m_buttons;
 };

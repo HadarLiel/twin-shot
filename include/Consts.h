@@ -12,7 +12,9 @@ const int Window_Width = 1000.0f;
 const float buttonWidth = 300.0f;
 const float buttonHeight = 80.0f;
 
-const int num_Buttons = 5;
+const int num_Menu_Buttons = 5;
+
+const int num_Back_Buttons = 1;
 
 const int Num_Char_Types = 5; //princess
 
@@ -29,11 +31,11 @@ static const std::vector<std::string> buttons_types =
 	"New_Game", "Design", "Settings", "Help", "Exit" 
 };
 
-// Define the names of the colors and car pictures
-static const std::vector<std::string> design_buttons_types =
-{
-	"back", "save"
-};
+//// Define the names of the colors and car pictures
+//static const std::vector<std::string> design_buttons_types =
+//{
+//	"back", "save"
+//};
 
 // Define the names of the colors and car pictures
 static const std::vector<std::string> help_buttons_types =

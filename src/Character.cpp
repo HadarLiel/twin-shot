@@ -22,7 +22,6 @@ Character::Character(const sf::Vector2u &position,
 void Character::update(const sf::Time &deltaTime)
 {
     m_sinceLastMonster += deltaTime;
-
     int gravity = 600;
 
     m_speed += {0, gravity * deltaTime.asSeconds()}; //20=m/s^2
@@ -132,3 +131,4 @@ bool Character::collideDD2(Monsters& other_object)
     }
     return true;
 }
+

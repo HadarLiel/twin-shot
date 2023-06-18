@@ -1,26 +1,33 @@
 #include "Buttons.h"
-
+#include "Resources.h"
 
 Buttons::Buttons()
 {
 }
 
 
-void Buttons::draw_buttons_types(sf::RenderWindow& window)
+void Buttons::drawMenuButtons(sf::RenderWindow& window)
 {
     
-    for (const std::string& button : buttons_types)
-    {
-        sf::Texture m_texture;
-        std::string filename = "resources/" + button + "_button.png";
-        if (!m_texture.loadFromFile(filename))
-        {
-            std::cerr << "Failed to load texture: " << filename << std::endl;
-            // Handle the error accordingly
-        }
-        buttons_Textures.push_back(m_texture);
-    }
+    //for (const std::string& button : buttons_types)
+    //{
+    //    sf::Texture m_texture;
+    //    std::string filename = "resources/Buttons/" + button + "_button.png";
+    //    if (!m_texture.loadFromFile(filename))
+    //    {
+    //        std::cerr << "Failed to load texture: " << filename << std::endl;
+    //        // Handle the error accordingly
+    //    }
+    //    buttons_Textures.push_back(m_texture);
+    //}
 
+    for (int i = 0; i < num_Menu_Buttons; i++)
+    {
+        sf::Texture texture;
+        texture = Resources::instance().getButtonMenuTexture((i + 1) + Resources::ButtonsMenu::bm_Start);
+        buttons_Textures.push_back(texture);
+
+    }
 
     float totalButtonHeight = buttonHeight * buttons_Textures.size() + 50 * (buttons_Textures.size() - 1);
     float startY = (Window_Height - totalButtonHeight +30) / 2.0f; // Center vertically
@@ -30,8 +37,8 @@ void Buttons::draw_buttons_types(sf::RenderWindow& window)
     {
         sf::Sprite m_sprite;
 
-
-        m_sprite.setTexture(buttons_Textures[i]);
+        m_sprite.setTexture(Resources::instance().getButtonMenuTexture((i + 1) + Resources::ButtonsMenu::bm_Start));
+        //m_sprite.setTexture(buttons_Textures[i]);
         m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
 
         
@@ -56,29 +63,40 @@ void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
 
     // Load the textures for buttons
 
-    for (const std::string& button : design_buttons_types)
+    //for (const std::string& button : design_buttons_types)
+    //{
+    //    sf::Texture m_texture;
+    //    std::string filename = "resources/Buttons/" + button + "_button.png";
+    //    if (!m_texture.loadFromFile(filename))
+    //    {
+    //        std::cerr << "Failed to load texture: " << filename << std::endl;
+    //        // Handle the error accordingly
+    //    }
+    //    design_buttons_Textures.push_back(m_texture);
+    //}
+
+    for (int i = 0; i < num_Design_Buttons; i++)
     {
-        sf::Texture m_texture;
-        std::string filename = "resources/" + button + "_button.png";
-        if (!m_texture.loadFromFile(filename))
-        {
-            std::cerr << "Failed to load texture: " << filename << std::endl;
-            // Handle the error accordingly
-        }
-        design_buttons_Textures.push_back(m_texture);
+        sf::Texture texture;
+        texture = Resources::instance().getButtonDesignTexture((i + 1) + Resources::ButtonsDesign::bd_Start);
+        design_buttons_Textures.push_back(texture);
     }
 
     // Create sprites for buttons
 
     for (size_t i = 0; i < design_buttons_Textures.size(); ++i)
     {
+
         sf::Sprite m_sprite;
+        m_sprite.setTexture(Resources::instance().getButtonDesignTexture((i + 1) + Resources::ButtonsDesign::bd_Start));
+
+        /*sf::Sprite m_sprite;
 
 
-        m_sprite.setTexture(design_buttons_Textures[i]);
+        m_sprite.setTexture(design_buttons_Textures[i]);*/
         m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
 
-        m_sprite.setPosition(50 + i * (Window_Width / (design_buttons_types.size() + design_buttons_Textures.size())), 50);
+        m_sprite.setPosition(50 + i * (Window_Width / (design_buttons_Textures.size() + design_buttons_Textures.size())), 50);
         design_buttons_Buttons.push_back(m_sprite);
 
         // Store the global bounds of the sprite
@@ -93,39 +111,49 @@ void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
 
 void Buttons::draw_help_buttons_types(sf::RenderWindow& window)
 {
-    help_buttons_Textures.clear();
-    help_buttons_Buttons.clear();
+    game_buttons_Textures.clear();
+    game_buttons_Buttons.clear();
 
     // Load the textures for buttons
 
-    for (const std::string& button : help_buttons_types)
+    //for (const std::string& button : help_buttons_types)
+    //{
+    //    sf::Texture m_texture;
+    //    std::string filename = "resources/Buttons/" + button + "_button.png";
+    //    if (!m_texture.loadFromFile(filename))
+    //    {
+    //        std::cerr << "Failed to load texture: " << filename << std::endl;
+    //        // Handle the error accordingly
+    //    }
+    //    help_buttons_Textures.push_back(m_texture);
+    //}
+
+    for (int i = 0; i < num_Back_Buttons; i++)
     {
-        sf::Texture m_texture;
-        std::string filename = "resources/" + button + "_button.png";
-        if (!m_texture.loadFromFile(filename))
-        {
-            std::cerr << "Failed to load texture: " << filename << std::endl;
-            // Handle the error accordingly
-        }
-        help_buttons_Textures.push_back(m_texture);
+        sf::Texture texture;
+        texture = Resources::instance().getButtonGameTexture((i + 1) + Resources::ButtonsGame::bg_Start);
+        game_buttons_Textures.push_back(texture);
     }
 
     // Create sprites for buttons
 
-    for (size_t i = 0; i < help_buttons_Textures.size(); ++i)
+    for (size_t i = 0; i < game_buttons_Textures.size(); ++i)
     {
         sf::Sprite m_sprite;
 
+        m_sprite.setTexture(Resources::instance().getButtonGameTexture((i + 1) + Resources::ButtonsGame::bg_Start));
 
-        m_sprite.setTexture(help_buttons_Textures[i]);
+        //m_sprite.setTexture(game_buttons_Textures[i]);
         m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
 
-        m_sprite.setPosition(50 + i * (Window_Width / (help_buttons_types.size() + help_buttons_Textures.size())), 300);
-        help_buttons_Buttons.push_back(m_sprite);
+        //m_sprite.setPosition(50 + i * (Window_Width / (help_buttons_types.size() + game_buttons_Textures.size())), 300);
+
+        m_sprite.setPosition( i * (Window_Width / (help_buttons_types.size() + game_buttons_Textures.size())), 200);
+        game_buttons_Buttons.push_back(m_sprite);
 
         // Store the global bounds of the sprite
         sf::FloatRect bounds = m_sprite.getGlobalBounds();
-        helpButtonBounds.push_back(bounds);
+        gameButtonBounds.push_back(bounds);
     }
 
 
@@ -147,7 +175,7 @@ const std::vector<sf::Sprite>& Buttons::getDesignButtons() const
 
 const std::vector<sf::Sprite>& Buttons::getHelpButtons() const
 {
-    return help_buttons_Buttons;
+    return game_buttons_Buttons;
 }
 
 
@@ -162,9 +190,9 @@ const std::vector<sf::FloatRect>& Buttons::getDesignButtonBounds() const
 }
 
 
-const std::vector<sf::FloatRect>& Buttons::getHelpButtonBounds() const
+const std::vector<sf::FloatRect>& Buttons::getGameButtonBounds() const
 {
-    return helpButtonBounds;
+    return gameButtonBounds;
 }
 
 const std::vector<sf::Sprite>& Buttons::getTypes() const

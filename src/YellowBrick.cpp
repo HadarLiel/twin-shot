@@ -1,8 +1,9 @@
-#include "FallBrick.h"
+#include "YellowBrick.h"
 #include "Map.h"
+#include "Character.h"
 #include <iostream>
 
-FallBrick::FallBrick(sf::Vector2u pos, const Map* map) :
+YellowBrick::YellowBrick(sf::Vector2u pos, const Map* map) :
     Brick(pos),
     m_map(map) //,
     //m_showTime(sf::seconds(5))
@@ -10,7 +11,7 @@ FallBrick::FallBrick(sf::Vector2u pos, const Map* map) :
 
 }
 
-void FallBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void YellowBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 
     sf::RectangleShape shape;
@@ -24,9 +25,6 @@ void FallBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
     collide_shape.setFillColor(sf::Color::Red);
     collide_shape.setPosition(shape.getPosition().x, shape.getPosition().y);
 
-    //todo: add to m_object
-
-   
     /*if (m_showTime < sf::seconds(5))
     {
         sf::Int64 sec = m_showTime.asMicroseconds();
@@ -48,7 +46,7 @@ void FallBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 // collide make stop
-bool FallBrick::isBlock(const sf::Vector2f& deltaMove) const
+bool YellowBrick::isBlock(const sf::Vector2f& deltaMove) const
 {
     if (deltaMove.x < 0 && (*m_map)[{getPosition().x + 1, getPosition().y}] == nullptr)
     {
@@ -59,28 +57,35 @@ bool FallBrick::isBlock(const sf::Vector2f& deltaMove) const
         return true;
     }
 
-    if (deltaMove.y < 0)
-    {
-        return false;
-    }
+    //if (deltaMove.y < 0)
+    //{
+    //    return false;
+    //}
 
-    else
-    {
-        std::cout << "need to fall after 5 seconds\n";
-        
+    //else
+    //{
+    //    std::cout << "need to fall after 5 seconds\n";
+    //    if (m_showTime > sf::seconds(5))
+    //    {
+    //        m_needChangeTime = true;
+    //    }
 
-        
-        return true;
-        //we want to let him stop but fall
+    //    return true;
+    //    //we want to let him stop but fall
 
-    }
+    //}
 
-    //return deltaMove.y > 0;
+    return deltaMove.y > 0;
 }
 
-bool FallBrick::collideDD1(Object& other_object)
+bool YellowBrick::collideDD1(Object& other_object)
 {
     return other_object.collideDD2(*this);
 }
 
+bool YellowBrick::collideDD2(Character& other_object)
+{
+    
+    return true;
+}
 

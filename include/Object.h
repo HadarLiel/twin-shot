@@ -6,9 +6,9 @@ class Character;
 // todo: change to Monster (singular)
 class Monsters;
 class Arrow;
-class PassBrick;
-class BlockBrick;
-class FallBrick;
+class BlueBrick;
+class BlackBrick;
+class YellowBrick;
 
 
 
@@ -47,11 +47,11 @@ public:
 
     virtual bool collideDD2(Arrow& other);
 
-    virtual bool collideDD2(PassBrick& other);
+    virtual bool collideDD2(BlueBrick& other);
 
-    virtual bool collideDD2(BlockBrick& other);
+    virtual bool collideDD2(BlackBrick& other);
 
-    virtual bool collideDD2(FallBrick& other);
+    virtual bool collideDD2(YellowBrick& other);
 
 
     [[nodiscard]] const sf::FloatRect& getBoundingRect() const;

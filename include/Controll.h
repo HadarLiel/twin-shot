@@ -16,8 +16,8 @@ public:
 private:
 	sf::RenderWindow m_window;
 
-	sf::Texture m_buttonTexture[num_Buttons];
-	sf::Sprite m_buttonSprite[num_Buttons];
+	sf::Texture m_buttonTexture[num_Menu_Buttons];
+	sf::Sprite m_buttonSprite[num_Menu_Buttons];
 
 	sf::RectangleShape* selectedButton = nullptr;  // Variable to store the selected button
 

@@ -37,17 +37,17 @@ bool Object::collideDD2(Arrow& other)
     return false;
 }
 
-bool Object::collideDD2(PassBrick& other)
+bool Object::collideDD2(BlueBrick& other)
 {
     return false;
 }
 
-bool Object::collideDD2(FallBrick& other)
+bool Object::collideDD2(YellowBrick& other)
 {
     return false;
 }
 
-bool Object::collideDD2(BlockBrick& other)
+bool Object::collideDD2(BlackBrick& other)
 {
     return false;
 }

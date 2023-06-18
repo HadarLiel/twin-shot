@@ -1,9 +1,10 @@
 #include "Controll.h"
 #include "Consts.h"
 #include <unordered_map>
+#include "Resources.h"
 
 Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin-shot", sf::Style::Close | sf::Style::Titlebar), 
-                        m_level("resources/hadar_map.png")
+                      m_level("resources/hadar_map.png")
 {
 
 }
@@ -12,7 +13,7 @@ Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin
 void Controll::run()
 {
 
-    m_buttons.draw_buttons_types(m_window);
+    m_buttons.drawMenuButtons(m_window);
 
 
    /* //load character
@@ -85,7 +86,10 @@ void Controll::run()
                                 if (i == 0) //if "New Game"
                                 {
                                     std::cout << "new game\n";
+                                    //todo: start new game every time we press new game
                                     m_level.run();
+
+                                    m_window.clear();
                                 }
 
                                 else if (i ==1)

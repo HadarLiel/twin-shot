@@ -56,7 +56,7 @@ void Help::run()
                         worldMousePos = window.mapPixelToCoords(mousePosition);
 
                         // Access the button bounds
-                        const std::vector<sf::FloatRect>& buttonTypesBounds = m_buttons.getHelpButtonBounds();
+                        const std::vector<sf::FloatRect>& buttonTypesBounds = m_buttons.getGameButtonBounds();
 
                         // Iterate over each button bounds to check if the mouse position is within any of them
                         for (size_t i = 0; i < buttonTypesBounds.size(); ++i)
