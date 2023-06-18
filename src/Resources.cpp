@@ -39,6 +39,11 @@ const sf::Texture& Resources::getMonsterTexture(int index_type) const
 	return m_monster[index_type];
 }
 
+const sf::Texture& Resources::getBrickTexture(int index_type) const
+{
+	return m_brick[index_type];
+}
+
 const sf::Texture& Resources::getMenuTexture(int index_type) const
 {
 	return m_menu[index_type];
@@ -93,6 +98,11 @@ void Resources::loadtexture()
 
 	m_menu.resize(MenuBackground::mb_Total);
 	m_menu[MenuBackground::mb_MenuBackground].loadFromFile("resources/menu_background.png");
+
+	m_brick.resize(Brick::b_Total);
+	m_brick[Brick::b_blockBrick].loadFromFile("resources/Bricks/blockBrick.png");
+	m_brick[Brick::b_fallBrick].loadFromFile("resources/Bricks/fallBrick.png");
+	m_brick[Brick::b_regularBrick].loadFromFile("resources/Bricks/regularBrick.png");
 
 }
 

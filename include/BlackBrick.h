@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Brick.h"
+
 class BlackBrick : public Brick
 {
 public:

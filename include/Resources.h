@@ -30,6 +30,14 @@ public:
 		m_Total
 	};
 
+	enum Brick
+	{
+		b_blockBrick ,
+		b_fallBrick,
+		b_regularBrick,
+		b_Total
+	};
+
 	enum MenuBackground
 	{
 		mb_MenuBackground,
@@ -79,6 +87,7 @@ public:
 	};
 
 
+
 	~Resources() = default;
 	static Resources& instance();
 	//const sf::Texture& getTexture(int index_type) const;
@@ -96,6 +105,8 @@ public:
 
 	const sf::Texture& getMonsterTexture(int index_type) const;
 
+	const sf::Texture& getBrickTexture(int index_type) const;
+
 	const sf::Texture& getMenuTexture(int index_type) const;
 
 	const sf::SoundBuffer& getGameMusic(int index) const;
@@ -103,6 +114,7 @@ public:
 
 private:
 	Resources();
+	//todo: ask hod if we need this
 	Resources(const Resources&);//copy 
 	Resources& operator= (const Resources&) = default;//copy 
 
@@ -118,6 +130,7 @@ private:
 
 	std::vector <sf::Texture> m_character;
 	std::vector <sf::Texture> m_monster;
+	std::vector <sf::Texture> m_brick;
 	std::vector <sf::Texture> m_menu;
 	std::vector <sf::Texture> m_buttonsDesign;
 	std::vector <sf::Texture> m_buttonsGame;

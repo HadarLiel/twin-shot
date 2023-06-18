@@ -51,18 +51,6 @@ void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
 
     // Load the textures for buttons
 
-    //for (const std::string& button : design_buttons_types)
-    //{
-    //    sf::Texture m_texture;
-    //    std::string filename = "resources/Buttons/" + button + "_button.png";
-    //    if (!m_texture.loadFromFile(filename))
-    //    {
-    //        std::cerr << "Failed to load texture: " << filename << std::endl;
-    //        // Handle the error accordingly
-    //    }
-    //    design_buttons_Textures.push_back(m_texture);
-    //}
-
     for (int i = 0; i < Resources::bd_Total-1; i++)
     {
         sf::Texture texture;

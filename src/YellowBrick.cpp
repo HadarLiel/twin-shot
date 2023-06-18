@@ -13,36 +13,29 @@ YellowBrick::YellowBrick(sf::Vector2u pos, const Map* map) :
 
 void YellowBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    sf::Sprite sprite;
+    sprite.setTexture(Resources::instance().getBrickTexture(0));
+    sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
+        getBoundingRect().height / sprite.getTexture()->getSize().y);
+    sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
 
-    sf::RectangleShape shape;
+    target.draw(sprite, states);
+
+    /*sf::RectangleShape shape;
     shape.setSize(sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
     shape.setFillColor(sf::Color::Yellow);
-    shape.setPosition(getBoundingRect().left, getBoundingRect().top);
+    shape.setPosition(getBoundingRect().left, getBoundingRect().top);*/
 
 
-    sf::RectangleShape collide_shape;
+   /* sf::RectangleShape collide_shape;
     collide_shape.setSize(sf::Vector2f(getBoundingRect().width, 1));
     collide_shape.setFillColor(sf::Color::Red);
-    collide_shape.setPosition(shape.getPosition().x, shape.getPosition().y);
+    collide_shape.setPosition(shape.getPosition().x, shape.getPosition().y);*/
 
-    /*if (m_showTime < sf::seconds(5))
-    {
-        sf::Int64 sec = m_showTime.asMicroseconds();
-        sec %= sf::seconds(0.1 * 2).asMicroseconds();
-        if (sec > sf::seconds(0.1).asMicroseconds())
-        {
-            target.draw(shape, states);
-            target.draw(collide_shape, states);
-        }
-    }
-    else
-    {
-        target.draw(shape, states);
-        target.draw(collide_shape, states);
-    }*/
+    
 
-    target.draw(shape, states);
-    target.draw(collide_shape, states);
+    /*target.draw(shape, states);
+    target.draw(collide_shape, states);*/
 }
 
 // collide make stop

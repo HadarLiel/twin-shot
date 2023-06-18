@@ -21,10 +21,8 @@ void Controll::run()
 
     m_buttons.drawMenuButtons(m_window);
 
-
-   //todo: change zero for other name that describe first place
     sf::Texture texture;
-    texture = Resources::instance().getMenuTexture(0);
+    texture = Resources::instance().getMenuTexture(firstIndex);
     // Create the background sprite
     sf::Sprite backgroundSprite(texture);
 
@@ -78,7 +76,7 @@ void Controll::run()
                                     m_menuMusic[Resources::sm_MenuMusic].stop();
                                     std::cout << "new game\n";
                                     //todo: start new game every time we press new game
-
+                                    //todo:send number level
                                     m_level.run();
 
                                 }

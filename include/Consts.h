@@ -24,6 +24,8 @@ const float princess_buttonHeight = 100.0f;
 const float princess_buttonWidth = 100.0f;
 
 
+const int firstIndex = 0;
+
 
 // Define the names of the buttom pictures
 static const std::vector<std::string> buttons_types =

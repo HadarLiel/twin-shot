@@ -1,5 +1,8 @@
 #pragma once
 #include "Object.h"
+#include "Resources.h"
+#include "Consts.h"
+
 class Brick: public Object
 {
 public:
