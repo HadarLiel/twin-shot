@@ -2,6 +2,7 @@
 #include "Arrow.h"
 #include <iostream>
 #include "Consts.h"
+#include "Resources.h"
 
 Character::Character(const sf::Vector2u &position,
                      const Map *map,
@@ -101,11 +102,8 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
     }
 
     sf::Font font;
-    if (!font.loadFromFile("resources/arial.ttf"))
-    {
-        // Handle font loading error
-        std::cout << "not load text\n";
-    }
+    font = Resources::instance().getFont();
+   
 
     sf::Text textlives("Lives: " + std::to_string(m_lives), font);
     textlives.setFillColor(sf::Color::Black);

@@ -4,7 +4,7 @@
 #include <vector>
 
 
-class Resources // חד פעמי ואי אפשר להעתיק סינגלטון
+class Resources 
 {
 public:
 	enum Character
@@ -28,6 +28,12 @@ public:
 		m_CaptainHook,
 		m_EvilQween,
 		m_Total
+	};
+
+	enum MenuBackground
+	{
+		mb_MenuBackground,
+		mb_Total
 	};
 
 	enum ButtonsMenu
@@ -56,27 +62,21 @@ public:
 		bg_Total
 	};
 
-	/*enum SoundsMenu
+	enum MusicGame
 	{
-		sm_menuMusic,
-		sm_playMusic,
-		sm_Total
-	};*/
+		sg_BelleMusic,
+		sg_CinderMusic,
+		sg_JasminMusic,
+		sg_PeterPenMusic,
+		sg_SnowWhiteMusic,
+		sg_Total
+	};
 
-	/*enum Sounds
+	enum musicMenu
 	{
-		s_eatSound,
-		s_deadSound,
-		s_olafSound,
-		s_timeSound,
-		s_superSound,
-		s_heartSound,
-		s_openDoorSound,
-		s_helpSound,
-		s_nextLevelSound,
-		s_gameOver,
-		s_Total
-	};*/
+		sm_MenuMusic,
+		sm_Total
+	};
 
 
 	~Resources() = default;
@@ -96,14 +96,21 @@ public:
 
 	const sf::Texture& getMonsterTexture(int index_type) const;
 
+	const sf::Texture& getMenuTexture(int index_type) const;
+
+	const sf::SoundBuffer& getGameMusic(int index) const;
+	const sf::SoundBuffer& getMenuMusic(int index) const;
+
 private:
 	Resources();
 	Resources(const Resources&);//copy 
 	Resources& operator= (const Resources&) = default;//copy 
 
 	void loadtexture();
-	/*void loadMusic();
-	void loadMenuMusic();*/
+	void loadGameMusic();
+	void loadMenuMusic();
+
+
 
 	/*int getSoundSize();*/
 
@@ -111,15 +118,16 @@ private:
 
 	std::vector <sf::Texture> m_character;
 	std::vector <sf::Texture> m_monster;
+	std::vector <sf::Texture> m_menu;
 	std::vector <sf::Texture> m_buttonsDesign;
 	std::vector <sf::Texture> m_buttonsGame;
 	std::vector <sf::Texture> m_buttonsMenu;
-	/*std::vector <sf::SoundBuffer > m_soundsBuffer;
+	std::vector <sf::SoundBuffer > m_GameSoundsBuffer;
 	std::vector <sf::SoundBuffer > m_MenuSoundsBuffer;
-	std::vector <sf::Sound > m_sounds;*/
+	/*std::vector <sf::Sound > m_sounds;*/
 
 	sf::Font m_font;
-	/*sf::Music music;*/
+	//sf::Music music;
 
 };
 

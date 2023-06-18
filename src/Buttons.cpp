@@ -9,19 +9,7 @@ Buttons::Buttons()
 void Buttons::drawMenuButtons(sf::RenderWindow& window)
 {
     
-    //for (const std::string& button : buttons_types)
-    //{
-    //    sf::Texture m_texture;
-    //    std::string filename = "resources/Buttons/" + button + "_button.png";
-    //    if (!m_texture.loadFromFile(filename))
-    //    {
-    //        std::cerr << "Failed to load texture: " << filename << std::endl;
-    //        // Handle the error accordingly
-    //    }
-    //    buttons_Textures.push_back(m_texture);
-    //}
-
-    for (int i = 0; i < num_Menu_Buttons; i++)
+    for (int i = 0; i < Resources::bm_Total-1; i++)
     {
         sf::Texture texture;
         texture = Resources::instance().getButtonMenuTexture((i + 1) + Resources::ButtonsMenu::bm_Start);
@@ -75,7 +63,7 @@ void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
     //    design_buttons_Textures.push_back(m_texture);
     //}
 
-    for (int i = 0; i < num_Design_Buttons; i++)
+    for (int i = 0; i < Resources::bd_Total-1; i++)
     {
         sf::Texture texture;
         texture = Resources::instance().getButtonDesignTexture((i + 1) + Resources::ButtonsDesign::bd_Start);
@@ -128,7 +116,7 @@ void Buttons::draw_help_buttons_types(sf::RenderWindow& window)
     //    help_buttons_Textures.push_back(m_texture);
     //}
 
-    for (int i = 0; i < num_Back_Buttons; i++)
+    for (int i = 0; i < Resources::bg_Total-1; i++)
     {
         sf::Texture texture;
         texture = Resources::instance().getButtonGameTexture((i + 1) + Resources::ButtonsGame::bg_Start);

@@ -1,11 +1,13 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Consts.h"
 #include "Buttons.h"
 #include "Level.h"
 #include "Design.h"
 #include "Help.h"
+#include "Resources.h"
 
 class Controll
 {
@@ -31,5 +33,7 @@ private:
 	Design m_design;
 
 	Help m_help;
+
+	sf::Sound m_menuMusic[Resources::sm_Total];
 };
 

@@ -3,8 +3,9 @@
 Resources::Resources()
 {
 	loadtexture();
-
-	m_font.loadFromFile("font.ttf");
+	loadGameMusic();
+	loadMenuMusic();
+	m_font.loadFromFile("resources/arial.ttf");
 }
 
 Resources& Resources::instance()
@@ -38,14 +39,26 @@ const sf::Texture& Resources::getMonsterTexture(int index_type) const
 	return m_monster[index_type];
 }
 
+const sf::Texture& Resources::getMenuTexture(int index_type) const
+{
+	return m_menu[index_type];
+}
+
 const sf::Font& Resources::getFont() const
 {
 	return m_font;
 }
 
 
+const sf::SoundBuffer& Resources::getGameMusic(int index) const
+{
+	return m_GameSoundsBuffer[index];
+}
 
-
+const sf::SoundBuffer& Resources::getMenuMusic(int index) const
+{
+	return m_MenuSoundsBuffer[index];
+}
 
 
 void Resources::loadtexture()
@@ -78,5 +91,25 @@ void Resources::loadtexture()
 	m_buttonsGame.resize(ButtonsGame::bg_Total);
 	m_buttonsGame[ButtonsGame::bg_back_button].loadFromFile("resources/ButtonsGame/back_button.png");
 
+	m_menu.resize(MenuBackground::mb_Total);
+	m_menu[MenuBackground::mb_MenuBackground].loadFromFile("resources/menu_background.png");
+
+}
+
+void Resources::loadGameMusic()
+{
+	m_GameSoundsBuffer.resize(MusicGame::sg_Total);
+	m_GameSoundsBuffer[MusicGame::sg_BelleMusic].loadFromFile("resources/Belle/BelleMusic.ogg");
+	m_GameSoundsBuffer[MusicGame::sg_CinderMusic].loadFromFile("resources/Cinder/CinderMusic.ogg");
+	m_GameSoundsBuffer[MusicGame::sg_JasminMusic].loadFromFile("resources/Jasmin/JasminMusic.ogg");
+	m_GameSoundsBuffer[MusicGame::sg_PeterPenMusic].loadFromFile("resources/PeterPen/PeterPenMusic.ogg");
+	m_GameSoundsBuffer[MusicGame::sg_SnowWhiteMusic].loadFromFile("resources/SnowWhite/SnowWhiteMusic.ogg");
+
+}
+
+void Resources::loadMenuMusic()
+{
+	m_MenuSoundsBuffer.resize(musicMenu::sm_Total);
+	m_MenuSoundsBuffer[musicMenu::sm_MenuMusic].loadFromFile("resources/MenuMusic.ogg");
 }
 

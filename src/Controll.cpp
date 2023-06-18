@@ -4,9 +4,15 @@
 #include "Resources.h"
 
 Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin-shot", sf::Style::Close | sf::Style::Titlebar), 
-                      m_level("resources/Level1.png")//m_level("resources/hadar_map.png")
+                      m_level("resources/Levels/Level1.png")//m_level("resources/hadar_map.png"),
+                      
 {
-
+    //todo:put it here?
+    ///in order to load the music
+    for (int index = 0; index < Resources::sm_Total; index++)
+    {
+        m_menuMusic[index].setBuffer(Resources::instance().getMenuMusic(index));
+    }
 }
 
 
@@ -16,45 +22,28 @@ void Controll::run()
     m_buttons.drawMenuButtons(m_window);
 
 
-   /* //load character
-    sf::Texture chracterTexture;
-    if (!chracterTexture.loadFromFile("resources/belle.png"))
-    {
-        std::cout << "Failed to load belle image." << std::endl;
-        // Handle the error
-    }
-
+   //todo: change zero for other name that describe first place
+    sf::Texture texture;
+    texture = Resources::instance().getMenuTexture(0);
     // Create the background sprite
-    sf::Sprite chracterSprite(chracterTexture);
+    sf::Sprite backgroundSprite(texture);
 
-    chracterSprite.setScale(((float)Window_Width) / chracterTexture.getSize().x,
-        ((float)Window_Height) / chracterTexture.getSize().y
-    );
-   */
-
-    // Load the game background image
-    sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("resources/menu_background.png"))
-    {
-        std::cout << "Failed to load background image." << std::endl;
-        // Handle the error
-    }
-
-    // Create the background sprite
-    sf::Sprite backgroundSprite(backgroundTexture);
-
-    backgroundSprite.setScale(((float)Window_Width) / backgroundTexture.getSize().x,
-        ((float)Window_Height) / backgroundTexture.getSize().y
-    );
+    backgroundSprite.setScale(((float)Window_Width) / texture.getSize().x,
+                             ((float)Window_Height) / texture.getSize().y);
+   
 
     
     sf::Vector2i mousePosition;
     // Convert mouse position to world coordinates
     sf::Vector2f worldMousePos;
 
+    m_menuMusic[Resources::sm_MenuMusic].play();
+    m_menuMusic[Resources::sm_MenuMusic].setLoop(true);
 
     while (m_window.isOpen())
     {
+        
+
         sf::Event event;
         while (m_window.pollEvent(event))
         {
@@ -83,17 +72,20 @@ void Controll::run()
 
                             if (buttonBounds[i].contains(worldMousePos))
                             {
+                                //todo: do it like this?
                                 if (i == 0) //if "New Game"
                                 {
+                                    m_menuMusic[Resources::sm_MenuMusic].stop();
                                     std::cout << "new game\n";
                                     //todo: start new game every time we press new game
+
                                     m_level.run();
 
-                                    m_window.clear();
                                 }
 
                                 else if (i ==1)
                                 {
+                                    m_menuMusic[Resources::sm_MenuMusic].stop();
                                     std::cout << "design button" << i << "\n";
                                     
                                     sf::Texture saveChar = m_design.run();
@@ -104,35 +96,44 @@ void Controll::run()
 
                                 else if (i == 2)
                                 {
+                                    m_menuMusic[Resources::sm_MenuMusic].stop();
                                     std::cout << "setting button" << i << "\n";
                                 }
 
                                 else if (i == 3)
                                 {
-                                   
+                                    //todo:change help
+                                    m_menuMusic[Resources::sm_MenuMusic].stop();
                                     m_help.run();
                                     std::cout << "help button" << i << "\n";
                                 }
 
                                 else
                                 {
+                                    m_menuMusic[Resources::sm_MenuMusic].stop();
                                     std::cout << "exit button" << i << "\n";
                                     m_window.close();
                                 }
                            }
 
 
-
                         }
 
+                        m_menuMusic[Resources::sm_MenuMusic].play();
+                        m_menuMusic[Resources::sm_MenuMusic].setLoop(true);
                     }
 
-
+                   
                }
 
+               
+
             }
+
         }
 
+            
+        
         //---------------
 
 

@@ -66,6 +66,8 @@ void Level::run()
     sf::View view;
     view.setSize(800, 600);
 
+    window.clear();
+
     m_buttons.draw_help_buttons_types(window);
 
     sf::Clock clock;
