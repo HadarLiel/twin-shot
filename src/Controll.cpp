@@ -4,7 +4,7 @@
 #include "Resources.h"
 
 Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin-shot", sf::Style::Close | sf::Style::Titlebar), 
-                      m_level("resources/hadar_map.png")
+                      m_level("resources/Level1.png")//m_level("resources/hadar_map.png")
 {
 
 }
