@@ -86,10 +86,8 @@ void Resources::loadtexture()
 	
 	m_objects[Objects::ARROW_ARROW].loadFromFile("resources/Arrow.png");
 
-
 	m_objects[Objects::BUTTONS_DESIGN_BACK].loadFromFile("resources/ButtonsDesign/back_button.png");
-	m_objects[Objects::BUTTONS_DESIGN_SAVE].loadFromFile("resources/ButtonsDesign/save_button.png");
-
+	
 	m_objects[Objects::BUTTONS_MENU_NEW_GAME].loadFromFile("resources/ButtonsMenu/New_Game_button.png");
 	m_objects[Objects::BUTTONS_MENU_DESIGN].loadFromFile("resources/ButtonsMenu/Design_button.png");
 	m_objects[Objects::BUTTONS_MENU_HELP].loadFromFile("resources/ButtonsMenu/Help_button.png");
