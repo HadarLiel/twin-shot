@@ -8,25 +8,22 @@ Buttons::Buttons()
 
 void Buttons::drawMenuButtons(sf::RenderWindow& window)
 {
-
-    loat totalButtonHeight = buttonHeight * buttons_Textures.size() + 50 * (buttons_Textures.size() - 1);
+    int numOfButtons = Resources::BUTTONS_MENU_END - Resources::BUTTONS_MENU_START + 1;
+    float totalButtonHeight = buttonHeight * numOfButtons + 50 * (numOfButtons - 1);
     float startY = (Window_Height - totalButtonHeight + 30) / 2.0f; // Center vertically
     
-    for (int i = Resources::bm_Start; i <= Resources::bm_Total; i++)
+    for (int i = 0; i < numOfButtons; i++)
     {
         sf::Sprite m_sprite;
-        sf::Texture texture;
-        texture = Resources::instance().getTexture((i) + Resources::Objects::bm_Start);
-        buttons_Textures.push_back(texture);
-
-        m_sprite.setTexture(texture);
+        
+        m_sprite.setTexture(Resources::instance().getTexture(i + Resources::BUTTONS_MENU_START));
         
         m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
 
         float posX = (Window_Width - m_sprite.getGlobalBounds().width) / 2.0f; // Center horizontally
         float posY = startY + i * (buttonHeight + 50);
 
-        m_sprite.setPosition(posX, posY);
+        m_sprite.setPosition(posX, posY);//(posX, posY);
         buttons_Buttons.push_back(m_sprite);
 
         // Store the global bounds of the sprite
@@ -35,61 +32,24 @@ void Buttons::drawMenuButtons(sf::RenderWindow& window)
 
     }
 
-    //float totalButtonHeight = buttonHeight * buttons_Textures.size() + 50 * (buttons_Textures.size() - 1);
-    //float startY = (Window_Height - totalButtonHeight +30) / 2.0f; // Center vertically
-
-
-    //for (size_t i = 0; i < buttons_Textures.size(); ++i)
-    //{
-    //    sf::Sprite m_sprite;
-
-    //    m_sprite.setTexture(Resources::instance().getTexture((i) + Resources::Objects::bm_Start));
-    //    //m_sprite.setTexture(buttons_Textures[i]);
-    //    m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
-
-    //    
-
-    //    float posX = (Window_Width - m_sprite.getGlobalBounds().width) / 2.0f; // Center horizontally
-    //    float posY = startY + i * (buttonHeight + 50);
-
-    //    m_sprite.setPosition(posX, posY);
-    //    buttons_Buttons.push_back(m_sprite);
-
-    //    // Store the global bounds of the sprite
-    //    sf::FloatRect bounds = m_sprite.getGlobalBounds();
-    //    buttonBounds.push_back(bounds);
-    //}
+    
 }
 
 void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
 {
-    design_buttons_Textures.clear();
     design_buttons_Buttons.clear();
 
-
+    int numOfButtons = Resources::BUTTONS_DESIGN_END - Resources::BUTTONS_DESIGN_START + 1;
     // Load the textures for buttons
-    for (int i = 0; i < Resources::bd_Total-1; i++)
+    for (int i = 0; i < numOfButtons; i++)
     {
-        sf::Texture texture;
-        texture = Resources::instance().getButtonDesignTexture((i + 1) + Resources::Objects::bd_Start);
-        design_buttons_Textures.push_back(texture);
-    }
-
-    // Create sprites for buttons
-
-    for (size_t i = 0; i < design_buttons_Textures.size(); ++i)
-    {
-
         sf::Sprite m_sprite;
-        m_sprite.setTexture(Resources::instance().getButtonDesignTexture((i + 1) + Resources::Objects::bd_Start));
 
-        /*sf::Sprite m_sprite;
+        m_sprite.setTexture(Resources::instance().getTexture(i + Resources::BUTTONS_DESIGN_START));
 
-
-        m_sprite.setTexture(design_buttons_Textures[i]);*/
         m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
 
-        m_sprite.setPosition(50 + i * (Window_Width / (design_buttons_Textures.size() + design_buttons_Textures.size())), 50);
+        m_sprite.setPosition(50 + i * (Window_Width / (numOfButtons *2)), 50);
         design_buttons_Buttons.push_back(m_sprite);
 
         // Store the global bounds of the sprite
@@ -97,59 +57,31 @@ void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
         designButtonBounds.push_back(bounds);
     }
 
-
-
 }
 
 
 void Buttons::draw_help_buttons_types(sf::RenderWindow& window)
 {
-    game_buttons_Textures.clear();
     game_buttons_Buttons.clear();
 
-    // Load the textures for buttons
+    int NumOfButtons = Resources::BUTTONS_GAME_END - Resources::BUTTONS_GAME_START + 1;
 
-    //for (const std::string& button : help_buttons_types)
-    //{
-    //    sf::Texture m_texture;
-    //    std::string filename = "resources/Buttons/" + button + "_button.png";
-    //    if (!m_texture.loadFromFile(filename))
-    //    {
-    //        std::cerr << "Failed to load texture: " << filename << std::endl;
-    //        // Handle the error accordingly
-    //    }
-    //    help_buttons_Textures.push_back(m_texture);
-    //}
-
-    for (int i = 0; i < Resources::bg_Total-1; i++)
-    {
-        sf::Texture texture;
-        texture = Resources::instance().getButtonGameTexture((i + 1) + Resources::Objects::bg_Start);
-        game_buttons_Textures.push_back(texture);
-    }
-
-    // Create sprites for buttons
-
-    for (size_t i = 0; i < game_buttons_Textures.size(); ++i)
+    for (int i = 0; i < NumOfButtons; i++)
     {
         sf::Sprite m_sprite;
 
-        m_sprite.setTexture(Resources::instance().getButtonGameTexture((i + 1) + Resources::Objects::bg_Start));
+        m_sprite.setTexture(Resources::instance().getTexture(i + Resources::BUTTONS_GAME_START));
 
-        //m_sprite.setTexture(game_buttons_Textures[i]);
         m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
 
-        //m_sprite.setPosition(50 + i * (Window_Width / (help_buttons_types.size() + game_buttons_Textures.size())), 300);
-
-        m_sprite.setPosition( i * (Window_Width / (help_buttons_types.size() + game_buttons_Textures.size())), 200);
+        m_sprite.setPosition(i * (Window_Width / (help_buttons_types.size() + NumOfButtons)), 200);
         game_buttons_Buttons.push_back(m_sprite);
 
         // Store the global bounds of the sprite
         sf::FloatRect bounds = m_sprite.getGlobalBounds();
         gameButtonBounds.push_back(bounds);
+
     }
-
-
 
 }
 

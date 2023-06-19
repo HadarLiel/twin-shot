@@ -14,7 +14,7 @@ YellowBrick::YellowBrick(sf::Vector2u pos, const Map* map) :
 void YellowBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::Sprite sprite;
-    sprite.setTexture(Resources::instance().getBrickTexture(0));
+    sprite.setTexture(Resources::instance().getTexture(Resources::BRICK_FALL_BRICK));
     sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
         getBoundingRect().height / sprite.getTexture()->getSize().y);
     sprite.setPosition(getBoundingRect().left, getBoundingRect().top);

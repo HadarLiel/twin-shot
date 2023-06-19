@@ -22,7 +22,7 @@ void Controll::run()
     m_buttons.drawMenuButtons(m_window);
 
     sf::Texture texture;
-    texture = Resources::instance().getMenuTexture(firstIndex);
+    texture = Resources::instance().getTexture(Resources::MENUBG_MENU_BACKGROUND);
     // Create the background sprite
     sf::Sprite backgroundSprite(texture);
 

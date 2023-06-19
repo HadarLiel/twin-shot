@@ -18,17 +18,15 @@ const sf::Texture& Design::run()
     create_princess_buttons();
 
 
-    m_charSprite.setTexture(Resources::instance().getCharacterTexture(1 + Resources::Objects::c_Start));
+    m_charSprite.setTexture(Resources::instance().getTexture(Resources::CHARCTER_START));
    
-
-
     //todo:change position
     m_charSprite.setPosition((window.getSize().x - m_charTexture.getSize().x) / 2,
         (window.getSize().y - m_charTexture.getSize().y) / 2);
     
  
     
-
+    //TODO:ADD TO SINGELTON
     // Load the game background image
     sf::Texture backgroundTexture;
     if (!backgroundTexture.loadFromFile("resources/design_background.png"))
@@ -96,15 +94,13 @@ const sf::Texture& Design::run()
                         }
 
                         //press on princess
-                        for (size_t j = 0; j < princessButtons.size(); ++j)
+                        for (size_t j = 0; j <= Resources::CHARCTER_END - Resources::CHARCTER_START; ++j)
                         {
                             if (princessButtons[j].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
                             {
                                 std::cout << "hi\n";
-                                m_charSprite.setTexture(Resources::instance().getCharacterTexture((j+1) + Resources::Objects::c_Start));
+                                m_charSprite.setTexture(Resources::instance().getTexture(j + Resources::CHARCTER_START));
 
-                               /* m_charTexture.loadFromFile("resources/princess/" + princess[j] + ".png");
-                                m_charSprite.setTexture(m_charTexture);*/
 
                             }
                         }
@@ -156,40 +152,28 @@ const sf::Texture& Design::run()
 
 void Design::create_princess_buttons()
 {
-    
+
     princessButtons.clear(); // Clear the previous buttons
     princessTextures.clear(); // Clear the previous textures
-    
+
     // Load the textures for color buttons
+    int NumOfButtons = Resources::CHARCTER_END - Resources::CHARCTER_START +1;
 
-    for (int i = 0; i < Num_Char_Types; i++)
+    for (int i = 0; i < NumOfButtons; i++)
     {
-        m_texture = Resources::instance().getCharacterTexture((i+1) + Resources::Objects::c_Start);
-        m_sprite.setTexture(m_texture);
-        princessTextures.push_back(m_texture);
-    }
+        m_sprite.setTexture(Resources::instance().getTexture(i + Resources::CHARCTER_START));
 
-   
-
-
-
-    // Create sprites for princess buttons
-
-    for (size_t i = 0; i < Num_Char_Types; ++i)
-    {
-        /*sf::Texture textu;
-        textu = Resources::instance().getTexture((i + 1) + Resources::Character::c_Start);*/
-        m_sprite.setTexture(Resources::instance().getCharacterTexture((i + 1) + Resources::Objects::c_Start));
         m_sprite.setScale((princess_buttonWidth) / m_sprite.getLocalBounds().width, (princess_buttonHeight) / m_sprite.getLocalBounds().height);
-       
+
         // Calculate the position of the button
-       
-        const float buttonX = Window_Width/buttonWidth; // Left side of the screen
+
+        const float buttonX = Window_Width / buttonWidth; // Left side of the screen
         const float buttonY = (i + 1) * (buttonHeight + 50);
 
         m_sprite.setPosition(buttonX, buttonY);
         princessButtons.push_back(m_sprite);
 
     }
+
 }
 
