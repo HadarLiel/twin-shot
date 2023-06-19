@@ -8,7 +8,7 @@ Design::Design()// :m_window(sf::VideoMode(Window_Width, Window_Height), "Design
 
 }
 
-sf::Texture Design::run()
+const sf::Texture& Design::run()
 {
    
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Design");
@@ -18,7 +18,7 @@ sf::Texture Design::run()
     create_princess_buttons();
 
 
-    m_charSprite.setTexture(Resources::instance().getCharacterTexture(1 + Resources::Character::c_Start));
+    m_charSprite.setTexture(Resources::instance().getCharacterTexture(1 + Resources::Objects::c_Start));
    
 
 
@@ -101,7 +101,7 @@ sf::Texture Design::run()
                             if (princessButtons[j].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
                             {
                                 std::cout << "hi\n";
-                                m_charSprite.setTexture(Resources::instance().getCharacterTexture((j+1) + Resources::Character::c_Start));
+                                m_charSprite.setTexture(Resources::instance().getCharacterTexture((j+1) + Resources::Objects::c_Start));
 
                                /* m_charTexture.loadFromFile("resources/princess/" + princess[j] + ".png");
                                 m_charSprite.setTexture(m_charTexture);*/
@@ -164,7 +164,7 @@ void Design::create_princess_buttons()
 
     for (int i = 0; i < Num_Char_Types; i++)
     {
-        m_texture = Resources::instance().getCharacterTexture((i+1) + Resources::Character::c_Start);
+        m_texture = Resources::instance().getCharacterTexture((i+1) + Resources::Objects::c_Start);
         m_sprite.setTexture(m_texture);
         princessTextures.push_back(m_texture);
     }
@@ -179,7 +179,7 @@ void Design::create_princess_buttons()
     {
         /*sf::Texture textu;
         textu = Resources::instance().getTexture((i + 1) + Resources::Character::c_Start);*/
-        m_sprite.setTexture(Resources::instance().getCharacterTexture((i + 1) + Resources::Character::c_Start));
+        m_sprite.setTexture(Resources::instance().getCharacterTexture((i + 1) + Resources::Objects::c_Start));
         m_sprite.setScale((princess_buttonWidth) / m_sprite.getLocalBounds().width, (princess_buttonHeight) / m_sprite.getLocalBounds().height);
        
         // Calculate the position of the button

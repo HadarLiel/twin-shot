@@ -8,13 +8,12 @@ class Design
 {
 public:
 	Design();
-	sf::Texture run();
+	const sf::Texture& run();
 	void create_princess_buttons();
 
 
 private:
 	
-	//????
 	sf::Texture m_charTexture;
 	sf::Sprite m_charSprite;
 
