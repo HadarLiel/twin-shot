@@ -4,7 +4,9 @@
 #include "Resources.h"
 
 Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin-shot", sf::Style::Close | sf::Style::Titlebar), 
-                      m_level("resources/Levels/Level1.png")//m_level("resources/hadar_map.png"),
+                      m_level("resources/Levels/Level1.png"),//m_level("resources/hadar_map.png"),
+                      m_indexCharacter(0)
+                     
                       
 {
     //todo:put it here?
@@ -77,7 +79,7 @@ void Controll::run()
                                     std::cout << "new game\n";
                                     //todo: start new game every time we press new game
                                     //todo:send number level
-                                    m_level.run();
+                                    m_level.run(m_indexCharacter);
 
                                 }
 
@@ -86,7 +88,9 @@ void Controll::run()
                                     m_menuMusic[Resources::sm_MenuMusic].stop();
                                     std::cout << "design button" << i << "\n";
                                     
-                                    sf::Texture saveChar = m_design.run();
+                                    m_indexCharacter = m_design.run();
+                                    
+                                    std::cout << m_indexCharacter <<"\n";
                                     //chracterSprite.setTexture(saveChar);
                                     
                                     //std::cout << "the princess now is: \n" ;
@@ -150,4 +154,9 @@ void Controll::run()
         m_window.display();
     }
 
+}
+
+int Controll::getIndexCharcter()
+{
+    return m_indexCharacter;
 }

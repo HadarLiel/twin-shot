@@ -9,7 +9,8 @@ class Character : public MovingObject
 public:
     explicit Character(const sf::Vector2u &position,
                        const Map *map,
-                       const std::function<void(std::unique_ptr<Arrow>)> &addArrow);
+                       const std::function<void(std::unique_ptr<Arrow>)> &addArrow,
+                       const int indexCharcter);
 
     void update(const sf::Time &deltaTime) override;
 
@@ -32,5 +33,7 @@ private:
     sf::Time m_sinceLastMonster;
 
     int m_lives;
+
+    int m_indexCharcter;
     
 };

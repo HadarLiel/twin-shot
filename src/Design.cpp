@@ -3,12 +3,12 @@
 #include <unordered_map>
 #include "Resources.h"
 
-Design::Design()// :m_window(sf::VideoMode(Window_Width, Window_Height), "Design", sf::Style::Close | sf::Style::Titlebar)
+Design::Design(): m_indexCharcater(Resources::CHARCTER_START)
 {
 
 }
 
-const sf::Texture& Design::run()
+const int Design::run()
 {
    
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Design");
@@ -16,24 +16,18 @@ const sf::Texture& Design::run()
     m_buttons.draw_design_buttons_types(window);
     
     create_princess_buttons();
+    const sf::Texture &m_charTexture = Resources::instance().getTexture(Resources::CHARCTER_START);
 
-
-    m_charSprite.setTexture(Resources::instance().getTexture(Resources::CHARCTER_START));
+    m_charSprite.setTexture(m_charTexture);
    
     //todo:change position
     m_charSprite.setPosition((window.getSize().x - m_charTexture.getSize().x) / 2,
         (window.getSize().y - m_charTexture.getSize().y) / 2);
     
  
-    
-    //TODO:ADD TO SINGELTON
     // Load the game background image
-    sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("resources/design_background.png"))
-    {
-        std::cout << "Failed to load background image." << std::endl;
-        // Handle the error
-    }
+    const sf::Texture & backgroundTexture = Resources::instance().getTexture(Resources::DESIGNBG_START);
+    
 
     // Create the background sprite
     sf::Sprite backgroundSprite(backgroundTexture);
@@ -84,9 +78,10 @@ const sf::Texture& Design::run()
 
                                 else
                                 {
-                                    m_saveChar = m_charTexture;
+                                   
                                     std::cout << "need to save\n";
-                                    return m_saveChar;
+                                   
+                                    return m_indexCharcater;
 
                                 }
                                 
@@ -99,6 +94,7 @@ const sf::Texture& Design::run()
                             if (princessButtons[j].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
                             {
                                 std::cout << "hi\n";
+                                m_indexCharcater = j + Resources::CHARCTER_START; //todo:check
                                 m_charSprite.setTexture(Resources::instance().getTexture(j + Resources::CHARCTER_START));
 
 
@@ -143,7 +139,7 @@ const sf::Texture& Design::run()
 
     
 
-    return m_saveChar;
+    return m_indexCharcater;
 
 }
 

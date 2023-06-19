@@ -4,17 +4,19 @@
 #include "Consts.h"
 #include "Resources.h"
 
-Character::Character(const sf::Vector2u &position,
-                     const Map *map,
-                     const std::function<void(std::unique_ptr<Arrow>)> &addArrowFunc):
-        MovingObject(sf::FloatRect(position.x, position.y, 32*1.9, 32*2.9), map),
-        m_deltaPos(0, 0),
-        m_speed(0, 0),
-        m_isOnGround(false),
-        m_addArrowFunc(addArrowFunc),
-        m_is_space(false),
-        m_lives(3),
-        m_sinceLastMonster(sf::seconds(5))
+Character::Character(const sf::Vector2u& position,
+    const Map* map,
+    const std::function<void(std::unique_ptr<Arrow>)>& addArrowFunc,
+    const int indexCharcter) :
+    MovingObject(sf::FloatRect(position.x, position.y, 32 * 1.9, 32 * 2.9), map),
+    m_deltaPos(0, 0),
+    m_speed(0, 0),
+    m_isOnGround(false),
+    m_addArrowFunc(addArrowFunc),
+    m_is_space(false),
+    m_lives(3),
+    m_sinceLastMonster(sf::seconds(5)),
+    m_indexCharcter (indexCharcter)
 {
     
    
@@ -83,22 +85,46 @@ void Character::update(const sf::Time &deltaTime)
 
 void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    sf::RectangleShape rect(
-        sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
-    rect.setPosition(getBoundingRect().left, getBoundingRect().top);
-    rect.setFillColor(sf::Color::Green);
+    sf::Sprite sprite;
+    sprite.setTexture(Resources::instance().getTexture(m_indexCharcter + Resources::CHARCTER_START));
+
+    //todo:change scale
+    //todo:not looking good
+    sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
+        getBoundingRect().height / sprite.getTexture()->getSize().y);
+    sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
+
+    //target.draw(sprite, states);
+    ////----------------
+    //sf::RectangleShape rect(
+    //    sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
+    //rect.setPosition(getBoundingRect().left, getBoundingRect().top);
+    //rect.setFillColor(sf::Color::Green);
     if (m_sinceLastMonster < sf::seconds(5))
     {
         sf::Int64 sec = m_sinceLastMonster.asMicroseconds();
         sec %= sf::seconds(0.1 * 2).asMicroseconds();
         if (sec > sf::seconds(0.1).asMicroseconds())
         {
-            target.draw(rect, states);
+            if (!m_isLeft)
+            {
+                sprite.scale(-1.f, 1.f);
+                sprite.setPosition(getBoundingRect().left + getBoundingRect().width, getBoundingRect().top);
+            }
+
+            
+            target.draw(sprite, states);
         }
     }
     else
     {
-        target.draw(rect, states);
+        if (!m_isLeft)
+        {
+            sprite.scale(-1.f, 1.f);
+            sprite.setPosition(getBoundingRect().left + getBoundingRect().width, getBoundingRect().top);
+
+        }
+        target.draw(sprite, states);
     }
 
     sf::Font font;

@@ -73,6 +73,7 @@ const sf::SoundBuffer& Resources::getMenuMusic(int index) const
 
 void Resources::loadtexture()
 {
+	//todo: add image og arrow
 
 	m_objects.resize(Objects::Total);
 
@@ -87,6 +88,9 @@ void Resources::loadtexture()
 	m_objects[Objects::MONSTER_JAFAR].loadFromFile("resources/Jasmin/Jafar.png");
 	m_objects[Objects::MONSTER_CAPTAIN_HOOK].loadFromFile("resources/PeterPen/CaptainHook.png");
 	m_objects[Objects::MONSTER_EVIL_QWEEN].loadFromFile("resources/SnowWhite/EvilQween.png");
+	
+	m_objects[Objects::ARROW_ARROW].loadFromFile("resources/Arrow.png");
+
 
 	m_objects[Objects::BUTTONS_DESIGN_BACK].loadFromFile("resources/ButtonsDesign/back_button.png");
 	m_objects[Objects::BUTTONS_DESIGN_SAVE].loadFromFile("resources/ButtonsDesign/save_button.png");
@@ -100,6 +104,8 @@ void Resources::loadtexture()
 	m_objects[Objects::BUTTONS_GAME_BACK].loadFromFile("resources/ButtonsGame/back_button.png");
 
 	m_objects[Objects::MENUBG_MENU_BACKGROUND].loadFromFile("resources/menu_background.png");
+
+	m_objects[Objects::DESIGNBG_DESIGN_BACKGROUND].loadFromFile("resources/design_background.png");
 
 	m_objects[Objects::BRICK_BLOCK_BRICK].loadFromFile("resources/Bricks/blockBrick.png");
 	m_objects[Objects::BRICK_FALL_BRICK].loadFromFile("resources/Bricks/fallBrick.png");

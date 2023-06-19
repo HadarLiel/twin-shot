@@ -14,6 +14,7 @@ class Controll
 public:
 	Controll();
 	void run();
+	int getIndexCharcter();
 
 private:
 	sf::RenderWindow m_window;
@@ -35,5 +36,7 @@ private:
 	Help m_help;
 
 	sf::Sound m_menuMusic[Resources::sm_Total];
+
+	int m_indexCharacter;
 };
 

@@ -3,13 +3,15 @@
 #include "Arrow.h"
 
 Monsters::Monsters(const sf::Vector2u& position,
-    const Map* map):
+    const Map* map,
+    const int indexCharacter):
     MovingObject(sf::FloatRect(position.x, position.y, 32 * 1.9, 32 * 2.9), map),
     m_deltaPos(0, 0),
     m_speed(0, 0),
     m_isOnGround(false),
     m_isLeft(false),
-    m_isFalling(false)
+    m_isFalling(false),
+    m_indexCharcater(indexCharacter)
 {
 
 }
@@ -64,11 +66,23 @@ void Monsters::update(const sf::Time& deltaTime)
 
 void Monsters::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    sf::RectangleShape rect(
-        sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
-    rect.setPosition(getBoundingRect().left, getBoundingRect().top);
-    rect.setFillColor(sf::Color::Red);
-    target.draw(rect, states);
+    sf::Sprite sprite;
+    sprite.setTexture(Resources::instance().getTexture(m_indexCharcater + Resources::MONSTER_START));
+
+    //todo:change scale
+    //todo:not looking good
+    sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
+        getBoundingRect().height / sprite.getTexture()->getSize().y);
+    sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
+
+    if (!m_isLeft)
+    {
+        sprite.scale(-1.f, 1.f);
+        sprite.setPosition(getBoundingRect().left + getBoundingRect().width, getBoundingRect().top);
+
+    }
+    
+    target.draw(sprite, states);
 }
 
 bool Monsters::collideDD1(Object &other_object)

@@ -7,7 +7,8 @@ class Monsters : public MovingObject
 {
 public:
     explicit Monsters(const sf::Vector2u& position,
-        const Map* map);
+        const Map* map,
+        const int indexCharacter);
 
     void update(const sf::Time& deltaTime) override;
 
@@ -25,5 +26,7 @@ private:
     bool m_isLeft;
 
     bool m_isFalling;
+
+    int m_indexCharcater;
     
 };

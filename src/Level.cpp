@@ -6,7 +6,8 @@
 #include "YellowBrick.h"
 #include "Consts.h"
 
-Level::Level(const std::string &mapName)
+//todo:get the correct index
+Level::Level(const std::string &mapName): m_indexCharacter(Resources::CHARCTER_START)
 {
     sf::Image mapImage;
     mapImage.loadFromFile(mapName);
@@ -43,13 +44,14 @@ Level::Level(const std::string &mapName)
                                             {
                                                 m_map.addArrow(m.get());
                                                 m_objects.push_back(std::move(m));
-                                            }
+                                            },
+                                            m_indexCharacter
                                             );
             }
 
             else if (mapImage.getPixel(i, j) == sf::Color::Red)
             {
-                Monsters *monster = new Monsters({ i * 32, j * 32 }, &m_map);
+                Monsters *monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter);
                 m_monsterList.push_back(monster);
                 m_objects.push_back(std::unique_ptr<Monsters>(monster));
             }
@@ -59,8 +61,9 @@ Level::Level(const std::string &mapName)
     m_objects.push_back(std::unique_ptr<Object>(m_character));
 }
 
-void Level::run()
+void Level::run(const int &indexCharacter)
 {
+    m_indexCharacter = indexCharacter;
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Twin Shot");
 
     window.setFramerateLimit(60);

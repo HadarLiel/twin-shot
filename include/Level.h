@@ -12,7 +12,7 @@ class Level
 {
 public:
     explicit Level(const std::string &mapPath);
-    void run();
+    void run(const int& indexCharacter);
 
 private:
     std::vector<std::unique_ptr<Object>> m_objects;
@@ -21,6 +21,7 @@ private:
     Character *m_character;
     std::vector<Monsters*> m_monsterList;
 
-
     Buttons m_buttons;
+    
+    int m_indexCharacter;
 };

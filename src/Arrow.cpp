@@ -68,23 +68,41 @@ void Arrow::update(const sf::Time &deltaTime)
 
 void Arrow::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    sf::RectangleShape rect(
-            sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
-    rect.setPosition(getBoundingRect().left, getBoundingRect().top);
-    rect.setFillColor(sf::Color::Magenta);
 
+    sf::Sprite sprite;
+    sprite.setTexture(Resources::instance().getTexture(Resources::ARROW_ARROW));
+
+    //todo:change scale
+    //todo:not looking good
+    sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
+        getBoundingRect().height / sprite.getTexture()->getSize().y);
+    sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
+
+    
     if (m_leftTime < sf::seconds(1))
     {
         sf::Int64 sec = m_leftTime.asMicroseconds();
         sec %= sf::seconds(0.1 * 2).asMicroseconds();
         if (sec > sf::seconds(0.1).asMicroseconds())
         {
-            target.draw(rect, states);
+            if (m_isLeft)
+            {
+                sprite.scale(-1.f, 1.f);
+                sprite.setPosition(getBoundingRect().left + getBoundingRect().width, getBoundingRect().top);
+
+            }
+            target.draw(sprite, states);
         }
     }
     else
     {
-        target.draw(rect, states);
+        if (m_isLeft)
+        {
+            sprite.scale(-1.f, 1.f);
+            sprite.setPosition(getBoundingRect().left + getBoundingRect().width, getBoundingRect().top);
+
+        }
+        target.draw(sprite, states);
     }
 
     //target.draw(rect, states);

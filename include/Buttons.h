@@ -27,15 +27,12 @@ public:
 
 private:
 	
-	//std::vector<sf::Texture> buttons_Textures;
 	std::vector<sf::Sprite> buttons_Buttons;
 	std::vector<sf::FloatRect> buttonBounds;
 
-	//std::vector<sf::Texture> design_buttons_Textures;
 	std::vector<sf::Sprite> design_buttons_Buttons;
 	std::vector<sf::FloatRect> designButtonBounds;
 
-	//std::vector<sf::Texture> game_buttons_Textures;
 	std::vector<sf::Sprite> game_buttons_Buttons;
 	std::vector<sf::FloatRect> gameButtonBounds;
 };
