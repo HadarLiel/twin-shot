@@ -29,13 +29,12 @@ private:
 
 	Buttons m_buttons;
 
-	Level m_level;
 
 	Design m_design;
 
 	Help m_help;
 
-	sf::Sound m_menuMusic[Resources::sm_Total];
+	sf::Sound m_music;
 
 	int m_indexCharacter;
 

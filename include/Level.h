@@ -11,12 +11,12 @@
 class Level
 {
 public:
-    explicit Level(const std::string &mapPath);
-    void run(const int& indexCharacter);
+    explicit Level(const std::string &mapPath, int index);
+    void run();
 
 private:
     std::vector<std::unique_ptr<Object>> m_objects;
-
+    sf::Sound m_sound;
     Map m_map;
     Character *m_character;
     std::vector<Monsters*> m_monsterList;

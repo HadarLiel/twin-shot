@@ -5,10 +5,13 @@
 #include "BlackBrick.h"
 #include "YellowBrick.h"
 #include "Consts.h"
+#include "Resources.h"
 
 //todo:get the correct index
-Level::Level(const std::string &mapName): m_indexCharacter(0)
+Level::Level(const std::string &mapName, int index): m_indexCharacter(index)
 {
+    m_sound.setBuffer(Resources::instance().getMusic(Resources::SOUND_GAME_START + m_indexCharacter));
+    m_sound.setLoop(true);
     sf::Image mapImage;
     mapImage.loadFromFile(mapName);
 
@@ -61,17 +64,11 @@ Level::Level(const std::string &mapName): m_indexCharacter(0)
     m_objects.push_back(std::unique_ptr<Object>(m_character));
 }
 
-void Level::run(const int &indexCharacter)
+void Level::run()
 {
-    m_character->setTextureIndex(indexCharacter);
-
-    for(Monsters *monster: m_monsterList)
-    {
-        monster->setTextureIndex(indexCharacter);
-    }
-
+    
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Twin Shot");
-
+    m_sound.play();
     window.setFramerateLimit(60);
     sf::View view;
     view.setSize(800, 600);

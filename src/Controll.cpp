@@ -4,23 +4,19 @@
 #include "Resources.h"
 
 Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin-shot", sf::Style::Close | sf::Style::Titlebar), 
-                      m_level("resources/Levels/Level1.png"),//m_level("resources/hadar_map.png"),
                       m_indexCharacter(0)
                      
                       
 {
-    //todo:put it here?
-    ///in order to load the music
-    for (int index = 0; index < Resources::sm_Total; index++)
-    {
-        m_menuMusic[index].setBuffer(Resources::instance().getMenuMusic(index));
-    }
+    m_music.setBuffer(Resources::instance().getMusic(Resources::SOUND_MENU_MENU));
+    m_music.setLoop(true);
+    m_music.setVolume(100);
 }
 
 
 void Controll::run()
 {
-
+    m_music.play();
     m_buttons.drawMenuButtons(m_window);
 
     sf::Texture texture;
@@ -37,8 +33,6 @@ void Controll::run()
     // Convert mouse position to world coordinates
     sf::Vector2f worldMousePos;
 
-    m_menuMusic[Resources::sm_MenuMusic].play();
-    m_menuMusic[Resources::sm_MenuMusic].setLoop(true);
 
     while (m_window.isOpen())
     {
@@ -75,20 +69,24 @@ void Controll::run()
                                 //todo: do it like this?
                                 if (i == 0) //if "New Game"
                                 {
-                                    m_menuMusic[Resources::sm_MenuMusic].stop();
+                                    
                                     std::cout << "new game\n";
                                     //todo: start new game every time we press new game
                                     //todo:send number level
-                                    m_level.run(m_indexCharacter);
+                                    m_music.stop();
+                                    Level level("resources/level1.png", m_indexCharacter);
+                                    level.run();
+                                    m_music.play();
 
                                 }
 
                                 else if (i ==1)
                                 {
-                                    m_menuMusic[Resources::sm_MenuMusic].stop();
                                     std::cout << "design button" << i << "\n";
-                                    
+
+                                    m_music.stop();
                                     m_indexCharacter = m_design.run();
+                                    m_music.play();
                                     
                                     std::cout << m_indexCharacter <<"\n";
                                     //chracterSprite.setTexture(saveChar);
@@ -98,31 +96,30 @@ void Controll::run()
 
                                 else if (i == 2)
                                 {
-                                    m_menuMusic[Resources::sm_MenuMusic].stop();
+                                    m_music.stop();
                                     std::cout << "setting button" << i << "\n";
+                                    m_music.play();
                                 }
 
                                 else if (i == 3)
                                 {
                                     //todo:change help
-                                    m_menuMusic[Resources::sm_MenuMusic].stop();
+                                    m_music.stop();
                                     m_help.run();
+                                    m_music.play();
                                     std::cout << "help button" << i << "\n";
                                 }
 
                                 else
                                 {
-                                    m_menuMusic[Resources::sm_MenuMusic].stop();
                                     std::cout << "exit button" << i << "\n";
                                     m_window.close();
                                 }
+                                
                            }
 
 
                         }
-
-                        m_menuMusic[Resources::sm_MenuMusic].play();
-                        m_menuMusic[Resources::sm_MenuMusic].setLoop(true);
                     }
 
                    

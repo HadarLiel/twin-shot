@@ -76,18 +76,20 @@ public:
 
 	enum MusicGame
 	{
-		sg_BelleMusic,
-		sg_CinderMusic,
-		sg_JasminMusic,
-		sg_PeterPenMusic,
-		sg_SnowWhiteMusic,
-		sg_Total
-	};
+		SOUND_GAME_START,
+		SOUND_GAME_BELLE = SOUND_GAME_START,
+		SOUND_GAME_CINDERELLA,
+		SOUND_GAME_JASMIN,
+		SOUND_GAME_PETER_PAN,
+		SOUND_GAME_SNOW_WHITE,
+		SOUND_GAME_END = SOUND_GAME_SNOW_WHITE,
 
-	enum musicMenu
-	{
-		sm_MenuMusic,
-		sm_Total
+		SOUND_MENU_START,
+		SOUND_MENU_MENU = SOUND_MENU_START,
+		SOUND_MENU_END = SOUND_MENU_MENU,
+
+		SOUND_TOTAL
+		
 	};
 
 
@@ -112,8 +114,7 @@ public:
 
 	const sf::Texture& getMenuTexture(int index_type) const;*/
 
-	const sf::SoundBuffer& getGameMusic(int index) const;
-	const sf::SoundBuffer& getMenuMusic(int index) const;
+	const sf::SoundBuffer& getMusic(int index) const;
 
 private:
 	Resources();
@@ -122,8 +123,7 @@ private:
 	Resources& operator= (const Resources&) = default;//copy 
 
 	void loadtexture();
-	void loadGameMusic();
-	void loadMenuMusic();
+	void loadMusic();
 
 
 
@@ -136,8 +136,7 @@ private:
 	std::vector <sf::Texture> m_buttonsDesign;
 	std::vector <sf::Texture> m_buttonsGame;
 	std::vector <sf::Texture> m_buttonsMenu;*/
-	std::vector <sf::SoundBuffer > m_GameSoundsBuffer;
-	std::vector <sf::SoundBuffer > m_MenuSoundsBuffer;
+	std::vector <sf::SoundBuffer > m_SoundsBuffer;
 	/*std::vector <sf::Sound > m_sounds;*/
 
 	sf::Font m_font;

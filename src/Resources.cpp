@@ -1,10 +1,10 @@
 #include "Resources.h"
 
+
 Resources::Resources()
 {
 	loadtexture();
-	loadGameMusic();
-	loadMenuMusic();
+	loadMusic();
 	m_font.loadFromFile("resources/arial.ttf");
 }
 
@@ -60,14 +60,9 @@ const sf::Texture& Resources::getTexture(int index_type) const
 }
 
 
-const sf::SoundBuffer& Resources::getGameMusic(int index) const
+const sf::SoundBuffer& Resources::getMusic(int index) const
 {
-	return m_GameSoundsBuffer[index];
-}
-
-const sf::SoundBuffer& Resources::getMenuMusic(int index) const
-{
-	return m_MenuSoundsBuffer[index];
+	return m_SoundsBuffer[index];
 }
 
 
@@ -112,58 +107,18 @@ void Resources::loadtexture()
 	m_objects[Objects::BRICK_REGULAR_BRICK].loadFromFile("resources/Bricks/regularBrick.png");
 
 
-	/*m_character.resize(Objects::c_Total);
-	m_character[Objects::c_Belle].loadFromFile("resources/Belle/belle.png");
-	m_character[Objects::c_Cinder].loadFromFile("resources/Cinder/cinderella.png");
-	m_character[Objects::c_Jasmin].loadFromFile("resources/Jasmin/jasmin.png");
-	m_character[Objects::c_PeterPen].loadFromFile("resources/PeterPen/peterPen.png");
-	m_character[Objects::c_SnowWhite].loadFromFile("resources/SnowWhite/snow.png");
-	
-	m_monster.resize(Objects::m_Total);
-	m_monster[Objects::m_Beast].loadFromFile("resources/Belle/Beast.png");
-	m_monster[Objects::m_EvilCinder].loadFromFile("resources/Cinder/EvilCinder.png");
-	m_monster[Objects::m_Jafar].loadFromFile("resources/Jasmin/Jafar.png");
-	m_monster[Objects::m_CaptainHook].loadFromFile("resources/PeterPen/CaptainHook.png");
-	m_monster[Objects::m_EvilQween].loadFromFile("resources/SnowWhite/EvilQween.png");
-
-	m_buttonsDesign.resize(Objects::bd_Total);
-	m_buttonsDesign[Objects::bd_back_button].loadFromFile("resources/ButtonsDesign/back_button.png");
-	m_buttonsDesign[Objects::bd_save_button].loadFromFile("resources/ButtonsDesign/save_button.png");
-
-	m_buttonsMenu.resize(Objects::bm_Total);
-	m_buttonsMenu[Objects::bm_New_Game_button].loadFromFile("resources/ButtonsMenu/New_Game_button.png");
-	m_buttonsMenu[Objects::bm_Design_button].loadFromFile("resources/ButtonsMenu/Design_button.png");
-	m_buttonsMenu[Objects::bm_Help_button].loadFromFile("resources/ButtonsMenu/Help_button.png");
-	m_buttonsMenu[Objects::bm_Settings_button].loadFromFile("resources/ButtonsMenu/Settings_button.png");
-	m_buttonsMenu[Objects::bm_Exit_button].loadFromFile("resources/ButtonsMenu/Exit_button.png");
-
-	m_buttonsGame.resize(Objects::bg_Total);
-	m_buttonsGame[Objects::bg_back_button].loadFromFile("resources/ButtonsGame/back_button.png");
-
-	m_menu.resize(Objects::mb_Total);
-	m_menu[Objects::mb_MenuBackground].loadFromFile("resources/menu_background.png");
-
-	m_brick.resize(Objects::b_Total);
-	m_brick[Objects::b_blockBrick].loadFromFile("resources/Bricks/blockBrick.png");
-	m_brick[Objects::b_fallBrick].loadFromFile("resources/Bricks/fallBrick.png");
-	m_brick[Objects::b_regularBrick].loadFromFile("resources/Bricks/regularBrick.png");*/
-
 }
 
-void Resources::loadGameMusic()
+void Resources::loadMusic()
 {
-	m_GameSoundsBuffer.resize(MusicGame::sg_Total);
-	m_GameSoundsBuffer[MusicGame::sg_BelleMusic].loadFromFile("resources/Belle/BelleMusic.ogg");
-	m_GameSoundsBuffer[MusicGame::sg_CinderMusic].loadFromFile("resources/Cinder/CinderMusic.ogg");
-	m_GameSoundsBuffer[MusicGame::sg_JasminMusic].loadFromFile("resources/Jasmin/JasminMusic.ogg");
-	m_GameSoundsBuffer[MusicGame::sg_PeterPenMusic].loadFromFile("resources/PeterPen/PeterPenMusic.ogg");
-	m_GameSoundsBuffer[MusicGame::sg_SnowWhiteMusic].loadFromFile("resources/SnowWhite/SnowWhiteMusic.ogg");
+	m_SoundsBuffer.resize(MusicGame::SOUND_TOTAL);
+	m_SoundsBuffer[MusicGame::SOUND_GAME_BELLE].loadFromFile("resources/Belle/BelleMusic.ogg");
+	m_SoundsBuffer[MusicGame::SOUND_GAME_CINDERELLA].loadFromFile("resources/Cinder/CinderMusic.ogg");
+	m_SoundsBuffer[MusicGame::SOUND_GAME_JASMIN].loadFromFile("resources/Jasmin/JasminMusic.ogg");
+	m_SoundsBuffer[MusicGame::SOUND_GAME_PETER_PAN].loadFromFile("resources/PeterPen/PeterPenMusic.ogg");
+	m_SoundsBuffer[MusicGame::SOUND_GAME_SNOW_WHITE].loadFromFile("resources/SnowWhite/SnowWhiteMusic.ogg");
+	m_SoundsBuffer[MusicGame::SOUND_MENU_MENU].loadFromFile("resources/MenuMusic.ogg");
 
 }
 
-void Resources::loadMenuMusic()
-{
-	m_MenuSoundsBuffer.resize(musicMenu::sm_Total);
-	m_MenuSoundsBuffer[musicMenu::sm_MenuMusic].loadFromFile("resources/MenuMusic.ogg");
-}
 
