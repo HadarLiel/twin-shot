@@ -8,7 +8,7 @@ Design::Design(): m_indexCharcater(Resources::CHARCTER_START)
 
 }
 
-const int Design::run()
+int Design::run()
 {
    
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Design");
@@ -36,6 +36,7 @@ const int Design::run()
         ((float)Window_Height) / backgroundTexture.getSize().y
     );
 
+    //todo:delete save button
     
     sf::Vector2i mousePosition;
     // Convert mouse position to world coordinates
@@ -75,15 +76,6 @@ const int Design::run()
                                     std::cout << "back button\n";
                                     window.close();
                                 }
-
-                                else
-                                {
-                                   
-                                    std::cout << "need to save\n";
-                                   
-                                    return m_indexCharcater;
-
-                                }
                                 
                             }
                         }
@@ -94,7 +86,7 @@ const int Design::run()
                             if (princessButtons[j].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
                             {
                                 std::cout << "hi\n";
-                                m_indexCharcater = j + Resources::CHARCTER_START; //todo:check
+                                m_indexCharcater = j;
                                 m_charSprite.setTexture(Resources::instance().getTexture(j + Resources::CHARCTER_START));
 
 

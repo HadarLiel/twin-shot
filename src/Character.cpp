@@ -156,3 +156,8 @@ bool Character::collideDD2(Monsters& other_object)
     return true;
 }
 
+void Character::setTextureIndex(int index)
+{
+    m_indexCharcter = index;
+}
+

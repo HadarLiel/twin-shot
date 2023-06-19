@@ -8,7 +8,7 @@ class Design
 {
 public:
 	Design();
-	const int run();
+	int run();
 	void create_princess_buttons();
 
 

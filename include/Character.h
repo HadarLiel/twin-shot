@@ -20,7 +20,7 @@ public:
 
     bool collideDD2(Monsters& other_object);
 
-
+    void setTextureIndex(int index);
 
 
 private:

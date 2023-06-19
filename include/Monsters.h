@@ -3,12 +3,14 @@
 #include "MovingObject.h"
 #include <functional>
 
+//todo: do all images in the same dir
+
 class Monsters : public MovingObject
 {
 public:
     explicit Monsters(const sf::Vector2u& position,
         const Map* map,
-        const int indexCharacter);
+        const int indexMonster);
 
     void update(const sf::Time& deltaTime) override;
 
@@ -17,6 +19,8 @@ public:
     bool collideDD1(Object& other_object);
 
     bool collideDD2(Arrow& other_object);
+
+    void setTextureIndex(int index);
 
 
 private:
@@ -27,6 +31,6 @@ private:
 
     bool m_isFalling;
 
-    int m_indexCharcater;
+    int m_indexMonster;
     
 };

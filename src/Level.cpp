@@ -7,7 +7,7 @@
 #include "Consts.h"
 
 //todo:get the correct index
-Level::Level(const std::string &mapName): m_indexCharacter(Resources::CHARCTER_START)
+Level::Level(const std::string &mapName): m_indexCharacter(0)
 {
     sf::Image mapImage;
     mapImage.loadFromFile(mapName);
@@ -63,7 +63,13 @@ Level::Level(const std::string &mapName): m_indexCharacter(Resources::CHARCTER_S
 
 void Level::run(const int &indexCharacter)
 {
-    m_indexCharacter = indexCharacter;
+    m_character->setTextureIndex(indexCharacter);
+
+    for(Monsters *monster: m_monsterList)
+    {
+        monster->setTextureIndex(indexCharacter);
+    }
+
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Twin Shot");
 
     window.setFramerateLimit(60);

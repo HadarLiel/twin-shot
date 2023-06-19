@@ -38,5 +38,7 @@ private:
 	sf::Sound m_menuMusic[Resources::sm_Total];
 
 	int m_indexCharacter;
+
+	std::vector <Level*> m_levelsList;
 };
 

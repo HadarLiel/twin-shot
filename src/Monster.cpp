@@ -4,14 +4,14 @@
 
 Monsters::Monsters(const sf::Vector2u& position,
     const Map* map,
-    const int indexCharacter):
+    const int indexMonster):
     MovingObject(sf::FloatRect(position.x, position.y, 32 * 1.9, 32 * 2.9), map),
     m_deltaPos(0, 0),
     m_speed(0, 0),
     m_isOnGround(false),
     m_isLeft(false),
     m_isFalling(false),
-    m_indexCharcater(indexCharacter)
+    m_indexMonster(indexMonster)
 {
 
 }
@@ -67,7 +67,7 @@ void Monsters::update(const sf::Time& deltaTime)
 void Monsters::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::Sprite sprite;
-    sprite.setTexture(Resources::instance().getTexture(m_indexCharcater + Resources::MONSTER_START));
+    sprite.setTexture(Resources::instance().getTexture(m_indexMonster + Resources::MONSTER_START));
 
     //todo:change scale
     //todo:not looking good
@@ -98,4 +98,10 @@ bool Monsters::collideDD2(Arrow& other_object)
         other_object.die();        
     }
     return true;
+}
+
+
+void Monsters::setTextureIndex(int index)
+{
+    m_indexMonster = index;
 }
