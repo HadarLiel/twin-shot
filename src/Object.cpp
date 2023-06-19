@@ -15,6 +15,11 @@ const sf::FloatRect &Object::getBoundingRect() const
     return m_boundingRect;
 }
 
+const sf::FloatRect& Object::getCollisionRect() const
+{
+    return getBoundingRect();
+}
+
 void Object::setBoundingRect(const sf::FloatRect &rect)
 {
     m_boundingRect = rect;
@@ -59,7 +64,7 @@ bool Object::collideDD2(Character& other)
 //regular
 void Object::collide(Object &other)
 {
-    if (getBoundingRect().intersects(other.getBoundingRect()))
+    if (getCollisionRect().intersects(other.getCollisionRect()))
     {
         if(!collideDD1(other))
         {

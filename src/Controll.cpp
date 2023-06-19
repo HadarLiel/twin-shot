@@ -74,7 +74,7 @@ void Controll::run()
                                     //todo: start new game every time we press new game
                                     //todo:send number level
                                     m_music.stop();
-                                    Level level("resources/level1.png", m_indexCharacter);
+                                    Level level("resources/Levels/level6.png", m_indexCharacter);
                                     level.run();
                                     m_music.play();
 

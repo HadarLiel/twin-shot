@@ -11,11 +11,17 @@ public:
     bool collideDD1(Object& other_object);
     bool collideDD2(Character& other_object);
 
+    const sf::FloatRect& getCollisionRect() const override;
+
+    void update(const sf::Time& deltaTime) override;
+
 
 private:
     const Map* m_map;
 
     sf::Time m_showTime;
+
+    sf::FloatRect m_collisionRect;
 
     //bool m_needChangeTime;
 };

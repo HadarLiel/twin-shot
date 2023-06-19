@@ -56,6 +56,9 @@ public:
 
     [[nodiscard]] const sf::FloatRect& getBoundingRect() const;
 
+    [[nodiscard]] virtual const sf::FloatRect& getCollisionRect() const;
+
+
 protected:    
     
     void setBoundingRect(const sf::FloatRect&);

@@ -12,6 +12,8 @@ Level::Level(const std::string &mapName, int index): m_indexCharacter(index)
 {
     m_sound.setBuffer(Resources::instance().getMusic(Resources::SOUND_GAME_START + m_indexCharacter));
     m_sound.setLoop(true);
+    m_sound.setVolume(100);
+
     sf::Image mapImage;
     mapImage.loadFromFile(mapName);
 

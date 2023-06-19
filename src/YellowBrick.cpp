@@ -5,42 +5,37 @@
 
 YellowBrick::YellowBrick(sf::Vector2u pos, const Map* map) :
     Brick(pos),
-    m_map(map) //,
-    //m_showTime(sf::seconds(5))
+    m_map(map),
+    m_showTime(sf::seconds(5))
 {
-
+    m_collisionRect = getBoundingRect();
+    m_collisionRect.height = 1;
+    m_collisionRect.top -= 1;
 }
 
 void YellowBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    sf::Sprite sprite;
-    sprite.setTexture(Resources::instance().getTexture(Resources::BRICK_FALL_BRICK));
-    sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
-        getBoundingRect().height / sprite.getTexture()->getSize().y);
-    sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
+    if (m_showTime >= sf::seconds(5) || m_showTime <= sf::seconds(2))
+    {
+        sf::Sprite sprite;
+        sprite.setTexture(Resources::instance().getTexture(Resources::BRICK_FALL_BRICK));
+        sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
+            getBoundingRect().height / sprite.getTexture()->getSize().y);
+        sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
 
-    target.draw(sprite, states);
-
-    /*sf::RectangleShape shape;
-    shape.setSize(sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
-    shape.setFillColor(sf::Color::Yellow);
-    shape.setPosition(getBoundingRect().left, getBoundingRect().top);*/
-
-
-   /* sf::RectangleShape collide_shape;
-    collide_shape.setSize(sf::Vector2f(getBoundingRect().width, 1));
-    collide_shape.setFillColor(sf::Color::Red);
-    collide_shape.setPosition(shape.getPosition().x, shape.getPosition().y);*/
-
+        target.draw(sprite, states);
+    }
     
-
-    /*target.draw(shape, states);
-    target.draw(collide_shape, states);*/
 }
 
 // collide make stop
 bool YellowBrick::isBlock(const sf::Vector2f& deltaMove) const
 {
+    if (m_showTime < sf::seconds(5) && m_showTime > sf::seconds(2))
+    {
+        return false;
+    }
+
     if (deltaMove.x < 0 && (*m_map)[{getPosition().x + 1, getPosition().y}] == nullptr)
     {
         return true;
@@ -50,23 +45,7 @@ bool YellowBrick::isBlock(const sf::Vector2f& deltaMove) const
         return true;
     }
 
-    //if (deltaMove.y < 0)
-    //{
-    //    return false;
-    //}
-
-    //else
-    //{
-    //    std::cout << "need to fall after 5 seconds\n";
-    //    if (m_showTime > sf::seconds(5))
-    //    {
-    //        m_needChangeTime = true;
-    //    }
-
-    //    return true;
-    //    //we want to let him stop but fall
-
-    //}
+    
 
     return deltaMove.y > 0;
 }
@@ -78,7 +57,24 @@ bool YellowBrick::collideDD1(Object& other_object)
 
 bool YellowBrick::collideDD2(Character& other_object)
 {
-    
+    if (other_object.getCollisionRect().intersects(getBoundingRect()))
+    {
+        return true;
+    }
+    if (m_showTime > sf::seconds(5))
+    {
+        m_showTime = sf::Time::Zero;
+    }
     return true;
+}
+
+const sf::FloatRect& YellowBrick::getCollisionRect() const
+{
+    return m_collisionRect;
+}
+
+void YellowBrick::update(const sf::Time& deltaTime)
+{
+    m_showTime += deltaTime;
 }
 
