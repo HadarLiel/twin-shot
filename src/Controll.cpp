@@ -4,9 +4,7 @@
 #include "Resources.h"
 
 Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin-shot", sf::Style::Close | sf::Style::Titlebar), 
-                      m_indexCharacter(0)
-                     
-                      
+                      m_indexCharacter(0)                   
 {
     m_music.setBuffer(Resources::instance().getMusic(Resources::SOUND_MENU_MENU));
     m_music.setLoop(true);
@@ -16,7 +14,11 @@ Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin
 
 void Controll::run()
 {
-    m_music.play();
+   
+    if (m_musicStruct._turnOnMenu)
+    {
+        m_music.play();
+    }
     m_buttons.drawMenuButtons(m_window);
 
     sf::Texture texture;
@@ -36,8 +38,6 @@ void Controll::run()
 
     while (m_window.isOpen())
     {
-        
-
         sf::Event event;
         while (m_window.pollEvent(event))
         {
@@ -71,12 +71,16 @@ void Controll::run()
                                 {
                                     
                                     std::cout << "new game\n";
-                                    //todo: start new game every time we press new game
                                     //todo:send number level
                                     m_music.stop();
-                                    Level level("resources/Levels/level6.png", m_indexCharacter);
+                                    Level level("resources/Levels/level6.png", m_indexCharacter, m_musicStruct);
                                     level.run();
-                                    m_music.play();
+
+                                    
+                                    if (m_musicStruct._turnOnMenu)
+                                    {
+                                        m_music.play();
+                                    }
 
                                 }
 
@@ -86,7 +90,12 @@ void Controll::run()
 
                                     m_music.stop();
                                     m_indexCharacter = m_design.run();
-                                    m_music.play();
+
+                                  
+                                    if (m_musicStruct._turnOnMenu)
+                                    {
+                                        m_music.play();
+                                    }
                                     
                                     std::cout << m_indexCharacter <<"\n";
                                     //chracterSprite.setTexture(saveChar);
@@ -98,7 +107,13 @@ void Controll::run()
                                 {
                                     m_music.stop();
                                     std::cout << "setting button" << i << "\n";
-                                    m_music.play();
+                                    m_settings.run(m_musicStruct);
+
+                                    if (m_musicStruct._turnOnMenu)
+                                    {
+                                        m_music.play();
+                                    }
+                                    
                                 }
 
                                 else if (i == 3)
@@ -106,7 +121,12 @@ void Controll::run()
                                     //todo:change help
                                     m_music.stop();
                                     m_help.run();
-                                    m_music.play();
+                                   
+                                    if (m_musicStruct._turnOnMenu)
+                                    {
+                                        m_music.play();
+                                    }
+                                    
                                     std::cout << "help button" << i << "\n";
                                 }
 

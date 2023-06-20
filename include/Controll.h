@@ -8,6 +8,7 @@
 #include "Design.h"
 #include "Help.h"
 #include "Resources.h"
+#include "Settings.h"
 
 class Controll
 {
@@ -32,6 +33,8 @@ private:
 
 	Design m_design;
 
+	Settings m_settings;
+
 	Help m_help;
 
 	sf::Sound m_music;
@@ -39,5 +42,9 @@ private:
 	int m_indexCharacter;
 
 	std::vector <Level*> m_levelsList;
+
+	bool m_TurnOn;
+
+	MusicStruct m_musicStruct;
 };
 

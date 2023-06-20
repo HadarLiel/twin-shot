@@ -36,8 +36,6 @@ int Design::run()
         ((float)Window_Height) / backgroundTexture.getSize().y
     );
 
-    //todo:delete save button
-    
     sf::Vector2i mousePosition;
     // Convert mouse position to world coordinates
     sf::Vector2f worldMousePos;
@@ -94,10 +92,6 @@ int Design::run()
                         }
 
 
-                        // Access the button bounds
-                        const std::vector<sf::FloatRect>& buttonBounds = m_buttons.getButtonBounds();
-
-                        
 
                     }
 

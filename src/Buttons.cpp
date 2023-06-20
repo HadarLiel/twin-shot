@@ -74,7 +74,7 @@ void Buttons::draw_help_buttons_types(sf::RenderWindow& window)
 
         m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
 
-        m_sprite.setPosition(i * (Window_Width / (help_buttons_types.size() + NumOfButtons)), 200);
+        m_sprite.setPosition(i * (Window_Width / (NumOfButtons * 2)), Window_Height- buttonHeight);
         game_buttons_Buttons.push_back(m_sprite);
 
         // Store the global bounds of the sprite
@@ -83,6 +83,37 @@ void Buttons::draw_help_buttons_types(sf::RenderWindow& window)
 
     }
 
+}
+
+void Buttons::draw_settings_buttons_types(sf::RenderWindow& window)
+{
+    settings_buttons_Buttons.clear();
+
+    int NumOfButtons = Resources::BUTTONS_MUSIC_END - Resources::BUTTONS_MUSIC_START + 1;
+    float totalButtonHeight = buttonHeight * NumOfButtons + 50 * (NumOfButtons - 1);
+    float startY = (Window_Height - totalButtonHeight + 30) / 2.0f; // Center vertically
+
+
+    for (int i = 0; i < NumOfButtons; i++)
+    {
+        sf::Sprite m_sprite;
+
+        m_sprite.setTexture(Resources::instance().getTexture(i + Resources::BUTTONS_MUSIC_START));
+
+        m_sprite.setScale(buttonWidth / m_sprite.getLocalBounds().width, buttonHeight / m_sprite.getLocalBounds().height);
+       
+        float posX = (Window_Width - m_sprite.getGlobalBounds().width) / 2.0f; // Center horizontally
+        float posY = startY + i * (buttonHeight + 50);
+
+        m_sprite.setPosition(posX, posY);//(posX, posY);
+
+        settings_buttons_Buttons.push_back(m_sprite);
+
+        // Store the global bounds of the sprite
+        sf::FloatRect bounds = m_sprite.getGlobalBounds();
+        settingsButtonBounds.push_back(bounds);
+
+    }
 }
 
 
@@ -118,6 +149,17 @@ const std::vector<sf::FloatRect>& Buttons::getDesignButtonBounds() const
 const std::vector<sf::FloatRect>& Buttons::getGameButtonBounds() const
 {
     return gameButtonBounds;
+}
+
+const std::vector<sf::Sprite>& Buttons::getSettingsButtons() const
+{
+    return settings_buttons_Buttons;
+}
+
+const std::vector<sf::FloatRect>& Buttons::getSettingsButtonBounds() const
+{
+   
+    return settingsButtonBounds;
 }
 
 const std::vector<sf::Sprite>& Buttons::getTypes() const

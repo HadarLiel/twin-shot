@@ -3,17 +3,17 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include "Buttons.h"
+#include "Resources.h"
+#include "MusicStruct.h"
 
-class Design
+class Settings
 {
 public:
-	Design();
-	int run();
-	void create_princess_buttons();
-
+	Settings();
+	void run(MusicStruct &musicStruct);
 
 private:
-	
+
 	int m_indexCharcater;
 	sf::Sprite m_charSprite;
 
@@ -26,10 +26,11 @@ private:
 	std::vector<sf::Sprite> princessButtons;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+	
 
 	Buttons m_buttons;
-
 	//sf::RenderWindow m_window;
+
 };
 
 

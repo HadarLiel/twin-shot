@@ -8,9 +8,10 @@
 #include "Resources.h"
 
 //todo:get the correct index
-Level::Level(const std::string &mapName, int index): m_indexCharacter(index)
+Level::Level(const std::string &mapName, int index, MusicStruct musicStruct): m_indexCharacter(index), m_musicStruct(musicStruct)
 {
     m_sound.setBuffer(Resources::instance().getMusic(Resources::SOUND_GAME_START + m_indexCharacter));
+
     m_sound.setLoop(true);
     m_sound.setVolume(100);
 
@@ -68,9 +69,13 @@ Level::Level(const std::string &mapName, int index): m_indexCharacter(index)
 
 void Level::run()
 {
-    
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Twin Shot");
-    m_sound.play();
+
+    if (m_musicStruct._turnOnGame)
+    {
+        m_sound.play();
+    }
+    
     window.setFramerateLimit(60);
     sf::View view;
     view.setSize(800, 600);

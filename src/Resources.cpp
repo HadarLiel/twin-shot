@@ -96,6 +96,9 @@ void Resources::loadtexture()
 
 	m_objects[Objects::BUTTONS_GAME_BACK].loadFromFile("resources/ButtonsGame/back_button.png");
 
+	m_objects[Objects::BUTTONS_MUSIC_MENU].loadFromFile("resources/MusicMenu_button.png");
+	m_objects[Objects::BUTTONS_MUSIC_GAME].loadFromFile("resources/MusicGame_button.png");
+
 	m_objects[Objects::MENUBG_MENU_BACKGROUND].loadFromFile("resources/menu_background.png");
 
 	m_objects[Objects::DESIGNBG_DESIGN_BACKGROUND].loadFromFile("resources/design_background.png");

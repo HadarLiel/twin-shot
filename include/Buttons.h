@@ -19,11 +19,15 @@ public:
 	const std::vector<sf::Sprite>& getHelpButtons() const;
 	const std::vector<sf::FloatRect>& getGameButtonBounds() const;
 
+	const std::vector<sf::Sprite>& getSettingsButtons() const;
+	const std::vector<sf::FloatRect>& getSettingsButtonBounds() const;
+
 	const std::vector<sf::Sprite>& getTypes() const;
 
 	void drawMenuButtons(sf::RenderWindow& window);
 	void draw_design_buttons_types(sf::RenderWindow& window);
 	void draw_help_buttons_types(sf::RenderWindow& window);
+	void draw_settings_buttons_types(sf::RenderWindow& window);
 
 private:
 	
@@ -35,5 +39,8 @@ private:
 
 	std::vector<sf::Sprite> game_buttons_Buttons;
 	std::vector<sf::FloatRect> gameButtonBounds;
+
+	std::vector<sf::Sprite> settings_buttons_Buttons;
+	std::vector<sf::FloatRect> settingsButtonBounds;
 };
 

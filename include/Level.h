@@ -7,11 +7,12 @@
 #include "Character.h"
 #include "Monsters.h"
 #include "Buttons.h"
+#include "Settings.h"
 
 class Level
 {
 public:
-    explicit Level(const std::string &mapPath, int index);
+    explicit Level(const std::string &mapPath, int index, MusicStruct musicStruct);
     void run();
 
 private:
@@ -23,5 +24,10 @@ private:
 
     Buttons m_buttons;
     
+    Settings m_settings;
+
     int m_indexCharacter;
+
+
+    MusicStruct m_musicStruct;
 };
