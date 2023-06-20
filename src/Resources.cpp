@@ -105,6 +105,7 @@ void Resources::loadtexture()
 
 	m_objects[Objects::BRICK_BLOCK_BRICK].loadFromFile("resources/Bricks/blockBrick.png");
 	m_objects[Objects::BRICK_FALL_BRICK].loadFromFile("resources/Bricks/fallBrick.png");
+	m_objects[Objects::BRICK_BROKEN_BRICK].loadFromFile("resources/Bricks/brokenBrick.png");
 	m_objects[Objects::BRICK_REGULAR_BRICK].loadFromFile("resources/Bricks/regularBrick.png");
 
 

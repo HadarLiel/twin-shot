@@ -25,6 +25,17 @@ void YellowBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
         target.draw(sprite, states);
     }
+
+    if (m_showTime <= sf::seconds(2) && m_showTime >= sf::seconds(0))
+    {
+        sf::Sprite sprite;
+        sprite.setTexture(Resources::instance().getTexture(Resources::BRICK_BROKEN_BRICK));
+        sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
+            getBoundingRect().height / sprite.getTexture()->getSize().y);
+        sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
+
+        target.draw(sprite, states);
+    }
     
 }
 
