@@ -33,4 +33,5 @@ private:
 
     int m_indexMonster;
     
+    sf::Time m_sinceLastFall;
 };

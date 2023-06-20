@@ -11,22 +11,39 @@ Monsters::Monsters(const sf::Vector2u& position,
     m_isOnGround(false),
     m_isLeft(false),
     m_isFalling(false),
-    m_indexMonster(indexMonster)
+    m_indexMonster(indexMonster),
+    m_sinceLastFall(sf::seconds(5))
 {
 
 }
 
 void Monsters::update(const sf::Time& deltaTime)
 {
+    m_sinceLastFall += deltaTime;
 
     int gravity = 600;
 
     m_speed += {0, gravity* deltaTime.asSeconds()}; //20=m/s^2
 
     
+    
     if (m_isFalling)
     {
         m_speed.x = 0;
+
+        //todo:check if good for every level
+        if (m_sinceLastFall > sf::seconds(5))
+        {
+            //m_sinceLastFall = sf::Time::Zero;
+            if (m_isLeft)
+            {
+                m_speed.x = -100;
+            }
+            else
+            {
+                m_speed.x = 100;
+            }
+        } 
     }
     else
     {
