@@ -1,10 +1,11 @@
 #include "Resources.h"
-
+#include <format>
 
 Resources::Resources()
 {
 	loadtexture();
 	loadMusic();
+	loadLevels();
 	m_font.loadFromFile("resources/arial.ttf");
 }
 
@@ -14,49 +15,19 @@ Resources& Resources::instance()
 	return inst;
 }
 
-//const sf::Texture& Resources::getButtonDesignTexture(int index_type) const
-//{
-//	return m_buttonsDesign[index_type];
-//}
-//
-//const sf::Texture& Resources::getButtonGameTexture(int index_type) const
-//{
-//	return m_buttonsGame[index_type];
-//}
-//
-//const sf::Texture& Resources::getButtonMenuTexture(int index_type) const
-//{
-//	return m_buttonsMenu[index_type];
-//}
-//
-//const sf::Texture& Resources::getCharacterTexture(int index_type) const
-//{
-//	return m_character[index_type];
-//}
-//
-//const sf::Texture& Resources::getMonsterTexture(int index_type) const
-//{
-//	return m_monster[index_type];
-//}
-//
-//const sf::Texture& Resources::getBrickTexture(int index_type) const
-//{
-//	return m_brick[index_type];
-//}
-//
-//const sf::Texture& Resources::getMenuTexture(int index_type) const
-//{
-//	return m_menu[index_type];
-//}
-
 const sf::Font& Resources::getFont() const
 {
 	return m_font;
 }
 
-const sf::Texture& Resources::getTexture(int index_type) const
+const sf::Image& Resources::getLevel(unsigned int index) const
 {
-	return m_objects[index_type];
+	return m_levels[index];
+}
+
+const sf::Texture& Resources::getTexture(unsigned int index) const
+{
+	return m_objects[index];
 }
 
 
@@ -83,6 +54,9 @@ void Resources::loadtexture()
 	m_objects[Objects::MONSTER_JAFAR].loadFromFile("resources/Jasmin/Jafar.png");
 	m_objects[Objects::MONSTER_CAPTAIN_HOOK].loadFromFile("resources/PeterPen/CaptainHook.png");
 	m_objects[Objects::MONSTER_EVIL_QWEEN].loadFromFile("resources/SnowWhite/EvilQween.png");
+
+
+	m_objects[Objects::MONSTER_PROTECTED].loadFromFile("resources/protectedMonster.png");
 	
 	m_objects[Objects::ARROW_ARROW].loadFromFile("resources/Arrow.png");
 
@@ -121,6 +95,15 @@ void Resources::loadMusic()
 	m_SoundsBuffer[MusicGame::SOUND_GAME_SNOW_WHITE].loadFromFile("resources/SnowWhite/SnowWhiteMusic.ogg");
 	m_SoundsBuffer[MusicGame::SOUND_MENU_MENU].loadFromFile("resources/MenuMusic.ogg");
 
+}
+
+void Resources::loadLevels()
+{
+	m_levels.resize(NUM_OF_LEVELS);
+	for (size_t i = 0; i < NUM_OF_LEVELS; i++)
+	{
+		m_levels[i].loadFromFile(std::format("resources/Levels/level{}.png", i+1));
+	}
 }
 
 

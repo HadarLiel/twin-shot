@@ -10,10 +10,12 @@
 //todo:get the correct index
 Level::Level(const std::string &mapName, int index, MusicStruct musicStruct): m_indexCharacter(index), m_musicStruct(musicStruct)
 {
+    
     m_sound.setBuffer(Resources::instance().getMusic(Resources::SOUND_GAME_START + m_indexCharacter));
 
     m_sound.setLoop(true);
     m_sound.setVolume(100);
+
 
     sf::Image mapImage;
     mapImage.loadFromFile(mapName);
@@ -61,13 +63,21 @@ Level::Level(const std::string &mapName, int index, MusicStruct musicStruct): m_
                 m_monsterList.push_back(monster);
                 m_objects.push_back(std::unique_ptr<Monsters>(monster));
             }
+
+            //todo:: add protector mpnster
+            /*else if (mapImage.getPixel(i, j) == sf::Color::Magenta)
+            {
+                Protector *protector = new Protector({ i * 32, j * 32 }, &m_map, m_indexCharacter);
+                m_monsterList.push_back(monster);
+                m_objects.push_back(std::unique_ptr<Protector>(protector));
+            }*/
         }
     }
     // push back at the end because character is the last to draw
     m_objects.push_back(std::unique_ptr<Object>(m_character));
 }
 
-void Level::run()
+bool Level::run()
 {
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Twin Shot");
 
@@ -145,10 +155,17 @@ void Level::run()
         }
 
 
+        std::erase_if(m_monsterList, [](Monsters* m) 
+        { 
+            return !m->isAlive();
+        });
 
-
-
-        std::erase_if(m_monsterList, [](Monsters* m) { return !m->isAlive(); });
+        //we need to move to the next level
+        if (m_monsterList.empty())
+        {
+            std::cout <<"need to move level\n";
+            return true;
+        }
 
     
         for(int i = 0; i < m_objects.size(); ++i)
@@ -207,4 +224,6 @@ void Level::run()
 
         window.display();
     }
+
+    return false;
 }

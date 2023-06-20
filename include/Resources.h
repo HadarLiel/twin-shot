@@ -26,7 +26,8 @@ public:
 		MONSTER_JAFAR,
 		MONSTER_CAPTAIN_HOOK,
 		MONSTER_EVIL_QWEEN,
-		MONSTER_END = MONSTER_EVIL_QWEEN,
+		MONSTER_PROTECTED,
+		MONSTER_END = MONSTER_PROTECTED,
 
 		ARROW_START,
 		ARROW_ARROW = ARROW_START,
@@ -101,10 +102,11 @@ public:
 
 
 	~Resources() = default;
+
 	static Resources& instance();
 	const sf::Font& getFont() const;
-
-	const sf::Texture& getTexture(int index_type) const;
+	const sf::Texture& getTexture(unsigned int index) const;
+	const sf::Image& getLevel(unsigned int index) const;
 
 	/*const sf::Texture& getButtonDesignTexture(int index_type) const;
 
@@ -122,18 +124,22 @@ public:
 
 	const sf::SoundBuffer& getMusic(int index) const;
 
+	const size_t NUM_OF_LEVELS = 6;
+
 private:
 	Resources();
-	//todo: ask hod if we need this
-	Resources(const Resources&);//copy 
-	Resources& operator= (const Resources&) = default;//copy 
+	
+	Resources(const Resources&) = delete;//we need this becaue of the instance, that no one can create one including me
+	Resources& operator= (const Resources&) = delete;//copy ^^^^^^ 
 
 	void loadtexture();
 	void loadMusic();
+	void loadLevels();
 
 
 
 	std::vector <sf::Texture> m_objects;
+	std::vector <sf::Image> m_levels;
 
 	/*std::vector <sf::Texture> m_character;
 	std::vector <sf::Texture> m_monster;

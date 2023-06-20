@@ -30,7 +30,6 @@ private:
 
 	Buttons m_buttons;
 
-
 	Design m_design;
 
 	Settings m_settings;
@@ -41,10 +40,12 @@ private:
 
 	int m_indexCharacter;
 
-	std::vector <Level*> m_levelsList;
+	std::vector <Level*> m_levelsList; //
 
 	bool m_TurnOn;
 
 	MusicStruct m_musicStruct;
+
+	int m_level;
 };
 

@@ -12,8 +12,8 @@
 class Level
 {
 public:
-    explicit Level(const std::string &mapPath, int index, MusicStruct musicStruct);
-    void run();
+    explicit Level(const std::string& mapName, int index, MusicStruct musicStruct);
+    bool run();
 
 private:
     std::vector<std::unique_ptr<Object>> m_objects;
@@ -28,6 +28,6 @@ private:
 
     int m_indexCharacter;
 
-
+    int m_levelIndex;
     MusicStruct m_musicStruct;
 };

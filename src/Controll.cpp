@@ -4,7 +4,7 @@
 #include "Resources.h"
 
 Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin-shot", sf::Style::Close | sf::Style::Titlebar), 
-                      m_indexCharacter(0)                   
+                      m_indexCharacter(0)
 {
     m_music.setBuffer(Resources::instance().getMusic(Resources::SOUND_MENU_MENU));
     m_music.setLoop(true);
@@ -73,8 +73,17 @@ void Controll::run()
                                     std::cout << "new game\n";
                                     //todo:send number level
                                     m_music.stop();
+
                                     Level level("resources/Levels/level6.png", m_indexCharacter, m_musicStruct);
-                                    level.run();
+                                    //todo:change the 1 to the level we choose
+                                    //Level level(1, m_indexCharacter, m_musicStruct);
+
+                                    if (level.run())
+                                    {
+                                        //m_level++;
+                                        std::cout << "move to the next level\n";
+                                    }
+                                    
 
                                     
                                     if (m_musicStruct._turnOnMenu)
