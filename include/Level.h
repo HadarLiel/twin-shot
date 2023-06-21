@@ -30,4 +30,6 @@ private:
 
     int m_levelIndex;
     MusicStruct m_musicStruct;
+
+    bool m_isProtected;
 };

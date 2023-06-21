@@ -4,7 +4,8 @@
 
 Monsters::Monsters(const sf::Vector2u& position,
     const Map* map,
-    const int indexMonster):
+    const int indexMonster,
+    bool isProtected):
     MovingObject(sf::FloatRect(position.x, position.y, 32 * 1.9, 32 * 2.9), map),
     m_deltaPos(0, 0),
     m_speed(0, 0),
@@ -12,7 +13,9 @@ Monsters::Monsters(const sf::Vector2u& position,
     m_isLeft(false),
     m_isFalling(false),
     m_indexMonster(indexMonster),
-    m_sinceLastFall(sf::seconds(5))
+    m_sinceLastFall(sf::seconds(5)),
+    m_isProtected(isProtected),
+    m_hitProtects(false)
 {
 
 }
@@ -84,7 +87,15 @@ void Monsters::update(const sf::Time& deltaTime)
 void Monsters::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::Sprite sprite;
-    sprite.setTexture(Resources::instance().getTexture(m_indexMonster + Resources::MONSTER_START));
+    if (m_isProtected)
+    {
+        sprite.setTexture(Resources::instance().getTexture(Resources::MONSTER_PROTECTED));
+    }
+    
+    else
+    {
+        sprite.setTexture(Resources::instance().getTexture(m_indexMonster + Resources::MONSTER_START));
+    }
 
     //todo:change scale
     //todo:not looking good
@@ -111,9 +122,22 @@ bool Monsters::collideDD2(Arrow& other_object)
 {
     if (other_object.isDamage())
     {
-        die();
-        other_object.die();        
+        if (!m_isProtected)
+        {
+            die();
+            
+        }
+        else
+        {
+            //protected monster
+            m_isProtected = !m_isProtected;
+        }
+
+        other_object.die();
+        
     }
+
+    
     return true;
 }
 

@@ -10,7 +10,8 @@ class Monsters : public MovingObject
 public:
     explicit Monsters(const sf::Vector2u& position,
         const Map* map,
-        const int indexMonster);
+        const int indexMonster,
+        bool isProtected);
 
     void update(const sf::Time& deltaTime) override;
 
@@ -34,4 +35,8 @@ private:
     int m_indexMonster;
     
     sf::Time m_sinceLastFall;
+
+    bool m_isProtected;
+
+    bool m_hitProtects;
 };

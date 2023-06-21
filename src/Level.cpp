@@ -59,18 +59,21 @@ Level::Level(const std::string &mapName, int index, MusicStruct musicStruct): m_
 
             else if (mapImage.getPixel(i, j) == sf::Color::Red)
             {
-                Monsters *monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter);
+                m_isProtected = false;
+                Monsters* monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter, m_isProtected);
                 m_monsterList.push_back(monster);
                 m_objects.push_back(std::unique_ptr<Monsters>(monster));
             }
 
             //todo:: add protector mpnster
-            /*else if (mapImage.getPixel(i, j) == sf::Color::Magenta)
+            else if (mapImage.getPixel(i, j) == sf::Color::Magenta)
             {
-                Protector *protector = new Protector({ i * 32, j * 32 }, &m_map, m_indexCharacter);
+                m_isProtected = true;     
+                Monsters* monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter, m_isProtected);
                 m_monsterList.push_back(monster);
-                m_objects.push_back(std::unique_ptr<Protector>(protector));
-            }*/
+                m_objects.push_back(std::unique_ptr<Monsters>(monster));
+            }
+
         }
     }
     // push back at the end because character is the last to draw
