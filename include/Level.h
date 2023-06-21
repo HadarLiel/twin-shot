@@ -15,7 +15,11 @@ public:
     explicit Level(int levelIndex/*const std::string& mapName*/, int index, MusicStruct musicStruct);
     bool run();
 
+    void setLevel(int index);
+
+
 private:
+    // 
     std::vector<std::unique_ptr<Object>> m_objects;
     sf::Sound m_sound;
     Map m_map;
@@ -31,5 +35,4 @@ private:
     int m_levelIndex;
     MusicStruct m_musicStruct;
 
-    bool m_isProtected;
 };

@@ -16,67 +16,7 @@ Level::Level(int levelIndex/*const std::string& mapName*/, int index, MusicStruc
     m_sound.setLoop(true);
     m_sound.setVolume(100);
 
-
-    sf::Image mapImage = Resources::instance().getLevel(levelIndex);
-
-
-    m_map.restart(mapImage.getSize());
-    for (unsigned int i = 0; i < mapImage.getSize().x; ++i)
-    {
-        for (unsigned int j = 0; j < mapImage.getSize().y; ++j)
-        {
-            if (mapImage.getPixel(i, j) == sf::Color::Black)
-            {
-                auto brick = new BlackBrick({ i,j });
-                m_map.addBrick(brick);
-                m_objects.push_back(std::unique_ptr<Object>(brick));
-            }
-            if (mapImage.getPixel(i, j) == sf::Color::Blue)
-            {
-                auto brick = new BlueBrick({ i,j }, &m_map);
-                m_map.addBrick(brick);
-                m_objects.push_back(std::unique_ptr<Object>(brick));
-            }
-            if (mapImage.getPixel(i, j) == sf::Color::Yellow)
-            {
-                auto brick = new YellowBrick({ i,j }, &m_map);
-                m_map.addBrick(brick);
-                m_objects.push_back(std::unique_ptr<Object>(brick));
-            }
-
-            else if(mapImage.getPixel(i, j) == sf::Color::Green)
-            {
-                m_character = new Character({i*32, j*32}, 
-                                            &m_map,
-                                            [&](std::unique_ptr<Arrow> &&m)
-                                            {
-                                                m_map.addArrow(m.get());
-                                                m_objects.push_back(std::move(m));
-                                            },
-                                            m_indexCharacter
-                                            );
-            }
-
-            else if (mapImage.getPixel(i, j) == sf::Color::Red)
-            {
-                m_isProtected = false;
-                Monsters* monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter, m_isProtected);
-                m_monsterList.push_back(monster);
-                m_objects.push_back(std::unique_ptr<Monsters>(monster));
-            }
-
-            else if (mapImage.getPixel(i, j) == sf::Color::Magenta)
-            {
-                m_isProtected = true;     
-                Monsters* monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter, m_isProtected);
-                m_monsterList.push_back(monster);
-                m_objects.push_back(std::unique_ptr<Monsters>(monster));
-            }
-
-        }
-    }
-    // push back at the end because character is the last to draw
-    m_objects.push_back(std::unique_ptr<Object>(m_character));
+    setLevel(levelIndex);
 }
 
 bool Level::run()
@@ -233,4 +173,75 @@ bool Level::run()
     }
 
     return false;
+}
+
+// m_objects m_map m_character m_monsterList // m_levelIndex 
+
+void Level::setLevel(int index)
+{
+    m_levelIndex = index;
+    m_monsterList.clear();
+    m_objects.clear();
+
+    const sf::Image &mapImage = Resources::instance().getLevel(index);
+
+    m_map.restart(mapImage.getSize());
+    for (unsigned int i = 0; i < mapImage.getSize().x; ++i)
+    {
+        for (unsigned int j = 0; j < mapImage.getSize().y; ++j)
+        {
+            if (mapImage.getPixel(i, j) == sf::Color::Black)
+            {
+                auto brick = new BlackBrick({ i,j });
+                m_map.addBrick(brick);
+                m_objects.push_back(std::unique_ptr<Object>(brick));
+            }
+            if (mapImage.getPixel(i, j) == sf::Color::Blue)
+            {
+                auto brick = new BlueBrick({ i,j }, &m_map);
+                m_map.addBrick(brick);
+                m_objects.push_back(std::unique_ptr<Object>(brick));
+            }
+            if (mapImage.getPixel(i, j) == sf::Color::Yellow)
+            {
+                auto brick = new YellowBrick({ i,j }, &m_map);
+                m_map.addBrick(brick);
+                m_objects.push_back(std::unique_ptr<Object>(brick));
+            }
+
+            else if (mapImage.getPixel(i, j) == sf::Color::Green)
+            {
+                m_character = new Character({ i * 32, j * 32 },
+                    &m_map,
+                    [&](std::unique_ptr<Arrow>&& m)
+                    {
+                        m_map.addArrow(m.get());
+                m_objects.push_back(std::move(m));
+                    },
+                    m_indexCharacter
+                        );
+            }
+
+            else if (mapImage.getPixel(i, j) == sf::Color::Red)
+            {
+                Monsters* monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter, false);
+                m_monsterList.push_back(monster);
+            }
+
+            else if (mapImage.getPixel(i, j) == sf::Color::Magenta)
+            {
+                Monsters* monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter, true);
+                m_monsterList.push_back(monster);
+            }
+
+        }
+    }
+    // push back at the end because character is the last to draw
+    m_objects.push_back(std::unique_ptr<Object>(m_character));
+    for (auto* monster : m_monsterList)
+    {
+        //becaue we dont need write the constractor
+        m_objects.emplace_back(monster);
+    }
+    
 }

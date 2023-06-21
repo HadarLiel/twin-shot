@@ -76,9 +76,6 @@ void Controll::run()
 
                                     selectLevel.run(m_indexCharacter, m_musicStruct);
                                    
-                                    
-
-                                    
                                     if (m_musicStruct._turnOnMenu)
                                     {
                                         m_music.play();

@@ -6,7 +6,7 @@ Monsters::Monsters(const sf::Vector2u& position,
     const Map* map,
     const int indexMonster,
     bool isProtected):
-    MovingObject(sf::FloatRect(position.x, position.y, 32 * 1.9, 32 * 2.9), map),
+    MovingObject(sf::FloatRect(position.x, position.y - 32 * 2.9 + 32 - 0.0001, 32 * 1.9, 32 * 2.9), map),
     m_deltaPos(0, 0),
     m_speed(0, 0),
     m_isOnGround(false),

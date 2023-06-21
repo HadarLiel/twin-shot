@@ -8,7 +8,7 @@ Character::Character(const sf::Vector2u& position,
     const Map* map,
     const std::function<void(std::unique_ptr<Arrow>)>& addArrowFunc,
     const int indexCharcter) :
-    MovingObject(sf::FloatRect(position.x, position.y, 32 * 1.9, 32 * 2.9), map),
+    MovingObject(sf::FloatRect(position.x, position.y - 32 * 2.9+32 - 0.0001, 32 * 1.9, 32 * 2.9), map),
     m_deltaPos(0, 0),
     m_speed(0, 0),
     m_isOnGround(false),

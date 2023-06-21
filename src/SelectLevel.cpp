@@ -1,8 +1,25 @@
 #include "SelectLevel.h"
 #include "SelectLevel.h"
 
-SelectLevel::SelectLevel()
+SelectLevel::SelectLevel(): m_showTimeLose(sf::Time::Zero), m_showTimeWin(sf::Time::Zero)
 {
+    // Create a rectangle shape
+    sf::RectangleShape rectangle(sf::Vector2f(150, 50));
+
+    sf::Color whiteColor(255, 255, 255, 200);
+    rectangle.setFillColor(whiteColor);
+    float disX = (float)Window_Width / (3 * 2); //3 is the number of cuttons i want to put in one line
+    float disY = (float)Window_Height / (2 * 2); //2 is the number of cuttons i want to put in one col
+
+
+    rectangle.setOrigin(rectangle.getSize().x / 2, rectangle.getSize().y / 2);
+
+
+    for (int i = 0; i < NUM_OF_LEVELS; i++)
+    {
+        rectangle.setPosition(disX + (i % 3) * disX * 2, disY + (i / 3) * disY * 2);
+        m_rectTexture.push_back(rectangle);
+    }
 }
 
 void SelectLevel::run(int index, MusicStruct musicStruct)
@@ -29,14 +46,20 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
     sf::Vector2i mousePosition;
     // Convert mouse position to world coordinates
     sf::Vector2f worldMousePos;
-
+    sf::Clock clock;
     while (window.isOpen())
     {
+        sf::Time dTime = clock.restart();
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+                m_showTimeLose = sf::Time::Zero;
+                m_showTimeWin = sf::Time::Zero;
+
+            }
             else if (event.type == sf::Event::MouseButtonPressed)
             {
 
@@ -66,105 +89,125 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
                                 }
 
                             }
+                            
                         }
 
+                        for (int i = 0; i < m_rectTexture.size(); i++)
+                        {
+                            if (m_rectTexture[i].getGlobalBounds().contains(worldMousePos))
+                            {
+
+                                Level level(i, m_indexCharacter, m_musicStruct);
+
+                                while (level.run())
+                                {
+                                    i++;
+                                    if (i >= NUM_OF_LEVELS)
+                                    {
+                                        std::cout << "win\n";
+                                        m_showTimeWin = sf::seconds(5);
+                                        break;
+                                    }
+                                    level.setLevel(i);
+                                    //todo:move
+                                    std::cout << "move to the next level\n";
+                                }
+                                clock.restart();
+
+                                //if we lose
+                                std::cout << "lose\n";
+
+                                m_showTimeLose = sf::seconds(5);
 
 
+                            }
+                        }
+
+                        
                     }
+                        
+                    
 
                 }
 
             }
         }
 
+        m_showTimeLose -= dTime;
+
+        m_showTimeWin -= dTime;
         //---------------
 
 
         window.clear(); // Clear the window
-
-        window.draw(selectSprite);
-
-        drawLevelsNumbers(window);
-
-        for (const auto& button : m_buttons.getHelpButtons())
+        if (m_showTimeLose > sf::Time::Zero)
         {
-            window.draw(button);
+            sf::Sprite loseSprite(Resources::instance().getTexture(Resources::LOSE_BACKGROUND));
+
+            loseSprite.setScale(((float)Window_Width) / loseSprite.getTexture()->getSize().x,
+                ((float)Window_Height) / loseSprite.getTexture()->getSize().y);
+
+            window.draw(loseSprite);
+
         }
 
+        if (m_showTimeWin > sf::Time::Zero)
+        {
+            sf::Sprite winSprite(Resources::instance().getTexture(Resources::WIN_BACKGROUND));
+
+            winSprite.setScale(((float)Window_Width) / winSprite.getTexture()->getSize().x,
+                ((float)Window_Height) / winSprite.getTexture()->getSize().y);
+
+            window.draw(winSprite);
+
+        }
+
+        else
+        {
+            window.draw(selectSprite);
+            drawLevelsNumbers(window);
+
+            for (const auto& button : m_buttons.getHelpButtons())
+            {
+                window.draw(button);
+            }
+        }
+       
+
+        
+        
+
+       
 
         window.display();
     }
 }
 
-void SelectLevel::drawLevelsNumbers(sf::RenderWindow& window)
+void SelectLevel::drawLevelsNumbers(sf::RenderWindow& window) const
 {
 
     sf::Font font;
     font = Resources::instance().getFont();
 
-    // Create a rectangle shape
-    sf::RectangleShape rectangle(sf::Vector2f(150, 50));
-
-    sf::Color whiteColor(255, 255, 255, 200);
-    rectangle.setFillColor(whiteColor);
+    
+    float disX = (float)Window_Width / (3 * 2); //3 is the number of cuttons i want to put in one line
+    float disY = (float)Window_Height / (2 * 2); //2 is the number of cuttons i want to put in one col
 
     for (int i = 0; i < NUM_OF_LEVELS; i++)
     {
         
-        float disX = (float) Window_Width / (3 * 2); //3 is the number of cuttons i want to put in one line
-        float disY = (float) Window_Height / (2 * 2); //2 is the number of cuttons i want to put in one col
-
         sf::Text levelIndex("Level: " + std::to_string(i), font);
 
         // Set the origin of the text to its center
         sf::FloatRect textBounds = levelIndex.getLocalBounds();
         levelIndex.setOrigin(textBounds.width / 2, textBounds.height / 2);
-        rectangle.setOrigin(rectangle.getSize().x/ 2 , rectangle.getSize().y / 2);
-
         levelIndex.setFillColor(sf::Color::Blue);
         levelIndex.setPosition(disX + (i%3) * disX * 2 , disY + (i/3) * disY * 2);
 
-        rectangle.setPosition(disX + (i % 3) * disX * 2, disY + (i / 3) * disY * 2);
-        window.draw(rectangle);
+        
+        window.draw(m_rectTexture[i]);
         window.draw(levelIndex);
-
-
-        // Check if the rectangle is pressed
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-            sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePosition);
-
-            if (rectangle.getGlobalBounds().contains(worldMousePos))
-            {
-                
-                Level level(i, m_indexCharacter, m_musicStruct);
-
-                while (level.run())
-                {
-                    level = Level (i+1, m_indexCharacter, m_musicStruct);
-                    //todo:move
-                    std::cout << "move to the next level\n";
-                }
-
-                //if(!level.run())
-                //
-                ////    sf::Texture texture;
-                ////    texture = Resources::instance().getTexture(Resources::LOSE_BACKGROUND);
-                ////    // Create the background sprite
-                ////    sf::Sprite loseSprite(texture);
-
-                ////    loseSprite.setScale(((float)Window_Width) / texture.getSize().x,
-                ////        ((float)Window_Height) / texture.getSize().y);
-
-                ////    window.draw(loseSprite);
-
-                //    std::cout << "fail\n";
-                //    break;
-                //}
-                // Perform the desired action for the pressed rectangle
-            }
-        }
+       
     } 
 
 }
