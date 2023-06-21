@@ -12,7 +12,7 @@
 class Level
 {
 public:
-    explicit Level(const std::string& mapName, int index, MusicStruct musicStruct);
+    explicit Level(int levelIndex/*const std::string& mapName*/, int index, MusicStruct musicStruct);
     bool run();
 
 private:

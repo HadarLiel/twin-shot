@@ -9,6 +9,7 @@
 #include "Help.h"
 #include "Resources.h"
 #include "Settings.h"
+#include "SelectLevel.h"
 
 class Controll
 {
@@ -35,6 +36,8 @@ private:
 	Settings m_settings;
 
 	Help m_help;
+
+	SelectLevel selectLevel;
 
 	sf::Sound m_music;
 

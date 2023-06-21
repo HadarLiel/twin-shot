@@ -23,6 +23,7 @@ const int num_Design_Buttons = 2;
 const float princess_buttonHeight = 100.0f;
 const float princess_buttonWidth = 100.0f;
 
+const size_t NUM_OF_LEVELS = 6;
 
 const int firstIndex = 0;
 

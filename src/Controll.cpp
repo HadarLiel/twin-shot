@@ -11,6 +11,7 @@ Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin
     m_music.setVolume(100);
 }
 
+//todo: fix drawing when its in brick. monster level1 character level6
 
 void Controll::run()
 {
@@ -71,12 +72,12 @@ void Controll::run()
                                 {
                                     
                                     std::cout << "new game\n";
-                                    //todo:send number level
                                     m_music.stop();
 
-                                    Level level("resources/Levels/level6.png", m_indexCharacter, m_musicStruct);
+                                    selectLevel.run();
+                                    //Level level("resources/Levels/level6.png", m_indexCharacter, m_musicStruct);
                                     //todo:change the 1 to the level we choose
-                                    //Level level(1, m_indexCharacter, m_musicStruct);
+                                    Level level(1, m_indexCharacter, m_musicStruct);
 
                                     if (level.run())
                                     {

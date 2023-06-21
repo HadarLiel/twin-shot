@@ -77,6 +77,8 @@ void Resources::loadtexture()
 
 	m_objects[Objects::DESIGNBG_DESIGN_BACKGROUND].loadFromFile("resources/design_background.png");
 
+	m_objects[Objects::HELPBG_BACKGROUND].loadFromFile("resources/Help.png");
+
 	m_objects[Objects::BRICK_BLOCK_BRICK].loadFromFile("resources/Bricks/blockBrick.png");
 	m_objects[Objects::BRICK_FALL_BRICK].loadFromFile("resources/Bricks/fallBrick.png");
 	m_objects[Objects::BRICK_BROKEN_BRICK].loadFromFile("resources/Bricks/brokenBrick.png");

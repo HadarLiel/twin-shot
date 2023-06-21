@@ -4,21 +4,19 @@
 #include <unordered_map>
 #include "Buttons.h"
 #include "Resources.h"
+#include "Consts.h"
 
-class Help
+class SelectLevel
 {
 public:
-	Help();
+	SelectLevel();
 	void run();
-
+	void drawLevelsNumbers(sf::RenderWindow& window);
 
 private:
 
-	//????
-	sf::Texture m_helpTexture;
-	sf::Sprite m_helpSprite;
-
-	sf::RectangleShape* selectedButton = nullptr;  // Variable to store the selected button
+	sf::Texture m_selectLevelTexture;
+	sf::Sprite m_selectLevelSprite;
 
 	
 	sf::Texture m_texture;

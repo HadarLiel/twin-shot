@@ -8,7 +8,7 @@
 #include "Resources.h"
 
 //todo:get the correct index
-Level::Level(const std::string &mapName, int index, MusicStruct musicStruct): m_indexCharacter(index), m_musicStruct(musicStruct)
+Level::Level(int levelIndex/*const std::string& mapName*/, int index, MusicStruct musicStruct) : m_indexCharacter(index), m_musicStruct(musicStruct)
 {
     
     m_sound.setBuffer(Resources::instance().getMusic(Resources::SOUND_GAME_START + m_indexCharacter));
@@ -17,8 +17,8 @@ Level::Level(const std::string &mapName, int index, MusicStruct musicStruct): m_
     m_sound.setVolume(100);
 
 
-    sf::Image mapImage;
-    mapImage.loadFromFile(mapName);
+    sf::Image mapImage = Resources::instance().getLevel(levelIndex);
+
 
     m_map.restart(mapImage.getSize());
     for (unsigned int i = 0; i < mapImage.getSize().x; ++i)
@@ -65,7 +65,6 @@ Level::Level(const std::string &mapName, int index, MusicStruct musicStruct): m_
                 m_objects.push_back(std::unique_ptr<Monsters>(monster));
             }
 
-            //todo:: add protector mpnster
             else if (mapImage.getPixel(i, j) == sf::Color::Magenta)
             {
                 m_isProtected = true;     

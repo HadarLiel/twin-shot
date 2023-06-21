@@ -34,7 +34,7 @@ void Character::update(const sf::Time &deltaTime)
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            m_speed.y = -300;
+            m_speed.y = -500;
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))

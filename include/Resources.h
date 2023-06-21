@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
+#include "Consts.h"
 
 
 class Resources 
@@ -41,6 +42,7 @@ public:
 		BRICK_REGULAR_BRICK,
 		BRICK_END = BRICK_REGULAR_BRICK,
 
+		//todo:change start to end because we dont need
 		//MenuBackground
 		MENUBG_START,
 		MENUBG_MENU_BACKGROUND = MENUBG_START,
@@ -50,6 +52,9 @@ public:
 		DESIGNBG_START,
 		DESIGNBG_DESIGN_BACKGROUND = DESIGNBG_START,
 		DESIGNBG_END = DESIGNBG_DESIGN_BACKGROUND,
+
+		//HelpBackground
+		HELPBG_BACKGROUND,
 
 		//ButtonsMenu
 		BUTTONS_MENU_START,
@@ -124,7 +129,6 @@ public:
 
 	const sf::SoundBuffer& getMusic(int index) const;
 
-	const size_t NUM_OF_LEVELS = 6;
 
 private:
 	Resources();
