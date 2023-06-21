@@ -5,12 +5,15 @@ SelectLevel::SelectLevel()
 {
 }
 
-void SelectLevel::run()
+void SelectLevel::run(int index, MusicStruct musicStruct)
 {
+
+    m_indexCharacter = index;
+    m_musicStruct = musicStruct ;
+
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Select Level");
 
     
-
     //TODO:CHANGE NAME TO THIS FUNCTION TO DRAW_BACK_BUTTON
     m_buttons.draw_help_buttons_types(window);
 
@@ -99,8 +102,11 @@ void SelectLevel::drawLevelsNumbers(sf::RenderWindow& window)
     sf::Font font;
     font = Resources::instance().getFont();
 
-    float totalButtonHeight = buttonHeight * NUM_OF_LEVELS + 50 * (NUM_OF_LEVELS - 1);
-    float startY = (Window_Height - totalButtonHeight + 30) / 2.0f; // Center vertically
+    // Create a rectangle shape
+    sf::RectangleShape rectangle(sf::Vector2f(150, 50));
+
+    sf::Color whiteColor(255, 255, 255, 200);
+    rectangle.setFillColor(whiteColor);
 
     for (int i = 0; i < NUM_OF_LEVELS; i++)
     {
@@ -110,9 +116,39 @@ void SelectLevel::drawLevelsNumbers(sf::RenderWindow& window)
 
         sf::Text levelIndex("Level: " + std::to_string(i), font);
 
+        // Set the origin of the text to its center
+        sf::FloatRect textBounds = levelIndex.getLocalBounds();
+        levelIndex.setOrigin(textBounds.width / 2, textBounds.height / 2);
+        rectangle.setOrigin(rectangle.getSize().x/ 2 , rectangle.getSize().y / 2);
+
         levelIndex.setFillColor(sf::Color::Blue);
         levelIndex.setPosition(disX + (i%3) * disX * 2 , disY + (i/3) * disY * 2);
+
+        rectangle.setPosition(disX + (i % 3) * disX * 2, disY + (i / 3) * disY * 2);
+        window.draw(rectangle);
         window.draw(levelIndex);
+
+
+        // Check if the rectangle is pressed
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePosition);
+
+            if (rectangle.getGlobalBounds().contains(worldMousePos))
+            {
+                std::cout << "Rectangle " << i+1 << " is pressed!" << std::endl;
+                //todo:change the 1 to the level we choose
+                Level level(i, m_indexCharacter, m_musicStruct);
+
+                if (level.run())
+                {
+                    //m_level++;
+                    std::cout << "move to the next level\n";
+                }
+                // Perform the desired action for the pressed rectangle
+            }
+        }
     } 
 
 }

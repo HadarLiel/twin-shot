@@ -5,12 +5,14 @@
 #include "Buttons.h"
 #include "Resources.h"
 #include "Consts.h"
+#include "Level.h"
+#include "MusicStruct.h"
 
 class SelectLevel
 {
 public:
 	SelectLevel();
-	void run();
+	void run(int index, MusicStruct musicStruct);
 	void drawLevelsNumbers(sf::RenderWindow& window);
 
 private:
@@ -23,6 +25,12 @@ private:
 	sf::Sprite m_sprite;
 
 	Buttons m_buttons;
+
+
+
+	int m_indexCharacter;
+
+	MusicStruct m_musicStruct;
 
 	//sf::RenderWindow m_window;
 };
