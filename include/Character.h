@@ -22,6 +22,8 @@ public:
 
     void setTextureIndex(int index);
 
+    int getLives();
+
 
 private:
     sf::Vector2f m_deltaPos;

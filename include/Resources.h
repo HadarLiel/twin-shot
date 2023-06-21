@@ -56,6 +56,12 @@ public:
 		//HelpBackground
 		HELPBG_BACKGROUND,
 
+		//win
+		WIN_BACKGROUND,
+
+		//lose
+		LOSE_BACKGROUND,
+
 		//ButtonsMenu
 		BUTTONS_MENU_START,
 		BUTTONS_MENU_NEW_GAME = BUTTONS_MENU_START,

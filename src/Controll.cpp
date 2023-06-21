@@ -75,15 +75,7 @@ void Controll::run()
                                     m_music.stop();
 
                                     selectLevel.run(m_indexCharacter, m_musicStruct);
-                                    //Level level("resources/Levels/level6.png", m_indexCharacter, m_musicStruct);
-                                    ////todo:change the 1 to the level we choose
-                                    //Level level(1, m_indexCharacter, m_musicStruct);
-
-                                    //if (level.run())
-                                    //{
-                                    //    //m_level++;
-                                    //    std::cout << "move to the next level\n";
-                                    //}
+                                   
                                     
 
                                     

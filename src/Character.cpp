@@ -88,6 +88,8 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
     sf::Sprite sprite;
     sprite.setTexture(Resources::instance().getTexture(m_indexCharcter + Resources::CHARCTER_START));
 
+    
+
     //todo:change scale
     //todo:not looking good
     sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
@@ -159,5 +161,10 @@ bool Character::collideDD2(Monsters& other_object)
 void Character::setTextureIndex(int index)
 {
     m_indexCharcter = index;
+}
+
+int Character::getLives()
+{
+    return m_lives;
 }
 

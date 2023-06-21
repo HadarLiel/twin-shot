@@ -137,15 +137,31 @@ void SelectLevel::drawLevelsNumbers(sf::RenderWindow& window)
 
             if (rectangle.getGlobalBounds().contains(worldMousePos))
             {
-                std::cout << "Rectangle " << i+1 << " is pressed!" << std::endl;
-                //todo:change the 1 to the level we choose
+                
                 Level level(i, m_indexCharacter, m_musicStruct);
 
-                if (level.run())
+                while (level.run())
                 {
-                    //m_level++;
+                    level = Level (i+1, m_indexCharacter, m_musicStruct);
+                    //todo:move
                     std::cout << "move to the next level\n";
                 }
+
+                //if(!level.run())
+                //
+                ////    sf::Texture texture;
+                ////    texture = Resources::instance().getTexture(Resources::LOSE_BACKGROUND);
+                ////    // Create the background sprite
+                ////    sf::Sprite loseSprite(texture);
+
+                ////    loseSprite.setScale(((float)Window_Width) / texture.getSize().x,
+                ////        ((float)Window_Height) / texture.getSize().y);
+
+                ////    window.draw(loseSprite);
+
+                //    std::cout << "fail\n";
+                //    break;
+                //}
                 // Perform the desired action for the pressed rectangle
             }
         }

@@ -190,6 +190,11 @@ bool Level::run()
             }
         }
 
+        if (m_character->getLives() == 0)
+        {
+            return false;
+        }
+
         view.setCenter(m_character->getCenter());
         window.setView(view);
 
