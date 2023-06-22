@@ -106,6 +106,7 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
                                     {
                                         std::cout << "win\n";
                                         m_showTimeWin = sf::seconds(5);
+                                        m_showTimeLose = sf::Time::Zero;
                                         break;
                                     }
                                     level.setLevel(i);
@@ -114,10 +115,14 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
                                 }
                                 clock.restart();
 
-                                //if we lose
-                                std::cout << "lose\n";
-
-                                m_showTimeLose = sf::seconds(5);
+                                if (m_showTimeWin < sf::seconds(5))
+                                {
+                                    //if we lose
+                                    std::cout << "lose\n";
+                                    m_showTimeLose = sf::seconds(5);
+                                    m_showTimeWin = sf::Time::Zero;
+                                }
+                                
 
 
                             }
@@ -151,7 +156,7 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
 
         }
 
-        if (m_showTimeWin > sf::Time::Zero)
+        else if (m_showTimeWin > sf::Time::Zero)
         {
             sf::Sprite winSprite(Resources::instance().getTexture(Resources::WIN_BACKGROUND));
 
