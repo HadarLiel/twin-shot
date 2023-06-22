@@ -36,6 +36,7 @@ const sf::SoundBuffer& Resources::getMusic(int index) const
 	return m_SoundsBuffer[index];
 }
 
+//add try and throw in the main if we cant load pictures
 
 void Resources::loadtexture()
 {

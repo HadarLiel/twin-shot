@@ -141,16 +141,16 @@ bool Level::run()
         for (auto &object : m_objects)
         {
             window.draw(*object);
-            //if (m_monsterList.empty())
-            //{
-            //    //todo:fix when he need to move to the next level
-            //    sf::View v;
-            //    window.setView(v);
-            //    sf::CircleShape hod(100);
-            //    hod.setFillColor(sf::Color::Blue);
-            //    window.draw(hod);
-            //    window.setView(view);
-            //}
+            if (m_monsterList.empty())
+            {
+                //todo:fix when he need to move to the next level
+                sf::View v;
+                window.setView(v);
+                sf::CircleShape hod(100);
+                hod.setFillColor(sf::Color::Blue);
+                window.draw(hod);
+                window.setView(view);
+            }
         }
 
        
