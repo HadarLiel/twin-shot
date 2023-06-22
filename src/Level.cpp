@@ -102,10 +102,8 @@ bool Level::run()
             return !m->isAlive();
         });
 
-        //we need to move to the next level
         if (m_monsterList.empty())
         {
-            std::cout <<"need to move level\n";
             return true;
         }
 
@@ -115,7 +113,6 @@ bool Level::run()
             m_objects[i]->update(deltaTime);
             if(!m_objects[i]->isAlive())
             {
-                // todo: fix this
                 m_map.removveArrow((Arrow*)(m_objects[i].get()));
                 m_objects.erase(m_objects.begin() + i);
             }
@@ -144,16 +141,16 @@ bool Level::run()
         for (auto &object : m_objects)
         {
             window.draw(*object);
-            if (m_monsterList.empty())
-            {
-                //todo:fix when he need to move to the next level
-                sf::View v;
-                window.setView(v);
-                sf::CircleShape hod(100);
-                hod.setFillColor(sf::Color::Blue);
-                window.draw(hod);
-                window.setView(view);
-            }
+            //if (m_monsterList.empty())
+            //{
+            //    //todo:fix when he need to move to the next level
+            //    sf::View v;
+            //    window.setView(v);
+            //    sf::CircleShape hod(100);
+            //    hod.setFillColor(sf::Color::Blue);
+            //    window.draw(hod);
+            //    window.setView(view);
+            //}
         }
 
        

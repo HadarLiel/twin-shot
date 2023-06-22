@@ -39,8 +39,6 @@ const sf::SoundBuffer& Resources::getMusic(int index) const
 
 void Resources::loadtexture()
 {
-	//todo: add image og arrow
-
 	m_objects.resize(Objects::Total);
 
 	m_objects[Objects::CHARCTER_BELLE].loadFromFile("resources/Belle/belle.png");

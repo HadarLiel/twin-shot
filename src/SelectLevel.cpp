@@ -1,7 +1,7 @@
 #include "SelectLevel.h"
 #include "SelectLevel.h"
 
-SelectLevel::SelectLevel(): m_showTimeLose(sf::Time::Zero), m_showTimeWin(sf::Time::Zero)
+SelectLevel::SelectLevel(): m_showTimeLose(sf::Time::Zero), m_showTimeWin(sf::Time::Zero), m_levelsOpen(0)
 {
     // Create a rectangle shape
     sf::RectangleShape rectangle(sf::Vector2f(150, 50));
@@ -13,7 +13,6 @@ SelectLevel::SelectLevel(): m_showTimeLose(sf::Time::Zero), m_showTimeWin(sf::Ti
 
 
     rectangle.setOrigin(rectangle.getSize().x / 2, rectangle.getSize().y / 2);
-
 
     for (int i = 0; i < NUM_OF_LEVELS; i++)
     {
