@@ -8,7 +8,7 @@
 #include "Resources.h"
 
 //todo:get the correct index
-Level::Level(int levelIndex/*const std::string& mapName*/, int index, MusicStruct musicStruct) : m_indexCharacter(index), m_musicStruct(musicStruct)
+Level::Level(int levelIndex, int index, MusicStruct musicStruct) : m_indexCharacter(index), m_musicStruct(musicStruct)
 {
     
     m_sound.setBuffer(Resources::instance().getMusic(Resources::SOUND_GAME_START + m_indexCharacter));

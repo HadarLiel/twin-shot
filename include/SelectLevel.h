@@ -35,6 +35,8 @@ private:
 
 	MusicStruct m_musicStruct;
 
+	int m_levelsOpen =0;
+
 	//sf::RenderWindow m_window;
 };
 

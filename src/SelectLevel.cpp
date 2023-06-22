@@ -18,6 +18,11 @@ SelectLevel::SelectLevel(): m_showTimeLose(sf::Time::Zero), m_showTimeWin(sf::Ti
     for (int i = 0; i < NUM_OF_LEVELS; i++)
     {
         rectangle.setPosition(disX + (i % 3) * disX * 2, disY + (i / 3) * disY * 2);
+
+        if (i > m_levelsOpen)
+        {
+            rectangle.setFillColor(sf::Color::Black);
+        }
         m_rectTexture.push_back(rectangle);
     }
 }
@@ -96,6 +101,11 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
                         {
                             if (m_rectTexture[i].getGlobalBounds().contains(worldMousePos))
                             {
+                                if (i > m_levelsOpen)
+                                {
+                                    std::cout << "cant press\n";
+                                    break;
+                                }
 
                                 Level level(i, m_indexCharacter, m_musicStruct);
 
@@ -109,6 +119,10 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
                                         break;
                                     }
                                     level.setLevel(i);
+                                    m_levelsOpen++;
+
+                                    sf::Color whiteColor(255, 255, 255, 200);
+                                    m_rectTexture[i].setFillColor(whiteColor);
                                    
                                 }
                                 clock.restart();
@@ -203,7 +217,6 @@ void SelectLevel::drawLevelsNumbers(sf::RenderWindow& window) const
         levelIndex.setOrigin(textBounds.width / 2, textBounds.height / 2);
         levelIndex.setFillColor(sf::Color::Blue);
         levelIndex.setPosition(disX + (i%3) * disX * 2 , disY + (i/3) * disY * 2);
-
         
         window.draw(m_rectTexture[i]);
         window.draw(levelIndex);
