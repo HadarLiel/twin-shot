@@ -15,7 +15,7 @@ Character::Character(const sf::Vector2u& position,
     m_addArrowFunc(addArrowFunc),
     m_is_space(false),
     m_lives(3),
-    m_sinceLastMonster(sf::seconds(5)),
+    m_sinceLastMonster(sf::seconds(3)),
     m_indexCharcter (indexCharcter)
 {
     
@@ -89,20 +89,11 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
     sprite.setTexture(Resources::instance().getTexture(m_indexCharcter + Resources::CHARCTER_START));
 
     
-
-    //todo:change scale
-    //todo:not looking good
     sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
         getBoundingRect().height / sprite.getTexture()->getSize().y);
     sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
 
-    //target.draw(sprite, states);
-    ////----------------
-    //sf::RectangleShape rect(
-    //    sf::Vector2f(getBoundingRect().width, getBoundingRect().height));
-    //rect.setPosition(getBoundingRect().left, getBoundingRect().top);
-    //rect.setFillColor(sf::Color::Green);
-    if (m_sinceLastMonster < sf::seconds(5))
+    if (m_sinceLastMonster < sf::seconds(3))
     {
         sf::Int64 sec = m_sinceLastMonster.asMicroseconds();
         sec %= sf::seconds(0.1 * 2).asMicroseconds();
@@ -150,7 +141,7 @@ bool Character::collideDD1(Object &other_object)
 
 bool Character::collideDD2(Monsters& other_object)
 {
-    if (m_sinceLastMonster > sf::seconds(5))
+    if (m_sinceLastMonster > sf::seconds(3))
     {
         m_sinceLastMonster = sf::Time::Zero;
         m_lives--;

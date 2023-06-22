@@ -104,27 +104,22 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
                                     i++;
                                     if (i >= NUM_OF_LEVELS)
                                     {
-                                        std::cout << "win\n";
                                         m_showTimeWin = sf::seconds(5);
                                         m_showTimeLose = sf::Time::Zero;
                                         break;
                                     }
                                     level.setLevel(i);
-                                    //todo:move
-                                    std::cout << "move to the next level\n";
+                                   
                                 }
                                 clock.restart();
 
+                                //if we lose
                                 if (m_showTimeWin < sf::seconds(5))
                                 {
-                                    //if we lose
-                                    std::cout << "lose\n";
                                     m_showTimeLose = sf::seconds(5);
                                     m_showTimeWin = sf::Time::Zero;
                                 }
                                 
-
-
                             }
                         }
 
