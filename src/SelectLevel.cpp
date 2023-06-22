@@ -8,8 +8,8 @@ SelectLevel::SelectLevel(): m_showTimeLose(sf::Time::Zero), m_showTimeWin(sf::Ti
 
     sf::Color whiteColor(255, 255, 255, 200);
     rectangle.setFillColor(whiteColor);
-    float disX = (float)Window_Width / (3 * 2); //3 is the number of cuttons i want to put in one line
-    float disY = (float)Window_Height / (2 * 2); //2 is the number of cuttons i want to put in one col
+    float disX = (float)Window_Width / (4 * 2); //4 is the number of cuttons i want to put in one line
+    float disY = (float)Window_Height / (3 * 2); //3 is the number of cuttons i want to put in one col
 
 
     rectangle.setOrigin(rectangle.getSize().x / 2, rectangle.getSize().y / 2);
@@ -17,7 +17,7 @@ SelectLevel::SelectLevel(): m_showTimeLose(sf::Time::Zero), m_showTimeWin(sf::Ti
 
     for (int i = 0; i < NUM_OF_LEVELS; i++)
     {
-        rectangle.setPosition(disX + (i % 3) * disX * 2, disY + (i / 3) * disY * 2);
+        rectangle.setPosition(disX + (i % 4) * disX * 2, disY + (i / 4) * disY * 2);
 
         if (i > m_levelsOpen)
         {
@@ -204,19 +204,18 @@ void SelectLevel::drawLevelsNumbers(sf::RenderWindow& window) const
     font = Resources::instance().getFont();
 
     
-    float disX = (float)Window_Width / (3 * 2); //3 is the number of cuttons i want to put in one line
-    float disY = (float)Window_Height / (2 * 2); //2 is the number of cuttons i want to put in one col
+    float disX = (float)Window_Width / (4 * 2); //4 is the number of buttons i want to put in one line
+    float disY = (float)Window_Height / (3 * 2); //3 is the number of buttons i want to put in one col
 
     for (int i = 0; i < NUM_OF_LEVELS; i++)
     {
-        
-        sf::Text levelIndex("Level: " + std::to_string(i), font);
+        sf::Text levelIndex("Level: " + std::to_string(i+1), font);
 
         // Set the origin of the text to its center
         sf::FloatRect textBounds = levelIndex.getLocalBounds();
         levelIndex.setOrigin(textBounds.width / 2, textBounds.height / 2);
         levelIndex.setFillColor(sf::Color::Blue);
-        levelIndex.setPosition(disX + (i%3) * disX * 2 , disY + (i/3) * disY * 2);
+        levelIndex.setPosition(disX + (i%4) * disX * 2 , disY + (i/4) * disY * 2);
         
         window.draw(m_rectTexture[i]);
         window.draw(levelIndex);
