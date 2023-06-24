@@ -1,10 +1,6 @@
 #include "MovingObject.h"
 #include <iostream>
 
-
-
-
-
 MovingObject::MovingObject(const sf::FloatRect &boundingRect,
                            const Map* bricksList):
         Object(boundingRect),
@@ -13,8 +9,6 @@ MovingObject::MovingObject(const sf::FloatRect &boundingRect,
 {
 
 }
-
-
 
 sf::Vector2<bool> MovingObject::tryMove(const sf::Vector2f &delta)
 {
