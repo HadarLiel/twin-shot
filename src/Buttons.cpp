@@ -158,7 +158,6 @@ const std::vector<sf::Sprite>& Buttons::getSettingsButtons() const
 
 const std::vector<sf::FloatRect>& Buttons::getSettingsButtonBounds() const
 {
-   
     return settingsButtonBounds;
 }
 

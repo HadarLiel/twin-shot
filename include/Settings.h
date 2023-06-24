@@ -5,6 +5,7 @@
 #include "Buttons.h"
 #include "Resources.h"
 #include "MusicStruct.h"
+#include "Resources.h"
 
 class Settings
 {
@@ -29,8 +30,12 @@ private:
 	
 
 	Buttons m_buttons;
-	//sf::RenderWindow m_window;
 
+	bool m_menuOn;
+	bool m_gameOn;
+
+	sf::Sprite spriteMenu;
+	sf::Sprite spriteGame;
 };
 
 
