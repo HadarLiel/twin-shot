@@ -5,7 +5,7 @@
 #include "Object.h"
 #include "Brick.h"
 #include "Character.h"
-#include "Monsters.h"
+#include "Monster.h"
 #include "Buttons.h"
 #include "Settings.h"
 
@@ -24,7 +24,7 @@ private:
     sf::Sound m_sound;
     Map m_map;
     Character *m_character;
-    std::vector<Monsters*> m_monsterList;
+    std::vector<Monster*> m_monsterList;
 
     Buttons m_buttons;
     

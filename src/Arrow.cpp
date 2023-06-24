@@ -72,8 +72,6 @@ void Arrow::draw(sf::RenderTarget &target, sf::RenderStates states) const
     sf::Sprite sprite;
     sprite.setTexture(Resources::instance().getTexture(Resources::ARROW_ARROW));
 
-    //todo:change scale
-    //todo:not looking good
     sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
         getBoundingRect().height / sprite.getTexture()->getSize().y);
     sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
@@ -115,6 +113,5 @@ bool Arrow::collideDD1(Object &other_object)
 
 bool Arrow::isDamage()
 {
-    std::cout << "isDamage?" << (!m_isOnGround && m_canUpdatePos) << '\n';
     return !m_isOnGround && m_canUpdatePos;
 }

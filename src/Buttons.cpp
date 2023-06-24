@@ -60,7 +60,7 @@ void Buttons::draw_design_buttons_types(sf::RenderWindow& window)
 }
 
 
-void Buttons::draw_help_buttons_types(sf::RenderWindow& window)
+void Buttons::draw_back_buttons_types(sf::RenderWindow& window)
 {
     game_buttons_Buttons.clear();
 

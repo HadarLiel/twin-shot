@@ -14,7 +14,7 @@ void Settings::run(MusicStruct& musicStruct)
 
     
         m_buttons.draw_settings_buttons_types(window);
-        m_buttons.draw_help_buttons_types(window);
+        m_buttons.draw_back_buttons_types(window);
 
         sf::Texture texture;
         texture = Resources::instance().getTexture(Resources::MENUBG_MENU_BACKGROUND);
@@ -55,16 +55,14 @@ void Settings::run(MusicStruct& musicStruct)
                             // Access the button bounds
                             const std::vector<sf::FloatRect>& buttonBounds = m_buttons.getSettingsButtonBounds();
 
-                            //// Iterate over each button bounds to check if the mouse position is within any of them
+                            // Iterate over each button bounds to check if the mouse position is within any of them
                             for (size_t i = 0; i < buttonBounds.size(); ++i)
                             {
 
                                 if (buttonBounds[i].contains(worldMousePos))
                                 {
-                                    //todo: do it like this?
                                     if (i == 0) //if "New Game"
                                     {
-                                        std::cout << "menu button\n";
                                         m_menuOn = !m_menuOn;
                                         musicStruct._turnOnMenu = !musicStruct._turnOnMenu;
 
@@ -81,8 +79,6 @@ void Settings::run(MusicStruct& musicStruct)
 
                                     else if (i == 1)
                                     {
-                                        
-                                        std::cout << "game\n";
                                         m_gameOn = !m_gameOn;
                                         musicStruct._turnOnGame = !musicStruct._turnOnGame;
 
@@ -113,11 +109,9 @@ void Settings::run(MusicStruct& musicStruct)
                         {
                             if (buttonTypesBoundsBack[i].contains(worldMousePos))
                             {
-                                std::cout << "press button" << i << "\n";
-
+                               
                                 if (i == 0) //if "back"
                                 {
-                                    std::cout << "back button\n";
                                     window.close();
                                 }
 
@@ -155,10 +149,9 @@ void Settings::run(MusicStruct& musicStruct)
             float posX = (Window_Width - spriteMenu.getGlobalBounds().width) / 2.0f; // Center horizontally
             float posY = startY + i * (buttonHeight + 50) -400;
 
-            //todo:change?
-            spriteMenu.setPosition(posX, posY);//(posX, posY);
+            spriteMenu.setPosition(posX, posY);
 
-            spriteGame.setPosition(posX, posY +140);//(posX, posY);
+            spriteGame.setPosition(posX, posY +140);
         }
 
 

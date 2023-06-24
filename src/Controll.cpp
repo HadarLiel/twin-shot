@@ -11,8 +11,6 @@ Controll::Controll() :m_window(sf::VideoMode(Window_Width, Window_Height), "twin
     m_music.setVolume(100);
 }
 
-//todo: fix drawing when its in brick. monster level1 character level6
-
 void Controll::run()
 {
    
@@ -67,11 +65,8 @@ void Controll::run()
 
                             if (buttonBounds[i].contains(worldMousePos))
                             {
-                                //todo: do it like this?
                                 if (i == 0) //if "New Game"
                                 {
-                                    
-                                    std::cout << "new game\n";
                                     m_music.stop();
 
                                     selectLevel.run(m_indexCharacter, m_musicStruct);
@@ -85,7 +80,6 @@ void Controll::run()
 
                                 else if (i ==1)
                                 {
-                                    std::cout << "design button" << i << "\n";
 
                                     m_music.stop();
                                     m_indexCharacter = m_design.run();
@@ -95,17 +89,11 @@ void Controll::run()
                                     {
                                         m_music.play();
                                     }
-                                    
-                                    std::cout << m_indexCharacter <<"\n";
-                                    //chracterSprite.setTexture(saveChar);
-                                    
-                                    //std::cout << "the princess now is: \n" ;
                                 }
 
                                 else if (i == 2)
                                 {
                                     m_music.stop();
-                                    std::cout << "setting button" << i << "\n";
                                     m_settings.run(m_musicStruct);
 
                                     if (m_musicStruct._turnOnMenu)
@@ -117,7 +105,6 @@ void Controll::run()
 
                                 else if (i == 3)
                                 {
-                                    //todo:change help
                                     m_music.stop();
                                     m_help.run();
                                    
@@ -126,12 +113,10 @@ void Controll::run()
                                         m_music.play();
                                     }
                                     
-                                    std::cout << "help button" << i << "\n";
                                 }
 
                                 else
                                 {
-                                    std::cout << "exit button" << i << "\n";
                                     m_window.close();
                                 }
                                 

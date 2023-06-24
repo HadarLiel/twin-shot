@@ -20,7 +20,6 @@ int Design::run()
 
     m_charSprite.setTexture(m_charTexture);
    
-    //todo:change position
     m_charSprite.setPosition((window.getSize().x - m_charTexture.getSize().x) / 2,
         (window.getSize().y - m_charTexture.getSize().y) / 2);
     
@@ -67,11 +66,9 @@ int Design::run()
                         {
                             if (buttonTypesBounds[i].contains(worldMousePos))
                             {
-                                std::cout << "press button" << i << "\n";
 
                                 if (i == 0) //if "back"
                                 {
-                                    std::cout << "back button\n";
                                     window.close();
                                 }
                                 
@@ -83,7 +80,6 @@ int Design::run()
                         {
                             if (princessButtons[j].getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
                             {
-                                std::cout << "hi\n";
                                 m_indexCharcater = j;
                                 m_charSprite.setTexture(Resources::instance().getTexture(j + Resources::CHARCTER_START));
 

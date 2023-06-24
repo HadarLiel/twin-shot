@@ -42,7 +42,6 @@ public:
 		BRICK_REGULAR_BRICK,
 		BRICK_END = BRICK_REGULAR_BRICK,
 
-		//todo:change start to end because we dont need
 		//MenuBackground
 		MENUBG_START,
 		MENUBG_MENU_BACKGROUND = MENUBG_START,
@@ -89,7 +88,7 @@ public:
 		BUTTONS_MUSIC_GAME_OFF,
 		BUTTONS_MUSIC_END = BUTTONS_MUSIC_GAME_OFF,
 		
-		Total //todo:ask hod why
+		Total
 
 	};
 	

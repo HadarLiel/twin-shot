@@ -32,7 +32,7 @@ sf::Vector2f Object::getCenter() const
                         m_boundingRect.top + m_boundingRect.height / 2);
 }
 
-bool Object::collideDD2(Monsters& other)
+bool Object::collideDD2(Monster& other)
 {
     return false;
 }

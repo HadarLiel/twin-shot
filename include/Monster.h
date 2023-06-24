@@ -3,12 +3,11 @@
 #include "MovingObject.h"
 #include <functional>
 
-//todo: do all images in the same dir
 
-class Monsters : public MovingObject
+class Monster : public MovingObject
 {
 public:
-    explicit Monsters(const sf::Vector2u& position,
+    explicit Monster(const sf::Vector2u& position,
         const Map* map,
         const int indexMonster,
         bool isProtected);

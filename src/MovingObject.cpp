@@ -22,7 +22,6 @@ sf::Vector2<bool> MovingObject::tryMove(const sf::Vector2f &delta)
     sf::Vector2f deltaNew = m_map->maxMove(getBoundingRect(), delta);
     
     sf::FloatRect rect = getBoundingRect();
-//    std::cout << "deltaNew: " << (deltaNew.x == delta.x) << " " << (deltaNew.y == delta.y) << std::endl;
     sf::Vector2f fixPos = m_map->fixPosition(getCenter() + deltaNew);
     rect.left = fixPos.x - rect.width / 2;
     rect.top = fixPos.y - rect.height / 2;

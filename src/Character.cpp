@@ -139,7 +139,7 @@ bool Character::collideDD1(Object &other_object)
     return other_object.collideDD2(*this);
 }
 
-bool Character::collideDD2(Monsters& other_object)
+bool Character::collideDD2(Monster& other_object)
 {
     if (m_sinceLastMonster > sf::seconds(3))
     {

@@ -8,7 +8,4 @@ int main()
 
     Controll a;
     a.run();
-
-    /*Level level("resources/hadar_map.png");
-    level.run();*/
 }

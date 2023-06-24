@@ -1,8 +1,8 @@
-﻿#include "Monsters.h"
-#include "Monsters.h"
+﻿#include "Monster.h"
+#include "Monster.h"
 #include "Arrow.h"
 
-Monsters::Monsters(const sf::Vector2u& position,
+Monster::Monster(const sf::Vector2u& position,
     const Map* map,
     const int indexMonster,
     bool isProtected):
@@ -20,7 +20,7 @@ Monsters::Monsters(const sf::Vector2u& position,
 
 }
 
-void Monsters::update(const sf::Time& deltaTime)
+void Monster::update(const sf::Time& deltaTime)
 {
     m_sinceLastFall += deltaTime;
 
@@ -34,7 +34,6 @@ void Monsters::update(const sf::Time& deltaTime)
     {
         m_speed.x = 0;
 
-        //todo:check if good for every level
         if (m_sinceLastFall > sf::seconds(5))
         {
             //m_sinceLastFall = sf::Time::Zero;
@@ -84,7 +83,7 @@ void Monsters::update(const sf::Time& deltaTime)
     
 }
 
-void Monsters::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Monster::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::Sprite sprite;
     if (m_isProtected)
@@ -96,9 +95,6 @@ void Monsters::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         sprite.setTexture(Resources::instance().getTexture(m_indexMonster + Resources::MONSTER_START));
     }
-
-    //todo:change scale
-    //todo:not looking good
     sprite.setScale(getBoundingRect().width / sprite.getTexture()->getSize().x,
         getBoundingRect().height / sprite.getTexture()->getSize().y);
     sprite.setPosition(getBoundingRect().left, getBoundingRect().top);
@@ -113,12 +109,12 @@ void Monsters::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(sprite, states);
 }
 
-bool Monsters::collideDD1(Object &other_object)
+bool Monster::collideDD1(Object &other_object)
 {
     return other_object.collideDD2(*this);
 }
 
-bool Monsters::collideDD2(Arrow& other_object)
+bool Monster::collideDD2(Arrow& other_object)
 {
     if (other_object.isDamage())
     {
@@ -142,7 +138,7 @@ bool Monsters::collideDD2(Arrow& other_object)
 }
 
 
-void Monsters::setTextureIndex(int index)
+void Monster::setTextureIndex(int index)
 {
     m_indexMonster = index;
 }

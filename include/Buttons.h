@@ -26,7 +26,7 @@ public:
 
 	void drawMenuButtons(sf::RenderWindow& window);
 	void draw_design_buttons_types(sf::RenderWindow& window);
-	void draw_help_buttons_types(sf::RenderWindow& window);
+	void draw_back_buttons_types(sf::RenderWindow& window);
 	void draw_settings_buttons_types(sf::RenderWindow& window);
 
 private:

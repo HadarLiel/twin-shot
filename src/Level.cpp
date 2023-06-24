@@ -7,7 +7,6 @@
 #include "Consts.h"
 #include "Resources.h"
 
-//todo:get the correct index
 Level::Level(int levelIndex, int index, MusicStruct musicStruct) : m_indexCharacter(index), m_musicStruct(musicStruct)
 {
     
@@ -33,7 +32,7 @@ bool Level::run()
     view.setSize(800, 600);
 
 
-    m_buttons.draw_help_buttons_types(window);
+    m_buttons.draw_back_buttons_types(window);
 
     sf::Clock clock;
     clock.restart();
@@ -69,18 +68,16 @@ bool Level::run()
 
                         // Access the button bounds
                         const std::vector<sf::FloatRect>& buttonTypesBounds = m_buttons.getGameButtonBounds();
-                        std::cout << buttonTypesBounds.size()<<"\n";
+                      
 
                         // Iterate over each button bounds to check if the mouse position is within any of them
                         for (size_t i = 0; i < buttonTypesBounds.size(); ++i)
                         {
                             if (buttonTypesBounds[i].contains(worldMousePos))
                             {
-                                std::cout << "press button" << i << "\n";
 
                                 if (i == 0) //if "back"
                                 {
-                                    std::cout << "back button\n";
                                     window.close();
                                 }
 
@@ -97,7 +94,7 @@ bool Level::run()
         }
 
 
-        std::erase_if(m_monsterList, [](Monsters* m) 
+        std::erase_if(m_monsterList, [](Monster* m) 
         { 
             return !m->isAlive();
         });
@@ -141,16 +138,7 @@ bool Level::run()
         for (auto &object : m_objects)
         {
             window.draw(*object);
-            if (m_monsterList.empty())
-            {
-                //todo:fix when he need to move to the next level
-                sf::View v;
-                window.setView(v);
-                sf::CircleShape hod(100);
-                hod.setFillColor(sf::Color::Blue);
-                window.draw(hod);
-                window.setView(view);
-            }
+            
         }
 
        
@@ -221,13 +209,13 @@ void Level::setLevel(int index)
 
             else if (mapImage.getPixel(i, j) == sf::Color::Red)
             {
-                Monsters* monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter, false);
+                Monster* monster = new Monster({ i * 32, j * 32 }, &m_map, m_indexCharacter, false);
                 m_monsterList.push_back(monster);
             }
 
             else if (mapImage.getPixel(i, j) == sf::Color::Magenta)
             {
-                Monsters* monster = new Monsters({ i * 32, j * 32 }, &m_map, m_indexCharacter, true);
+                Monster* monster = new Monster({ i * 32, j * 32 }, &m_map, m_indexCharacter, true);
                 m_monsterList.push_back(monster);
             }
 

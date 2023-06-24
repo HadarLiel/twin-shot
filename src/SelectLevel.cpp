@@ -35,8 +35,7 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Select Level");
 
     
-    //TODO:CHANGE NAME TO THIS FUNCTION TO DRAW_BACK_BUTTON
-    m_buttons.draw_help_buttons_types(window);
+    m_buttons.draw_back_buttons_types(window);
 
     sf::Texture texture;
     texture = Resources::instance().getTexture(Resources::MENUBG_MENU_BACKGROUND);
@@ -84,11 +83,8 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
                         {
                             if (buttonTypesBounds[i].contains(worldMousePos))
                             {
-                                std::cout << "press button" << i << "\n";
-
                                 if (i == 0) //if "back"
                                 {
-                                    std::cout << "back button\n";
                                     window.close();
                                 }
 
@@ -102,7 +98,6 @@ void SelectLevel::run(int index, MusicStruct musicStruct)
                             {
                                 if (i > m_levelsOpen)
                                 {
-                                    std::cout << "cant press\n";
                                     break;
                                 }
 

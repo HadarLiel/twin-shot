@@ -11,7 +11,7 @@ void Help::run()
 {
     sf::RenderWindow window(sf::VideoMode(Window_Width, Window_Height), "Help");
 
-    m_buttons.draw_help_buttons_types(window);
+    m_buttons.draw_back_buttons_types(window);
 
 
     sf::Texture texture;
@@ -53,11 +53,9 @@ void Help::run()
                         {
                             if (buttonTypesBounds[i].contains(worldMousePos))
                             {
-                                std::cout << "press button" << i << "\n";
 
                                 if (i == 0) //if "back"
                                 {
-                                    std::cout << "back button\n";
                                     window.close();
                                 }
 

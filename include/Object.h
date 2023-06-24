@@ -4,7 +4,7 @@
 
 class Character;
 // todo: change to Monster (singular)
-class Monsters;
+class Monster;
 class Arrow;
 class BlueBrick;
 class BlackBrick;
@@ -43,7 +43,7 @@ public:
     // Character
     virtual bool collideDD2(Character &other);
     
-    virtual bool collideDD2(Monsters& other);
+    virtual bool collideDD2(Monster& other);
 
     virtual bool collideDD2(Arrow& other);
 

@@ -113,7 +113,7 @@ float Map::MaxMoveX(const sf::FloatRect &firstRect, float deltaX) const
     if (deltaX > 0)
     {
         xIndex = (int) (firstRect.left + firstRect.width + deltaX) / 32;
-        // todo: this is fucked up
+        
         toReturn = xIndex * 32 - (firstRect.left + firstRect.width) - 0.001;
         loc = firstRect.left + firstRect.width;
     }
@@ -146,13 +146,7 @@ float Map::MaxMoveX(const sf::FloatRect &firstRect, float deltaX) const
                 return toReturn;
             }
         }
-        for (int y = yStart; y <= yEnd; ++y)
-        {
-            if (xIndex == 45)
-            {
-                 std::cout << (y + m_size.y) % m_size.y << std::endl;
-            }
-        }
+        
     }
     return deltaX;
 }

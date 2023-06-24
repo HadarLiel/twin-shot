@@ -18,7 +18,7 @@ public:
 
     bool collideDD1(Object& other_object);
 
-    bool collideDD2(Monsters& other_object);
+    bool collideDD2(Monster& other_object);
 
     void setTextureIndex(int index);
 
@@ -39,5 +39,3 @@ private:
     int m_indexCharcter;
     
 };
-
-//todo:block the level i cant press
