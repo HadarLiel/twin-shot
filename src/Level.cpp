@@ -1,9 +1,9 @@
 #include "Level.h"
 #include "Arrow.h"
 #include "Brick.h"
-#include "BlueBrick.h"
-#include "BlackBrick.h"
-#include "YellowBrick.h"
+#include "RegularBrick.h"
+#include "BlockBrick.h"
+#include "FallBrick.h"
 #include "Consts.h"
 #include "Resources.h"
 
@@ -167,19 +167,19 @@ void Level::setLevel(int index)
         {
             if (mapImage.getPixel(i, j) == sf::Color::Black)
             {
-                auto brick = new BlackBrick({ i,j });
+                auto brick = new BlockBrick({ i,j });
                 m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }
             else if (mapImage.getPixel(i, j) == sf::Color::Blue)
             {
-                auto brick = new BlueBrick({ i,j }, &m_map);
+                auto brick = new RegularBrick({ i,j }, &m_map);
                 m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }
             else if (mapImage.getPixel(i, j) == sf::Color::Yellow)
             {
-                auto brick = new YellowBrick({ i,j }, &m_map);
+                auto brick = new FallBrick({ i,j }, &m_map);
                 m_map.addBrick(brick);
                 m_objects.push_back(std::unique_ptr<Object>(brick));
             }

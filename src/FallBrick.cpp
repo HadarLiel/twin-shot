@@ -1,9 +1,9 @@
-#include "YellowBrick.h"
+#include "FallBrick.h"
 #include "Map.h"
 #include "Character.h"
 #include <iostream>
 
-YellowBrick::YellowBrick(sf::Vector2u pos, const Map* map) :
+FallBrick::FallBrick(sf::Vector2u pos, const Map* map) :
     Brick(pos),
     m_map(map),
     m_showTime(sf::seconds(5))
@@ -13,7 +13,7 @@ YellowBrick::YellowBrick(sf::Vector2u pos, const Map* map) :
     m_collisionRect.top -= 1;
 }
 
-void YellowBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void FallBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     if (m_showTime >= sf::seconds(5) || m_showTime <= sf::seconds(2))
     {
@@ -40,7 +40,7 @@ void YellowBrick::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 // collide make stop
-bool YellowBrick::isBlock(const sf::Vector2f& deltaMove) const
+bool FallBrick::isBlock(const sf::Vector2f& deltaMove) const
 {
     if (m_showTime < sf::seconds(5) && m_showTime > sf::seconds(2))
     {
@@ -61,12 +61,12 @@ bool YellowBrick::isBlock(const sf::Vector2f& deltaMove) const
     return deltaMove.y > 0;
 }
 
-bool YellowBrick::collideDD1(Object& other_object)
+bool FallBrick::collideDD1(Object& other_object)
 {
     return other_object.collideDD2(*this);
 }
 
-bool YellowBrick::collideDD2(Character& other_object)
+bool FallBrick::collideDD2(Character& other_object)
 {
     if (other_object.getCollisionRect().intersects(getBoundingRect()))
     {
@@ -79,12 +79,12 @@ bool YellowBrick::collideDD2(Character& other_object)
     return true;
 }
 
-const sf::FloatRect& YellowBrick::getCollisionRect() const
+const sf::FloatRect& FallBrick::getCollisionRect() const
 {
     return m_collisionRect;
 }
 
-void YellowBrick::update(const sf::Time& deltaTime)
+void FallBrick::update(const sf::Time& deltaTime)
 {
     m_showTime += deltaTime;
 }

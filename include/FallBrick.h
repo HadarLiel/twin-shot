@@ -1,10 +1,10 @@
 #include "Brick.h"
 #include "Map.h"
 
-class YellowBrick : public Brick
+class FallBrick : public Brick
 {
 public:
-    YellowBrick(sf::Vector2u pos, const Map* map);
+    FallBrick(sf::Vector2u pos, const Map* map);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     [[nodiscard]] bool isBlock(const sf::Vector2f& deltaMove) const override;
 
