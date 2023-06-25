@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 
 class Character;
-// todo: change to Monster (singular)
 class Monster;
 class Arrow;
 class RegularBrick;

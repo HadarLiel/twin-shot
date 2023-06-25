@@ -15,6 +15,9 @@ in a stage are dead, you automatically move to the next stage.
 The player plays using arrows, it automatically descends downwards using the law of gravity.
 He shoots arrows using the "space" key.
 
+When one of the moving objects leaves the borders of the screen, it returns on the other side,
+unless it is blocked there by bricks.
+
 At the beginning of the game a menu opens.
 When pressed:
 1. New game - a menu will open showing all the stages in the game and the stages that the player has already opened.

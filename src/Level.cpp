@@ -45,6 +45,14 @@ bool Level::run()
     sf::View buttonView;
     buttonView.setSize(window.getSize().x, window.getSize().y);
 
+    // Load the menu background texture
+    const sf::Texture &gameTexture = Resources::instance().getTexture(Resources::GAMEBG_BACKGROUND);
+
+    // Create the background sprite and scale it to fit the window size
+    sf::Sprite backgroundSprite(gameTexture);
+    backgroundSprite.setScale(((float)Window_Width) / gameTexture.getSize().x,
+        ((float)Window_Height) / gameTexture.getSize().y);
+
     while (window.isOpen())
     {
         sf::Time deltaTime = clock.restart();
@@ -119,10 +127,12 @@ bool Level::run()
 
         // Update the view center to follow the character's position
         view.setCenter(m_character->getCenter());
-        window.setView(view);
-
+        
         // Clear the window
         window.clear(sf::Color::White);
+        window.setView(window.getDefaultView());
+        window.draw(backgroundSprite);
+        window.setView(view);
 
         // Draw all objects in the level
         for (auto& object : m_objects)
@@ -139,8 +149,12 @@ bool Level::run()
             window.draw(button);
         }
 
+
+
         // Switch back to the main game view
         window.setView(view);
+
+
 
         // Display the updated window
         window.display();

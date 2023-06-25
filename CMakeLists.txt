@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.23)
 
 project (twin-shot)
-set (MY_AUTHORS "Hadar-Liel-Harush")
+set (MY_AUTHORS "Hadar_Liel_Harush")
 
 include (cmake/CompilerSettings.cmake)
 

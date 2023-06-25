@@ -90,6 +90,8 @@ void Resources::loadtexture()
 
 		!m_objects[Objects::MENUBG_MENU_BACKGROUND].loadFromFile("resources/menu_background.png") ||
 
+		!m_objects[Objects::GAMEBG_BACKGROUND].loadFromFile("resources/game_background.png") ||
+
 		!m_objects[Objects::DESIGNBG_DESIGN_BACKGROUND].loadFromFile("resources/design_background.png") ||
 
 		!m_objects[Objects::HELPBG_BACKGROUND].loadFromFile("resources/Help.png") ||
