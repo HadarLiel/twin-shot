@@ -29,30 +29,56 @@ Now, when the player plays, it will change the character to the character he cho
 
 There is a moving object class, from which the player, monster, and arrow classes inherit the drawing functions, and the displacement
 update function.
+All types of bricks are inherited from the brick class.
+All objects that appear on the screen inherit from the Object class.
 
 
 The classes:
-#Arrow-
-#
-
-
-
-1. board - the base of the game. all the actions is on the board.
-2. buttoms - in order to finish, go back and go to the help menue.
-3. cake- the pacman needs to eat all tjhe cakes in order to pass a level.
-4. controller - in order to control the game.
-5. direction- in order to know the direction
-6. door- we made vector inorder to delete door 
-7. gameobject- inorder to get position and scales
-8. Ghost- All wind displacement and collision handling is there
-9. GiftFrozen- makes all the Ghost froze in an ice cube.
-10. GiftHeart- incrase life 
-11. GiftSuper- for the super pacman.
-12. GiftTime- add 20 sec
-13. key- open a door
-14. main- stat the game
-15. moving object- for the ghost and pacman
-16. resorcues- load music and texture in singeltone
-17. staticobject- for the static object
-18. superpacman- for the superpacman case. its open doors and kills ghosts
-19. wall- we cant goes throw walls.
+# Arrow - inherits from the class of moving objects, which inherits from the object class.
+		 The arrow is shot from the player according to the player's direction. The player
+		 can stand on the arrow, and it disappears after 5 seconds. It alerts before it
+		 disappears by flashing. Handles encounter with whites.
+# BlockBrick - a brick painted black. It is not possible to pass through, under or over it. 
+			  Heir from the "Blanka" department. An arrow stuck in her.
+# Brick - all types of bricks inherit from it.
+# Buttons - a class responsible for all types of buttons in the game. Load images of buttons,
+			place in positions and settings.
+# Character - inherits from the moving object class which inherits from the object class.
+			  The player holds his life count and handles a collision with a monster.
+# Controll - responsible for the opening screen of the game and the opening menu. 
+			 Sends to departments according to the button the user clicked.
+# Design - the user can choose which player he wants. He selects by the characters on the left 
+		   and when he presses all the back button, it saves the selected player. 
+		   The enemies and the song are automatically selected according to the selected player.
+# FallBrick - brick painted in gray. Heir from the "Blanka" department. You can pass under it,
+			  not from the sides, and you can step on it. From the moment the player steps on it,
+			  it disappears after 5 seconds and then returns after a few seconds to appear on the screen.
+			  Handles a collision with an actor. An arrow stuck in her.
+# Help - a screen with game instructions will open.
+# Level - the stage that opens is according to the stage that the user chose on the "select stage" screen.
+		  Reads each pixel from the map it opened, and by colors it knows what type of object it is,
+		  sends to the right place and puts it in the appropriate vectors. Creates a "unique ptr" for each. 
+		  All types of objects go into a vector of objects. A monster and a protected monster go into a 
+		  vector of monsters.
+# Map - Checks if the moving objects go beyond the borders of the screen, and if so they return from the
+		other side if nothing blocks them (like bricks). There is a function that checks the maximum distance
+		that the same moving object can move before it is blocked by another object. A function that adds an
+		arrow to the vector of arrows and a function that removes it from the vector after it is gone.
+# Monster - inherits from the moving object class that inherits from the object class. Handles collision 
+			with an arrow. There is a protected monster, which looks different from the rest, and you have
+			to shoot it twice before it dies. After one shot he turns into a normal monster.
+# MovingObject - All moving objects inherit from this class and inherit the "try move" function and this
+				 function checks according to the function from the Map class if it can move and returns
+				 to the same object if yes or not.
+# Music structure - holds two boolean variables. Background music for the game itself and background music
+					for the menu.
+# Consts - holds global variables.
+# Object - all the objects read from the screen, go into a unique ptr vector.
+# RegularBrick - brown dyed white. Heir from the "Blanka" department. You can pass under it, not from the
+				 sides, and you can step on it. Handles a collision with an actor. An arrow stuck in her.
+# Resources - Loads all images by singletons.
+# SelectLevel - when in the menu you click "New Game" a screen opens allowing the user to choose which stage
+				he wants to play. The steps he has not yet passed are locked. When a step number is clicked,
+				it sends the step number the user selected to the step class.
+# Settings - The player can decide whether he wants to turn on or off the background music in the menu
+			 and the background music in the game. The default is that they are on.

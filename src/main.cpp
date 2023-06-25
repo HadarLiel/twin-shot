@@ -5,7 +5,6 @@
 
 int main()
 {
-
     Controll a;
     a.run();
 }
